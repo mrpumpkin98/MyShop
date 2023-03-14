@@ -1,144 +1,183 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
-export const Main = styled.div`
+export const Wrapper = styled.div`
+  width: 1200px;
+  /* height: 1847px; */
+  border: 1px solid black;
+  margin: 100px;
+  padding-top: 80px;
+  padding-bottom: 100px;
+  padding-left: 102px;
+  padding-right: 102px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  box-shadow: 0px 0px 10px gray;
+`;
+
+export const Container = styled.div`
+width: 1000px;
+`;
+
+export const HeaderBox = styled.div`
+font-weight: 700;
+font-size: 36px;
+line-height: 53px;
+margin-bottom: 50px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+`;
+
+export const InPutBox = styled.div`
+margin-bottom: 50px;
+display: flex;
+flex-direction: column;
+`;
+
+export const TwoBox = styled.div`
+margin-bottom: 50px;
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`;
+
+export const AddressBox = styled.div`
+`;
+
+export const YoutubeBox = styled.div`
+
+`;
+
+export const AttachPicturesBox = styled.div`
+
+`;
+
+export const MainSettingBox = styled.div`
+
+`;
+
+export const RegistrationBox = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+
+export const Title = styled.div`
+
+`;
+
+export const Label = styled.div`
+font-weight: 500;
+font-size: 16px;
+margin-bottom: 10px;
+`;
+
+export const Writer = styled.div`
+
+`;
+
+
+export const WriterText = styled.input`
+width: 486px;
+height: 52px;
+padding-left: 20px;
+`;
+
+export const Password = styled.div`
+
+`;
+
+export const PasswordText = styled.input`
+width: 486px;
+height: 52px;
+padding-left: 20px;
+`;
+
+export const TitleText = styled.input`
+width: 1000px;
+height: 52px;
+padding-left: 20px;
+`;
+
+export const ContentsText = styled.input`
+width: 1000px;
+height: 480px;
+display: flex;
+padding-bottom: 430px;
+padding-left: 20px;
+`;
+
+export const ZipText = styled.input`
+width: 77px;
+height: 52px;
+margin-right: 20px;
+text-align: center;
+`;
+
+export const ZipButton = styled.button`
+width: 124px;
+height: 52px;
+background: #000000;
+color: white;
+border-radius: 3px;
+border: none;
+`;
+
+export const AddressText = styled.input`
+width: 1000px;
+height: 52px;
+margin-top: 15px;
+margin-bottom: 20px;
+`;
+
+export const YoutubeText = styled.input`
+width: 1000px;
+height: 52px;
+margin-bottom: 30px;
+padding-left: 20px;
+`;
+
+export const PicturesOut = styled.div`
+display: flex;
+`;
+
+export const Pictures = styled.div`
+background-color: #BDBDBD;
+width: 78px;
+height: 78px;
+margin-right: 20px;
+margin-top: 10px;
+margin-bottom: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
-`
+`;
 
-export const MinBox = styled.div`
-    border: 1px solid #DCDCDC;
-    width: 640px;
-    height: 1000px;
-`
-
-export const Header = styled.div`
-    border-bottom: 1px solid #DCDCDC;
-    width: 100%;
-    height: 250px;
-
-`
-
-export const Body = styled.div`
-    width: 640px;
-    height: 600px;
-`
-
-export const Footer = styled.div`
-    border-top: 1px solid #DCDCDC;
-    width: 640px;
-    height: 150px;
-    display: flex;
-    justify-content: space-around;
-`
-
-export const HeaderTop = styled.img`
-margin-left: 550px;
-width: 32px;
-height: 32px;
+export const RadioOut = styled.div`
 display: flex;
-margin-top: 20px;
-`
+margin-bottom: 50px;
+`;
 
 
-export const HeaderMid = styled.div`
-    width: 640px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-`
-
-export const One = styled.div`
-font-weight: 700;
-font-size: 40px;
-margin-left: 50px;
-`
-
-
-export const TWo = styled.img`
-margin-left: 300px;
-
-`
-
-export const Three = styled.div`
-font-weight: 700;
+export const RadioButton = styled.input`
 margin-left: 20px;
-`
+`;
 
-export const Four = styled.img`
-margin-left: 20px;
+export const RadioLabel = styled.div`
+margin-left: 10px;
+font-weight: 500;
+font-size: 16px;
+`;
 
-`
-
-export const HeaderFooter = styled.div`
-    width: 640px;
-    height: 100px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-left: 60px;
-    font-size: 30px;
-    color: #CACACA;
-`
-
-export const Announcement = styled.div`
-  margin-right: 30px;
-
-`
-
-export const Event = styled.div`
-  margin-right: 30px;
-`
-
-export const Faq = styled.div`
-  margin-right: 30px;
-
-`
-
-export const Qa = styled.div`
-  margin-right: 30px;
-
-`
-
-export const BodyOne = styled.div`
- display: flex;
- margin-left: 50px;
- margin-bottom: 60px;
- margin-top: 50px;
- justify-content: space-between
-
-
-`
-
-export const BodyTwo = styled.div`
-font-size: 24px;
-font-weight: 400;
-
-`
-
-
-export const BodyThree = styled.img`
-margin-right: 30px;
-
-`
-
-export const FooterOne = styled.div`
-display: flex;
-flex-direction: column;
-margin-top: 10px;
-color: #CACACA;
-
-`
-
-export const FooterTwo = styled.img`
-
-width: 35px;
-height: 35px;
-
-`
-
-export const FooterThree = styled.div`
-display: flex;
-justify-content: center;
-
-`
+export const SubmitButton = styled.button`
+width: 179px;
+height: 52px;
+background: #FFD600;
+border: none;
+border-radius: 3px;
+font-weight: 500;
+font-size: 16px;
+`;
