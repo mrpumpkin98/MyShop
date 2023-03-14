@@ -28,6 +28,7 @@ margin-bottom: 50px;
 display: flex;
 flex-direction: row;
 justify-content: center;
+cursor: pointer;
 `;
 
 export const InPutBox = styled.div`
@@ -124,6 +125,7 @@ background: #000000;
 color: white;
 border-radius: 3px;
 border: none;
+cursor: pointer;
 `;
 
 export const AddressText = styled.input`
@@ -154,6 +156,10 @@ margin-bottom: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor: pointer;
+&:hover {
+  background: #aDaDaD;
+  }
 `;
 
 export const RadioOut = styled.div`
@@ -175,9 +181,14 @@ font-size: 16px;
 export const SubmitButton = styled.button`
 width: 179px;
 height: 52px;
-background: #FFD600;
+background: #FFe600;
 border: none;
 border-radius: 3px;
 font-weight: 500;
 font-size: 16px;
+cursor: pointer;
+&:hover {
+  background: #FFd600;
+  }
 `;
+

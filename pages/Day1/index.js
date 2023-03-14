@@ -11,7 +11,7 @@ import {
     AttachPicturesBox,
     MainSettingBox,
     RegistrationBox,
-    //--------------------> 기타 등등 :)
+    //--------------------> 기타 :)
     Title,
     Label,
     Writer,
@@ -80,9 +80,9 @@ export default function BoardsNewPage() {
                 <MainSettingBox>
                     <Label>메인 설정</Label>
                     <RadioOut>
-                        <RadioButton type="radio" />
+                        <RadioButton type="radio" name="myaRadio" />
                         <RadioLabel>유튜브</RadioLabel>
-                        <RadioButton type="radio" />
+                        <RadioButton type="radio" name="myaRadio" />
                         <RadioLabel>사진</RadioLabel>
                     </RadioOut>
                 </MainSettingBox>
