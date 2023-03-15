@@ -115,7 +115,7 @@ export const ZipText = styled.input`
 width: 77px;
 height: 52px;
 margin-right: 20px;
-text-align: center;
+padding-left: 18px;
 `;
 
 export const ZipButton = styled.button`
@@ -126,6 +126,7 @@ color: white;
 border-radius: 3px;
 border: none;
 cursor: pointer;
+
 `;
 
 export const AddressText = styled.input`
@@ -190,5 +191,12 @@ cursor: pointer;
 &:hover {
   background: #FFd600;
   }
+`;
+
+export const Error = styled.div`
+font-size: 13px;
+color: tomato;
+margin-top: 5px;
+margin-left: 10px;
 `;
 

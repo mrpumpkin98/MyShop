@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 import {
     Wrapper,
@@ -23,6 +24,7 @@ import {
     SubmitButton,
     PicturesOut,
     RadioOut,
+    Error,
     //--------------------> Text :)
     WriterText,
     PasswordText,
@@ -34,6 +36,77 @@ import {
 } from "../../styles/index";
 
 export default function BoardsNewPage() {
+
+
+    //-------------------------------------------------------> Input에 들어가는 문구 :)
+    const [writer, setWriter] = useState("")
+    const [password, setPassword] = useState("")
+    const [title, setTitle] = useState("")
+    const [contents, setContents] = useState("")
+    const [zip, setZip] = useState("07250")
+    const [youtube, setYoutube] = useState("")
+
+    //---------------------------------------------------------> Input error :(
+    const [writerError, setWriterError] = useState("")
+    const [passwordError, setPasswordError] = useState("")
+    const [titleError, setTitleError] = useState("")
+    const [contentsError, setContentsError] = useState("")
+    const [zipError, setZipError] = useState("")
+
+    //----------------------------------------------------------> event.target.value :)
+
+    function onWriter(event) {
+        setWriter(event.target.value)
+        if (event.target.value !== "") {
+            setWriterError("")
+        }
+    }
+
+    function onPassword(event) {
+        setPassword(event.target.value)
+        if (event.target.value !== "") {
+            setPasswordError("")
+        }
+    }
+
+    function onTitle(event) {
+        setTitle(event.target.value)
+        if (event.target.value !== "") {
+            setTitleError("")
+        }
+    }
+
+    function onContents(event) {
+        setContents(event.target.value)
+        if (event.target.value !== "") {
+            setContentsError("")
+        }
+    }
+
+    //---------------------------------------------------------------> 1. 검증하기
+
+    function onChangeSignup() {
+
+        if (writer === "") {
+            setWriterError("작성자를 다시 작성해주세요.")
+        }
+        if (password === "" && password.length < 3) {
+            setPasswordError("비밀번호를 다시 작성해주세요.")
+        }
+        if (title === "") {
+            setTitleError("제목을 다시 작성해주세요.")
+        }
+        if (contents === "") {
+            setContentsError("내용을 다시 작성해주세요.")
+        }
+        if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+            alert("회원가입을 축하합니다!!")
+        }
+
+    }
+
+    //------------------------------------------------------------->HTML :)
+
     return (
         <Wrapper>
             <Container>
@@ -43,20 +116,24 @@ export default function BoardsNewPage() {
                 <TwoBox>
                     <Writer>
                         <Label>작성자</Label>
-                        <WriterText type="text" placeholder="이름을 작성해주세요." />
+                        <WriterText type="text" onChange={onWriter} placeholder="이름을 작성해주세요." />
+                        <Error>{writerError}</Error>
                     </Writer>
                     <Password>
                         <Label>비밀번호</Label>
-                        <PasswordText type="password" placeholder="비밀번호를 작성해주세요." />
+                        <PasswordText type="password" onChange={onPassword} placeholder="비밀번호를 작성해주세요." />
+                        <Error>{passwordError}</Error>
                     </Password>
                 </TwoBox>
                 <InPutBox>
                     <Label>제목</Label>
-                    <TitleText type="text" placeholder="제목을 작성해주세요." />
+                    <TitleText type="text" onChange={onTitle} placeholder="제목을 작성해주세요." />
+                    <Error>{titleError}</Error>
                 </InPutBox>
                 <InPutBox>
                     <Label>내용</Label>
-                    <ContentsText type="text" placeholder="내용을 작성해주세요." />
+                    <ContentsText type="text" onChange={onContents} placeholder="내용을 작성해주세요." />
+                    <Error>{contentsError}</Error>
                 </InPutBox>
                 <AddressBox>
                     <Label>주소</Label>
@@ -87,7 +164,7 @@ export default function BoardsNewPage() {
                     </RadioOut>
                 </MainSettingBox>
                 <RegistrationBox>
-                    <SubmitButton>등록하기</SubmitButton>
+                    <SubmitButton onClick={onChangeSignup}>등록하기</SubmitButton>
                 </RegistrationBox>
             </Container>
         </Wrapper>
