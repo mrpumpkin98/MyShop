@@ -1,5 +1,5 @@
 import { useState } from "react"
-//================================================>게시물 등록
+//==============================================>게시물 수정
 import {
     Wrapper,
     Container,
@@ -22,6 +22,7 @@ import {
     RadioButton,
     RadioLabel,
     SubmitButton,
+    CancelButton,
     PicturesOut,
     RadioOut,
     Error,
@@ -33,7 +34,7 @@ import {
     ZipText,
     AddressText,
     YoutubeText,
-} from "../../styles/Day1";
+} from "../../styles/Day2";
 
 export default function BoardsNewPage() {
 
@@ -111,7 +112,7 @@ export default function BoardsNewPage() {
         <Wrapper>
             <Container>
                 <HeaderBox>
-                    <Title>게시물 등록</Title>
+                    <Title>게시물 수정</Title>
                 </HeaderBox>
                 <TwoBox>
                     <Writer>
@@ -164,6 +165,7 @@ export default function BoardsNewPage() {
                     </RadioOut>
                 </MainSettingBox>
                 <RegistrationBox>
+                    <CancelButton>취소하기</CancelButton>
                     <SubmitButton onClick={onChangeSignup}>등록하기</SubmitButton>
                 </RegistrationBox>
             </Container>

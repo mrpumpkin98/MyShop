@@ -147,8 +147,8 @@ export const PicturesOut = styled.div`
 display: flex;
 `;
 
-export const Pictures = styled.div`
-background-color: #BDBDBD;
+export const Pictures = styled.button`
+background-color: #BDBDBD;  
 width: 78px;
 height: 78px;
 margin-right: 20px;
@@ -157,6 +157,7 @@ margin-bottom: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
+border: none;
 cursor: pointer;
 &:hover {
   background: #aDaDaD;
@@ -165,18 +166,22 @@ cursor: pointer;
 
 export const RadioOut = styled.div`
 display: flex;
+align-items: center;
 margin-bottom: 50px;
 `;
 
 
 export const RadioButton = styled.input`
-margin-left: 20px;
+width: 20px;
+height: 20px;
+cursor: pointer;
 `;
 
 export const RadioLabel = styled.div`
 margin-left: 10px;
+margin-right: 20px;
 font-weight: 500;
-font-size: 16px;
+font-size: 18px;
 `;
 
 export const SubmitButton = styled.button`
