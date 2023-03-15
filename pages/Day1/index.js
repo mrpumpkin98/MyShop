@@ -37,7 +37,6 @@ import {
 
 export default function BoardsNewPage() {
 
-
     //-------------------------------------------------------> Input에 들어가는 문구 :)
     const [writer, setWriter] = useState("")
     const [password, setPassword] = useState("")
@@ -55,24 +54,41 @@ export default function BoardsNewPage() {
 
     //----------------------------------------------------------> event.target.value :)
 
+
     function onWriter(event) {
         setWriter(event.target.value)
         if (event.target.value !== "") {
             setWriterError("")
         }
+        if (String(event.target.value).split('').length < 1) {
+            setWriterError("필수 정보입니다.")
+        }
     }
 
     function onPassword(event) {
         setPassword(event.target.value)
-        if (event.target.value !== "") {
+        if (String(event.target.value).split('').length < 1) {
+            setPasswordError("필수 정보입니다.")
+        }
+        if (String(event.target.value).split('').length > 0 && String(event.target.value).split('').length < 9) {
+            setPasswordError("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
+        }
+        if (String(event.target.value).split('').length > 8) {
             setPasswordError("")
         }
+        //한글을 막으려면 STring()이 아니라 Byte()다.
+        //Byte()는 바로 길이를 바로 구할 수 있다. 그럼 <split('').length>을 안 적어도 된다.
+
+
     }
 
     function onTitle(event) {
         setTitle(event.target.value)
         if (event.target.value !== "") {
             setTitleError("")
+        }
+        if (String(event.target.value).split('').length < 1) {
+            setTitleError("필수 정보입니다.")
         }
     }
 
@@ -81,6 +97,9 @@ export default function BoardsNewPage() {
         if (event.target.value !== "") {
             setContentsError("")
         }
+        if (String(event.target.value).split('').length < 1) {
+            setContentsError("필수 정보입니다.")
+        }
     }
 
     //---------------------------------------------------------------> 1. 검증하기
@@ -88,18 +107,20 @@ export default function BoardsNewPage() {
     function onChangeSignup() {
 
         if (writer === "") {
-            setWriterError("작성자를 다시 작성해주세요.")
+            setWriterError("필수 정보입니다.")
         }
-        if (password === "" && password.length < 3) {
-            setPasswordError("비밀번호를 다시 작성해주세요.")
+        if (password === "") {
+            setPasswordError("필수 정보입니다.")
+        } else if (String(password).split('').length > 8) {
+            setPasswordError("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
         }
         if (title === "") {
-            setTitleError("제목을 다시 작성해주세요.")
+            setTitleError("필수 정보입니다.")
         }
         if (contents === "") {
-            setContentsError("내용을 다시 작성해주세요.")
+            setContentsError("필수 정보입니다.")
         }
-        if (writer !== "" && password !== "" && title !== "" && contents !== "") {
+        if (writer !== "" && password !== "" && String(password).split('').length > 8 && title !== "" && contents !== "") {
             alert("회원가입을 축하합니다!!")
         }
 
