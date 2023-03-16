@@ -1,5 +1,12 @@
 import { useState } from "react"
-//================================================>게시물 등록
+import { useMutation, gql } from "@apollo/client"
+
+
+
+//******************************************** <게시물 등록> ********************************************
+
+
+
 import {
     Wrapper,
     Container,
@@ -35,9 +42,23 @@ import {
     YoutubeText,
 } from "../../styles/Day1";
 
+//---------------------------------> createBoard 그래프큐엘셋팅
+const 나의그래프큐엘셋팅 = gql`
+        mutation createBoard($writer: String, $title: String, $contents: String){
+        createBoard(writer: $writer, title: $title, contents: $contents){
+            _id
+            number
+            message
+        }
+    }
+`
+
+
 export default function BoardsNewPage() {
 
-    //-------------------------------------------------------> Input에 들어가는 문구 :)
+
+
+    //-------------------------------------------------------> Input에 들어가는 문구 선언 :)
     const [writer, setWriter] = useState("")
     const [password, setPassword] = useState("")
     const [title, setTitle] = useState("")
@@ -45,12 +66,16 @@ export default function BoardsNewPage() {
     const [zip, setZip] = useState("07250")
     const [youtube, setYoutube] = useState("")
 
-    //---------------------------------------------------------> Input error :(
+    //-------------------------------------------------------> createBoard 그래프큐엘셋팅 선언 :)
+    const [나의함수] = useMutation(나의그래프큐엘셋팅)
+
+    //---------------------------------------------------------> Input error 선언 :(
     const [writerError, setWriterError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [titleError, setTitleError] = useState("")
     const [contentsError, setContentsError] = useState("")
     const [zipError, setZipError] = useState("")
+
 
     //----------------------------------------------------------> event.target.value :)
 
@@ -62,6 +87,9 @@ export default function BoardsNewPage() {
         }
         if (String(event.target.value).split('').length < 1) {
             setWriterError("필수 정보입니다.")
+        }
+        if (String(event.target.value).split('').length > 0 && String(event.target.value).split('').length < 2) {
+            setWriterError("2자 이상 적어주세요.")
         }
     }
 
@@ -102,9 +130,9 @@ export default function BoardsNewPage() {
         }
     }
 
-    //---------------------------------------------------------------> 1. 검증하기
+    //--------------------------------------------------------------->  검증하기 / API전송
 
-    function onChangeSignup() {
+    const onChangeSignup = async () => {
 
         if (writer === "") {
             setWriterError("필수 정보입니다.")
@@ -122,6 +150,17 @@ export default function BoardsNewPage() {
         }
         if (writer !== "" && password !== "" && String(password).split('').length > 8 && title !== "" && contents !== "") {
             alert("회원가입을 축하합니다!!")
+            setPasswordError("")
+            //---------------------------------> createBoard 그래프큐엘 API 전송 :)
+
+            const result = await 나의함수({
+                variables: {
+                    writer: writer,
+                    title: title,
+                    contents: contents
+                }
+            })
+            console.log(result)
         }
 
     }
