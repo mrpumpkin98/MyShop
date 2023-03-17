@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useMutation, gql } from "@apollo/client"
+import { useRouter } from "next/router"
 
 
 
@@ -12,7 +13,7 @@ import {
     Container,
     //--------------------> Box :)
     InPutBox,
-    TwoBox,
+    WriterPasswordBox,
     HeaderBox,
     AddressBox,
     YoutubeBox,
@@ -43,7 +44,7 @@ import {
 } from "../../styles/Day1";
 
 //---------------------------------> createBoard 그래프큐엘셋팅
-const 나의그래프큐엘셋팅 = gql`
+const CREATE_BOARD = gql`
         mutation createBoard($writer: String, $title: String, $contents: String){
         createBoard(writer: $writer, title: $title, contents: $contents){
             _id
@@ -55,30 +56,34 @@ const 나의그래프큐엘셋팅 = gql`
 
 
 export default function BoardsNewPage() {
+    const router = useRouter()
 
 
+    //##########################################################
+    //  입력 / 에러 선언
+    //##########################################################
 
-    //-------------------------------------------------------> Input에 들어가는 문구 선언 :)
     const [writer, setWriter] = useState("")
     const [password, setPassword] = useState("")
     const [title, setTitle] = useState("")
     const [contents, setContents] = useState("")
     const [zip, setZip] = useState("07250")
     const [youtube, setYoutube] = useState("")
-
-    //-------------------------------------------------------> createBoard 그래프큐엘셋팅 선언 :)
-    const [나의함수] = useMutation(나의그래프큐엘셋팅)
-
-    //---------------------------------------------------------> Input error 선언 :(
     const [writerError, setWriterError] = useState("")
     const [passwordError, setPasswordError] = useState("")
     const [titleError, setTitleError] = useState("")
     const [contentsError, setContentsError] = useState("")
     const [zipError, setZipError] = useState("")
 
+    //##########################################################
+    //  CREATE_BOARD
+    //##########################################################
 
-    //----------------------------------------------------------> event.target.value :)
+    const [createBoard] = useMutation(CREATE_BOARD)
 
+    //##########################################################
+    //  INPUT 입력 값에 따른 이벤트
+    //##########################################################
 
     function onWriter(event) {
         setWriter(event.target.value)
@@ -107,7 +112,6 @@ export default function BoardsNewPage() {
         //한글을 막으려면 STring()이 아니라 Byte()다.
         //Byte()는 바로 길이를 바로 구할 수 있다. 그럼 <split('').length>을 안 적어도 된다.
 
-
     }
 
     function onTitle(event) {
@@ -130,7 +134,9 @@ export default function BoardsNewPage() {
         }
     }
 
-    //--------------------------------------------------------------->  검증하기 / API전송
+    //##########################################################
+    //  검증하기 / API전송
+    //##########################################################
 
     const onChangeSignup = async () => {
 
@@ -149,11 +155,10 @@ export default function BoardsNewPage() {
             setContentsError("필수 정보입니다.")
         }
         if (writer !== "" && password !== "" && String(password).split('').length > 8 && title !== "" && contents !== "") {
-            alert("회원가입을 축하합니다!!")
+            alert("게시물 등록이 완료되었습니다.")
             setPasswordError("")
-            //---------------------------------> createBoard 그래프큐엘 API 전송 :)
 
-            const result = await 나의함수({
+            const result = await createBoard({
                 variables: {
                     writer: writer,
                     title: title,
@@ -161,11 +166,11 @@ export default function BoardsNewPage() {
                 }
             })
             console.log(result)
+            router.push(`/Day3/${result.data.createBoard.number}`)
         }
 
     }
 
-    //------------------------------------------------------------->HTML :)
 
     return (
         <Wrapper>
@@ -173,7 +178,7 @@ export default function BoardsNewPage() {
                 <HeaderBox>
                     <Title>게시물 등록</Title>
                 </HeaderBox>
-                <TwoBox>
+                <WriterPasswordBox>
                     <Writer>
                         <Label>작성자</Label>
                         <WriterText type="text" onChange={onWriter} placeholder="이름을 작성해주세요." />
@@ -184,7 +189,7 @@ export default function BoardsNewPage() {
                         <PasswordText type="password" onChange={onPassword} placeholder="비밀번호를 작성해주세요." />
                         <Error>{passwordError}</Error>
                     </Password>
-                </TwoBox>
+                </WriterPasswordBox>
                 <InPutBox>
                     <Label>제목</Label>
                     <TitleText type="text" onChange={onTitle} placeholder="제목을 작성해주세요." />

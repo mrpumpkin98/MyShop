@@ -5,7 +5,7 @@ import {
     Container,
     //--------------------> Box :)
     InPutBox,
-    TwoBox,
+    WriterPasswordBox,
     HeaderBox,
     AddressBox,
     YoutubeBox,
@@ -114,7 +114,7 @@ export default function BoardsNewPage() {
                 <HeaderBox>
                     <Title>게시물 수정</Title>
                 </HeaderBox>
-                <TwoBox>
+                <WriterPasswordBox>
                     <Writer>
                         <Label>작성자</Label>
                         <WriterText type="text" onChange={onWriter} placeholder="이름을 작성해주세요." />
@@ -125,7 +125,7 @@ export default function BoardsNewPage() {
                         <PasswordText type="password" onChange={onPassword} placeholder="비밀번호를 작성해주세요." />
                         <Error>{passwordError}</Error>
                     </Password>
-                </TwoBox>
+                </WriterPasswordBox>
                 <InPutBox>
                     <Label>제목</Label>
                     <TitleText type="text" onChange={onTitle} placeholder="제목을 작성해주세요." />

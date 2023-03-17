@@ -37,7 +37,7 @@ display: flex;
 flex-direction: column;
 `;
 
-export const TwoBox = styled.div`
+export const WriterPasswordBox = styled.div`
 margin-bottom: 50px;
 display: flex;
 flex-direction: row;
@@ -199,6 +199,7 @@ cursor: pointer;
 `;
 
 export const Error = styled.div`
+height: 13px;
 font-size: 13px;
 color: tomato;
 margin-top: 5px;
