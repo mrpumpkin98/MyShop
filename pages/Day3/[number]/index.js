@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useQuery, gql } from "@apollo/client"
+import { useQuery, useMutation, gql } from "@apollo/client"
 import { useRouter } from 'next/router'
 
 import {
@@ -43,7 +43,24 @@ import {
     CommentInput,
     LetterRepair,
     RegistrationButton,
-    RetouchButton
+    RetouchButton,
+    Comment,
+    CommentProfilePicture,
+    CommentTie,
+    CommentProfile,
+    CommentName,
+    CommentIconTie,
+    CommentEdit,
+    CommentDelete,
+    CommentDetail,
+    CommentDate,
+    Star
+
+
+
+
+
+
 
 
 } from "../../../styles/Day3";
@@ -55,6 +72,7 @@ import {
 const FETCH_BOARD = gql`
     query fetchBoard($number: Int){
         fetchBoard(number: $number){
+        number
         writer
         title
         contents
@@ -63,7 +81,30 @@ const FETCH_BOARD = gql`
     }
 `
 
+// const 나의그래프큐엘셋팅 = gql`
+//         mutation{
+//         createBoard(writer: "저는", title: "신재욱", contents: "입니다."){
+//             _id
+//             number
+//             message
+//         }
+//     }
+// `
+
+// const 나의그래프큐엘셋팅 = gql`
+//         mutation createBoard($writer: String, $title: String, $contents: String){
+//         createBoard(writer: data.fetchBoard.writer, title: data.fetchBoard.title, contents: data.fetchBoard.contents){
+//             _id
+//             number
+//             message
+//         }
+//     }
+// `
+
+
 export default function BoardsNewPage() {
+    // const [나의함수] = useMutation(나의그래프큐엘셋팅)
+
     const router = useRouter()
     console.log(router)
 
@@ -71,7 +112,8 @@ export default function BoardsNewPage() {
         variables: { number: Number(router.query.number) }
     })
 
-    console.log(data)
+    // console.log(data)
+    // console.log(data)
 
 
     //##########################################################
@@ -79,7 +121,16 @@ export default function BoardsNewPage() {
     //##########################################################
 
     let At = String(data && data?.fetchBoard?.createdAt)
-    let timer = At.substring(0, 10)
+    let timer = At.substring(0, 10) //포멧으로 하면 됨
+
+    //##########################################################
+    //  수정버튼
+    //##########################################################
+    const PressEditButton = async () => {
+        console.log(data)
+        router.push(`/Day2/${data.fetchBoard.number}`)
+    }
+
 
     return (
         <Background>
@@ -104,37 +155,46 @@ export default function BoardsNewPage() {
                         {data && data?.fetchBoard?.contents}
                     </ContentsBox>
                     <YoutubeBox>
-                        <YoutubeVideo src="/video.png"></YoutubeVideo>
+                        <YoutubeVideo src="/dio.png"></YoutubeVideo>
                     </YoutubeBox>
                     <LikeDislikeBox>
                         <LikeDislikeTie>
                             <LikeDislikeIcon src="/Vecto.png"></LikeDislikeIcon>
-                            <LikeDislikeCount>1920</LikeDislikeCount>
+                            <LikeDislikeCount>0</LikeDislikeCount>
                         </LikeDislikeTie>
                         <LikeDislikeTie>
                             <LikeDislikeIcon src="/Vec.png"></LikeDislikeIcon>
-                            <LikeDislikeCount>1920</LikeDislikeCount>
+                            <LikeDislikeCount>0</LikeDislikeCount>
                         </LikeDislikeTie>
                     </LikeDislikeBox>
                 </Container>
             </Wrapper>
             <RegistrationBox>
                 <ListButton>목록으로</ListButton>
-                <EditButton >수정하기</EditButton>
+                <EditButton onClick={PressEditButton} >수정하기</EditButton>
                 <DeleteButton>삭제하기</DeleteButton>
             </RegistrationBox>
             <Footer>
                 <FooterContainer>
-                    <CommentTitle></CommentTitle>
+                    <CommentTitleTie>
+                        <CommentTitleIcon src="/CommentTitleIcon.png"></CommentTitleIcon>
+                        <CommentTitle>댓글</CommentTitle>
+                    </CommentTitleTie>
                     <WriteCommentBox>
                         <InPutBox>
                             <WriterInputPasswordInputTie>
-                                <WriterInput></WriterInput>
-                                <PasswordInput></PasswordInput>
-                                <Scope></Scope>
+                                <WriterInput type="input" placeholder="작성자"></WriterInput>
+                                <PasswordInput type="input" placeholder="비밀번호"></PasswordInput>
+                                <Scope>
+                                    <Star></Star>
+                                    <Star></Star>
+                                    <Star></Star>
+                                    <Star></Star>
+                                    <Star></Star>
+                                </Scope>
                             </WriterInputPasswordInputTie>
                             <TextTie>
-                                <CommentInput></CommentInput>
+                                <CommentInput type="input" placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></CommentInput>
                                 <LetterRepair></LetterRepair>
                                 <RegistrationButton></RegistrationButton>
                             </TextTie>
@@ -144,12 +204,12 @@ export default function BoardsNewPage() {
                         <WriteCommentBox>
                             <InPutBox>
                                 <WriterInputPasswordInputTie>
-                                    <WriterInput></WriterInput>
-                                    <PasswordInput></PasswordInput>
+                                    <WriterInput type="input" placeholder="작성자"></WriterInput>
+                                    <PasswordInput type="input" placeholder="비밀번호"></PasswordInput>
                                     <Scope></Scope>
                                 </WriterInputPasswordInputTie>
                                 <TextTie>
-                                    <CommentInput></CommentInput>
+                                    <CommentInput type="input" placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></CommentInput>
                                     <LetterRepair></LetterRepair>
                                     <RetouchButton></RetouchButton>
                                 </TextTie>
@@ -157,6 +217,21 @@ export default function BoardsNewPage() {
                         </WriteCommentBox>
                     </EditCommentBox>
                     <CommentBox>
+                        <Comment>
+                            <CommentProfilePicture src="/CommentProfilePicture.png"></CommentProfilePicture>
+                            <CommentTie>
+                                <CommentProfile>
+                                    <CommentName>신재욱</CommentName>
+                                    <Scope></Scope>
+                                    <CommentIconTie>
+                                        <CommentEdit></CommentEdit>
+                                        <CommentDelete></CommentDelete>
+                                    </CommentIconTie>
+                                </CommentProfile>
+                                <CommentDetail></CommentDetail>
+                            </CommentTie>
+                        </Comment>
+                        <CommentDate></CommentDate>
                     </CommentBox>
                 </FooterContainer>
             </Footer>
@@ -164,3 +239,5 @@ export default function BoardsNewPage() {
     )
 
 }
+
+//3월19일 : scop 별 이미지 넣기부터 시작하면됨

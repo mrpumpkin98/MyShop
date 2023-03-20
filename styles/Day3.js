@@ -27,6 +27,7 @@ width: 1000px;
 //  ProfileBox 
 //##########################################################
 export const ProfileBox = styled.div`
+width: 1000px;
 border-bottom: 1px solid #BDBDBD;
 display: flex;
 justify-content: space-between;
@@ -39,7 +40,8 @@ export const ProfilePicture = styled.img`
 `;
 
 export const ProfileNameTie = styled.div`
-margin-right: 730px;
+width: 850px;
+
 `;
 
 export const ProfileName = styled.div`
@@ -48,6 +50,7 @@ font-size: 24px;
 `;
 
 export const PostDate = styled.div`
+margin-left: 8px;
 color: #828282;
 `;
 
@@ -129,7 +132,10 @@ align-items: center;
 `;
 
 export const LikeDislikeIcon = styled.img`
+width: 20px;
+height: 18px;
 margin-bottom: 10px;
+cursor: pointer;
 `;
 
 export const LikeDislikeCount = styled.div`
@@ -149,6 +155,7 @@ export const RegistrationBox = styled.div`
 
 export const ListButton = styled.button`
 border: 1px solid #BDBDBD;
+border-radius: 3px;
 background-color: white;
 font-weight: 500;
 font-size: 16px;
@@ -156,10 +163,14 @@ width: 179px;
 height: 45px;
 margin: 0px 10px;
 cursor: pointer;
+&:hover {
+  background: #EDECE9;
+  }
 `;
 
 export const EditButton = styled.button`
 border: 1px solid #BDBDBD;
+border-radius: 3px;
 background-color: white;
 font-weight: 500;
 font-size: 16px;
@@ -167,10 +178,14 @@ width: 179px;
 height: 45px;
 margin: 0px 10px;
 cursor: pointer;
+&:hover {
+  background: #EDECE9;
+  }
 `;
 
 export const DeleteButton = styled.button`
 border: 1px solid #BDBDBD;
+border-radius: 3px;
 background-color: white;
 font-weight: 500;
 font-size: 16px;
@@ -178,6 +193,9 @@ width: 179px;
 height: 45px;
 margin: 0px 10px;
 cursor: pointer;
+&:hover {
+  background: #EDECE9;
+  }
 `;
 
 //##########################################################
@@ -217,6 +235,9 @@ export const PasswordInput = styled.div`
 export const Scope = styled.div`
 `;
 
+export const Star = styled.div`
+`;
+
 export const TextTie = styled.div`
 `;
 
@@ -245,4 +266,34 @@ export const RetouchButton = styled.div`
 //##########################################################
 
 export const CommentBox = styled.div`
+`;
+
+export const Comment = styled.div`
+`;
+
+export const CommentProfilePicture = styled.div`
+`;
+
+export const CommentTie = styled.div`
+`;
+
+export const CommentProfile = styled.div`
+`;
+
+export const CommentName = styled.div`
+`;
+
+export const CommentIconTie = styled.div`
+`;
+
+export const CommentEdit = styled.div`
+`;
+
+export const CommentDelete = styled.div`
+`;
+
+export const CommentDetail = styled.div`
+`;
+
+export const CommentDate = styled.div`
 `;
