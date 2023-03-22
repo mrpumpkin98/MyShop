@@ -1,17 +1,17 @@
 //####################################################################
 //
-// BOARD_WRITE MAIN
+// BOARD_LIST MAIN
 //
 //####################################################################
 
-import BoardWrite from "../../../src/components/units/board/write/BoardWrite.container";
+import BoardDetail from "../../src/components/units/board/list/BoardList.container";
 
 export default function GraphqlMutationPage() {
 
 
     return (
         <div>
-            <BoardWrite isEdit={false} />
+            <BoardDetail />
         </div>
     )
 

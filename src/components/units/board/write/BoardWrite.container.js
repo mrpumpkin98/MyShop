@@ -1,11 +1,10 @@
-
 import { useState } from 'react'
 import { gql, useMutation } from '@apollo/client'
 import { useRouter } from "next/router";
-import { CREATE_BOARD } from './BoardWrite.queries'
+import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries'
 import BoardWriteUI from "./BoardWrite.presenter"
 
-export default function BoardsNewPage() {
+export default function BoardsNewPage(props) {
     const router = useRouter()
 
     const [writer, setWriter] = useState("");
@@ -19,6 +18,7 @@ export default function BoardsNewPage() {
     const [contentsError, setContentsError] = useState("");
 
     const [createBoard] = useMutation(CREATE_BOARD)
+    const [updateBoard] = useMutation(UPDATE_BOARD)
 
     const onChangeWriter = (event) => {
         setWriter(event.target.value);
@@ -73,18 +73,38 @@ export default function BoardsNewPage() {
                         }
                     }
                 })
-                router.push(`/Board/Detail/${result.data.createBoard._id}`)
+                console.log(result)
+                router.push(`/Board/${result.data.createBoard._id}`)
             } catch (error) {
                 alert(error.message)
             }
         }
     };
 
+    const onClickUpdate = async () => {
+        try {
+            console.log(router.query.boardId)
+            const result = await updateBoard({
+                variables: {
+                    updateBoardInput: {
+                        title,
+                        contents,
+                    }, password,
+                    boardId: router.query.boardId
+                }
+            })
+            router.push(`/Board/${result.data.updateBoard._id}`)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
 
     return (
         <div>
             <BoardWriteUI
                 onClickSubmit={onClickSubmit}
+                onClickUpdate={onClickUpdate}
                 onChangeWriter={onChangeWriter}
                 onChangePassword={onChangePassword}
                 onChangeTitle={onChangeTitle}
@@ -93,6 +113,7 @@ export default function BoardsNewPage() {
                 passwordError={passwordError}
                 titleError={titleError}
                 contentsError={contentsError}
+                isEdit={props.isEdit}
             />
         </div>
     );
