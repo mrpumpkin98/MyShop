@@ -14,6 +14,7 @@ import {
     SubmitButton,
     Title,
     UploadButton,
+    CancelButton,
     Wrapper,
     Writer,
     WriterWrapper,
@@ -28,11 +29,11 @@ export default function BoardWriteUI(props) {
     return (
         <div>
             <Wrapper>
-                <Title>게시글 등록</Title>
+                <Title>{props.isEdit ? "수정글" : "게시글"} 등록</Title>
                 <WriterWrapper>
                     <InputWrapper>
                         <Label>작성자</Label>
-                        <Writer type="text" placeholder="이름을 적어주세요." onChange={props.onChangeWriter} />
+                        <Writer type="text" placeholder="이름을 적어주세요." onChange={props.onChangeWriter} value={props.data?.fetchBoard.writer} />
                         <Error>{props.writerError}</Error>
                     </InputWrapper>
                     <InputWrapper>
@@ -43,12 +44,12 @@ export default function BoardWriteUI(props) {
                 </WriterWrapper>
                 <InputWrapper>
                     <Label>제목</Label>
-                    <Subject type="text" placeholder="제목을 작성해주세요." onChange={props.onChangeTitle} />
+                    <Subject type="text" placeholder="제목을 작성해주세요." onChange={props.onChangeTitle} defaultValue={props.data?.fetchBoard.title} />
                     <Error>{props.titleError}</Error>
                 </InputWrapper>
                 <InputWrapper>
                     <Label>내용</Label>
-                    <Contents placeholder="내용을 작성해주세요." onChange={props.onChangeContents} />
+                    <Contents placeholder="내용을 작성해주세요." onChange={props.onChangeContents} defaultValue={props.data?.fetchBoard.contents} />
                     <Error>{props.contentsError}</Error>
                 </InputWrapper>
                 <InputWrapper>
@@ -78,7 +79,8 @@ export default function BoardWriteUI(props) {
                     <RadioLabel htmlFor="image">사진</RadioLabel>
                 </OptionWrapper>
                 <ButtonWrapper>
-                    <SubmitButton onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit} >{props.isEdit ? "수정하기" : "등록하기"}</SubmitButton>
+                    <SubmitButton onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}>{props.isEdit ? "수정하기" : "등록하기"}</SubmitButton>
+                    <CancelButton onClick={props.onClickCancel}>취소하기</CancelButton>
                 </ButtonWrapper>
             </Wrapper>
         </div>

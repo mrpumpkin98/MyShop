@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { useRouter } from "next/router";
-import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries'
+import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from './BoardWrite.queries'
 import BoardWriteUI from "./BoardWrite.presenter"
 
 export default function BoardsNewPage(props) {
@@ -20,32 +20,39 @@ export default function BoardsNewPage(props) {
     const [createBoard] = useMutation(CREATE_BOARD)
     const [updateBoard] = useMutation(UPDATE_BOARD)
 
-    const onChangeWriter = (event) => {
+    const onChangeWriter = (event: React.ChangeEvent<HTMLInputElement>) => {
         setWriter(event.target.value);
         if (event.target.value !== "") {
             setWriterError("")
         }
+
     };
 
-    const onChangePassword = (event) => {
+    const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
         if (event.target.value !== "") {
             setPasswordError("")
         }
+
+
     };
 
-    const onChangeTitle = (event) => {
+    const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
         if (event.target.value !== "") {
             setTitleError("")
         }
+
+
     };
 
-    const onChangeContents = (event) => {
+    const onChangeContents = (event: React.ChangeEvent<HTMLInputElement>) => {
         setContents(event.target.value);
         if (event.target.value !== "") {
             setContentsError("")
         }
+
+
     };
 
     const onClickSubmit = async () => {
@@ -81,22 +88,49 @@ export default function BoardsNewPage(props) {
         }
     };
 
+    const { data } = useQuery(FETCH_BOARD, {
+        variables: { boardId: router.query.boardId },
+    });
+
     const onClickUpdate = async () => {
         try {
-            console.log(router.query.boardId)
+            const myVariables = {}
+            myVariables.updateBoardInput = {}
+            if (contents !== "") myVariables.contents = contents
+            if (title !== "") { myVariables.updateBoardInput.title = title }
+            if (contents !== "") { myVariables.updateBoardInput.contents = contents }
+            myVariables.password = myVariables.password = password
+            myVariables.boardId = router.query.boardId
             const result = await updateBoard({
-                variables: {
-                    updateBoardInput: {
-                        title,
-                        contents,
-                    }, password,
-                    boardId: router.query.boardId
-                }
+                variables: myVariables
             })
             router.push(`/Board/${result.data.updateBoard._id}`)
         } catch (error) {
             alert(error.message)
         }
+    }
+
+
+    // const onClickUpdate = async () => {
+    //     try {
+    //         console.log(router.query.boardId)
+    //         const result = await updateBoard({
+    //             variables: {
+    //                 updateBoardInput: {
+    //                     title,
+    //                     contents,
+    //                 }, password,
+    //                 boardId: router.query.boardId
+    //             }
+    //         })
+    //         router.push(`/Board/${result.data.updateBoard._id}`)
+    //     } catch (error) {
+    //         alert(error.message)
+    //     }
+    // }
+
+    const onClickCancel = async () => {
+        router.push(`/Board`)
     }
 
 
@@ -109,11 +143,14 @@ export default function BoardsNewPage(props) {
                 onChangePassword={onChangePassword}
                 onChangeTitle={onChangeTitle}
                 onChangeContents={onChangeContents}
+                onClickCancel={onClickCancel}
                 writerError={writerError}
                 passwordError={passwordError}
                 titleError={titleError}
                 contentsError={contentsError}
                 isEdit={props.isEdit}
+                data={data}
+
             />
         </div>
     );

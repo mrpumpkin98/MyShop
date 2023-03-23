@@ -120,6 +120,7 @@ export const UploadButton = styled.button`
   cursor: pointer;
 `;
 
+
 export const OptionWrapper = styled.div`
   width: 996px;
   padding-top: 40px;
@@ -165,7 +166,8 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
 
-  background-color: yellow;
+  background-color: gold;
+  border-radius: 2px;
 `;
 
 export const Error = styled.div`

@@ -15,7 +15,7 @@ export default function BoardDetailPage() {
         variables: { boardId: router.query.boardId },
     });
 
-    const onClickDelete = (event) => {
+    const onClickDelete = (event: React.ChangeEvent<HTMLInputElement>) => {
         deleteBoard({
             variables: { boardId: event.target.id },
             refetchQueries: [{ query: FETCH_BOARD }]
@@ -30,6 +30,7 @@ export default function BoardDetailPage() {
         router.push(`/Board/${router.query.boardId}/edit`)
     }
 
+
     return (
         <div>
             <BoardDetailUI
@@ -40,4 +41,6 @@ export default function BoardDetailPage() {
             />
         </div>
     );
+
+
 }
