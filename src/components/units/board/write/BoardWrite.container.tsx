@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { gql, useMutation, useQuery } from '@apollo/client'
 import { useRouter } from "next/router";
+import { gql, useMutation, useQuery } from '@apollo/client'
 import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from './BoardWrite.queries'
 import BoardWriteUI from "./BoardWrite.presenter"
+import { IMutation, IMutationCreateBoardArgs, IMutationUpdateBoardArgs } from '../../../../commons/types/generated/types';
+import { IBoardWriteProps, myVariables } from "./Boardwrite.types"
 
-export default function BoardsNewPage(props) {
+export default function BoardsNewPage(props: IBoardWriteProps) {
     const router = useRouter()
+    const [Active, setIsActive] = useState(false);
 
     const [writer, setWriter] = useState("");
     const [password, setPassword] = useState("");
@@ -17,13 +20,19 @@ export default function BoardsNewPage(props) {
     const [titleError, setTitleError] = useState("");
     const [contentsError, setContentsError] = useState("");
 
-    const [createBoard] = useMutation(CREATE_BOARD)
-    const [updateBoard] = useMutation(UPDATE_BOARD)
+    const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD)
+    const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD)
 
     const onChangeWriter = (event: React.ChangeEvent<HTMLInputElement>) => {
         setWriter(event.target.value);
         if (event.target.value !== "") {
             setWriterError("")
+        }
+
+        if (event.target.value && password && title && contents) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
         }
 
     };
@@ -32,6 +41,12 @@ export default function BoardsNewPage(props) {
         setPassword(event.target.value);
         if (event.target.value !== "") {
             setPasswordError("")
+        }
+
+        if (writer && event.target.value && title && contents) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
         }
 
 
@@ -43,6 +58,12 @@ export default function BoardsNewPage(props) {
             setTitleError("")
         }
 
+        if (writer && password && event.target.value && contents) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+
 
     };
 
@@ -50,6 +71,12 @@ export default function BoardsNewPage(props) {
         setContents(event.target.value);
         if (event.target.value !== "") {
             setContentsError("")
+        }
+
+        if (writer && password && title && event.target.value) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
         }
 
 
@@ -94,7 +121,7 @@ export default function BoardsNewPage(props) {
 
     const onClickUpdate = async () => {
         try {
-            const myVariables = {}
+            const myVariables: myVariables = {}
             myVariables.updateBoardInput = {}
             if (contents !== "") myVariables.contents = contents
             if (title !== "") { myVariables.updateBoardInput.title = title }
@@ -148,6 +175,7 @@ export default function BoardsNewPage(props) {
                 passwordError={passwordError}
                 titleError={titleError}
                 contentsError={contentsError}
+                Active={Active}
                 isEdit={props.isEdit}
                 data={data}
 

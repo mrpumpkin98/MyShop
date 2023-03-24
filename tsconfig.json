@@ -29,7 +29,11 @@
         "src/commons/libraries/utils.tsx",
         "src/commons/libraries/utils.tsx",
         "src/components/units/board/list/BoardList.container.js",
-        "src/components/units/board/write/BoardWrite.container.tsx"
+        "src/components/units/board/write/BoardWrite.container.tsx",
+        "src/components/units/board/detail/BoardDetail.container.js",
+        "src/components/units/board/write/BoardWrite.presenter.js",
+        "src/components/units/board/write/BoardWrite.container.tsx",
+        "src/components/units/board/comment/BoardComment.container.js"
     ],
     "exclude": [
         "node_modules"

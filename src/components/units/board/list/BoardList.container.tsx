@@ -6,7 +6,7 @@ import BoardListUI from "./BoardList.presenter"
 
 export default function StaticRoutingPage() {
     const router = useRouter()
-    const { data } = useQuery(FETCH_BOARDS, FETCH_BOARDS)
+    const { data } = useQuery(FETCH_BOARDS)
     const [deleteBoard] = useMutation(DELETE_BOARD)
 
     console.log(deleteBoard)

@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 
+
+
 export const Wrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
@@ -17,7 +19,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 34px;
   font-weight: bold;
 `;
@@ -147,27 +148,26 @@ export const ButtonWrapper = styled.div`
 export const CancelButton = styled.button`
   width: 179px;
   height: 52px;
-  background-color: #bdbdbd;
-  border: none;
+  background-color: #f7f8fa;
+  border: 1px solid #dbdbdb;
   font-size: 16px;
-  font-weight: 500;
   margin-left: 12px;
   margin-right: 12px;
+  border-radius: 4px;
   cursor: pointer;
 `;
 
 export const SubmitButton = styled.button`
   width: 179px;
   height: 52px;
-  border: none;
+  border: 1px solid #dbdbdb;
   font-size: 16px;
-  font-weight: 500;
   margin-left: 12px;
   margin-right: 12px;
   cursor: pointer;
-
-  background-color: gold;
-  border-radius: 2px;
+  border-radius: 4px;
+background-color: ${(props) =>
+    props.Active ? "gold" : " #f7f8fa"};
 `;
 
 export const Error = styled.div`

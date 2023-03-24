@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px;
+  
 `;
 
 export const CardWrapper = styled.div`
@@ -15,6 +16,7 @@ export const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border: none;
+  border-radius: 4px;
   box-shadow: 0px 0px 10px gray;
 `;
 
@@ -31,21 +33,27 @@ export const Header = styled.div`
 export const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 20px;
 `;
 
 export const Avatar = styled.img`
-  margin-right: 10px;
+  margin-right: 20px;
 `;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
-export const Writer = styled.div``;
+export const Writer = styled.div`
+font-weight: 600;
+`;
 
-export const CreatedAt = styled.div``;
+export const CreatedAt = styled.div`
+margin-left: 2px;
+color: #bdbdbd;
+`;
 
 export const Body = styled.div`
   width: 100%;
@@ -54,11 +62,18 @@ export const Body = styled.div`
 
 export const Title = styled.h1`
   padding-top: 80px;
+  margin-left: 10px;
 `;
 
 export const Contents = styled.div`
-  padding-top: 40px;
+    color: #424242;
+  padding-top: 20px;
+  padding-left: 20px;
   padding-bottom: 120px;
+  background-color: #f7f8fa;
+  margin-top: 20px;
+  border: none;
+  border-radius: 4px;
 `;
 
 export const BottomWrapper = styled.div`
@@ -71,9 +86,9 @@ export const BottomWrapper = styled.div`
 export const Button = styled.button`
   width: 179px;
   height: 45px;
-  background-color: white;
-  border: 1px solid gray;
-  border-radius: 2px;
+  background-color: #f7f8fa;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
   margin: 0px 12px;
   cursor: pointer;
 

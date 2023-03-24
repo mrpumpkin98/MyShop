@@ -15,11 +15,11 @@ export default function BoardDetailPage() {
         variables: { boardId: router.query.boardId },
     });
 
-    const onClickDelete = (event: React.ChangeEvent<HTMLInputElement>) => {
-        deleteBoard({
-            variables: { boardId: event.target.id },
-            refetchQueries: [{ query: FETCH_BOARD }]
+    const onClickDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const result = await deleteBoard({
+            variables: { boardId: router.query.boardId }
         })
+        router.push(`/Board`)
     }
 
     const onClickBoard = () => {
@@ -44,3 +44,4 @@ export default function BoardDetailPage() {
 
 
 }
+

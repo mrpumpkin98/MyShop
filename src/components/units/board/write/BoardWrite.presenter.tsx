@@ -23,17 +23,19 @@ import {
     ZipcodeWrapper,
     Error,
 } from "./BoardWrite.styles";
+import { IBoardWriteUIProps } from "./Boardwrite.types"
 
-export default function BoardWriteUI(props) {
+
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
 
     return (
-        <div>
+        <div >
             <Wrapper>
                 <Title>{props.isEdit ? "수정글" : "게시글"} 등록</Title>
                 <WriterWrapper>
                     <InputWrapper>
                         <Label>작성자</Label>
-                        <Writer type="text" placeholder="이름을 적어주세요." onChange={props.onChangeWriter} value={props.data?.fetchBoard.writer} />
+                        <Writer type="text" placeholder="이름을 적어주세요." onChange={props.onChangeWriter} value={props.data?.fetchBoard.writer} readOnly={props.data?.fetchBoard.writer} />
                         <Error>{props.writerError}</Error>
                     </InputWrapper>
                     <InputWrapper>
@@ -79,7 +81,9 @@ export default function BoardWriteUI(props) {
                     <RadioLabel htmlFor="image">사진</RadioLabel>
                 </OptionWrapper>
                 <ButtonWrapper>
-                    <SubmitButton onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}>{props.isEdit ? "수정하기" : "등록하기"}</SubmitButton>
+                    <SubmitButton onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
+                        Active={props.isEdit ? true : props.Active}
+                    >{props.isEdit ? "수정하기" : "등록하기"}</SubmitButton>
                     <CancelButton onClick={props.onClickCancel}>취소하기</CancelButton>
                 </ButtonWrapper>
             </Wrapper>

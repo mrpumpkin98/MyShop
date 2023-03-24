@@ -39,9 +39,9 @@ export const Button = styled.div`
 width: 200px;
 margin-left: 1100px;
 margin-top: 30px;
-    background-color: white;
-    border: 1px solid gray;
-    border-radius: 2px;
+    background-color: #f7f8fa;
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
     padding: 10px;
     text-align: center;
 cursor: pointer;
