@@ -14,8 +14,9 @@ import {
     Writer
 } from "./BoardDetail.styles";
 import { getDate } from '../../../../commons/libraries/utils'
+import { IBoardDetailUIProps } from "./BoardDetail.types";
 
-export default function BoardDetailUI(props) {
+export default function BoardDetailUI(props: IBoardDetailUIProps) {
     return (
         <div>
             <Wrapper>
@@ -29,6 +30,7 @@ export default function BoardDetailUI(props) {
                                     {getDate(props.data?.fetchBoard?.createdAt)}
                                 </CreatedAt>
                             </Info>
+
                         </AvatarWrapper>
                     </Header>
                     <Body>

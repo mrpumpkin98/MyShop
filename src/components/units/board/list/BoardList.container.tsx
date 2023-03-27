@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARDS, DELETE_BOARD } from './BoardList.queries'
+import { FETCH_BOARDS, DELETE_BOARD,  } from './BoardList.queries'
 import BoardListUI from "./BoardList.presenter"
 
 export default function StaticRoutingPage() {
@@ -9,16 +9,11 @@ export default function StaticRoutingPage() {
     const { data } = useQuery(FETCH_BOARDS)
     const [deleteBoard] = useMutation(DELETE_BOARD)
 
-    console.log(deleteBoard)
-
-
-
     const onClickDelete = (event: React.ChangeEvent<HTMLInputElement>) => {
         deleteBoard({
             variables: { boardId: event.target.id },
             refetchQueries: [{ query: FETCH_BOARDS }]
         })
-        console.log(event.target.id)
     }
 
     const onClickSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {

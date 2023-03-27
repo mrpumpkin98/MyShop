@@ -8,9 +8,9 @@ import {
 }
     from "./BoardList.styles";
 import { } from '../../../../commons/libraries/utils'
+import { IBoardListUIProps } from "./BoardList.types";
 
-export default function BoardListUI(props) {
-    console.log(props)
+export default function BoardListUI(props: IBoardListUIProps) {
     return (
         <div>
             <Table>

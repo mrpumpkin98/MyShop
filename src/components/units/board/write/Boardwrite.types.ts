@@ -18,7 +18,7 @@ export interface IBoardWriteUIProps {
     onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void
     onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void
     onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void
-    onChangeContents: (event: ChangeEvent<HTMLInputElement>) => void
+    onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void
     onClickCancel: () => void
     writerError: string
     passwordError: string
@@ -26,4 +26,15 @@ export interface IBoardWriteUIProps {
     contentsError: string
     isEdit: boolean
     data?: any
+    inputRef?: any
+    Active: boolean
+}
+
+export interface ISubmitButtonProps {
+    Active: boolean
+}
+
+export interface myVariables {
+    updateBoardInput?: any
+    password?: any
 }

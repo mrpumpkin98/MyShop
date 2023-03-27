@@ -11,7 +11,7 @@ export const CREATE_BOARD_COMMENT = gql`
     }
   `
 
-export const FETCH_BOARD_COMMENT = gql`
+export const FETCH_BOARD_COMMENTS = gql`
 query fetchBoardComments($boardId: ID!) {
     fetchBoardComments(boardId: $boardId) {
     _id
@@ -22,3 +22,10 @@ query fetchBoardComments($boardId: ID!) {
   }
 }
 `
+
+export const DELETE_BOARD_COMMENTS = gql`
+    mutation deleteBoardComment($password: String, $boardCommentId: ID!){
+      deleteBoardComment(password: $password, boardCommentId: $boardCommentId)
+    }
+`
+

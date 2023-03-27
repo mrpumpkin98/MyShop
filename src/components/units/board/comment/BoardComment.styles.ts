@@ -65,6 +65,7 @@ export const Scope = styled.img`
 margin-left: 3px; 
 width: 20px;
 height: 20px;
+cursor: pointer;
 `;
 
 export const Body = styled.div`
@@ -165,6 +166,7 @@ font-size: 16px;
 margin-top: 10px;
 margin-bottom: 15px;
 margin-left: 2px;
+margin-right: 20px;
 `;
 
 export const CommentRegistrationTime = styled.div`

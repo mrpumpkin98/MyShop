@@ -61,17 +61,15 @@ export const Body = styled.div`
 `;
 
 export const Title = styled.h1`
-  padding-top: 80px;
+  padding-top: 50px;
   margin-left: 10px;
 `;
 
 export const Contents = styled.div`
     color: #424242;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-bottom: 120px;
+  padding: 40px;
   background-color: #f7f8fa;
-  margin-top: 20px;
+  margin-top: 50px;
   border: none;
   border-radius: 4px;
 `;

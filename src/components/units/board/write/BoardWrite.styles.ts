@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-
+import { ISubmitButtonProps } from "./Boardwrite.types";
 
 
 export const Wrapper = styled.div`
@@ -166,7 +166,7 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
   border-radius: 4px;
-background-color: ${(props) =>
+background-color: ${(props: ISubmitButtonProps) =>
     props.Active ? "gold" : " #f7f8fa"};
 `;
 

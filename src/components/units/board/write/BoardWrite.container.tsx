@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState, useRef } from 'react'
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from '@apollo/client'
 import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from './BoardWrite.queries'
@@ -23,7 +23,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     const [createBoard] = useMutation<Pick<IMutation, "createBoard">, IMutationCreateBoardArgs>(CREATE_BOARD)
     const [updateBoard] = useMutation<Pick<IMutation, "updateBoard">, IMutationUpdateBoardArgs>(UPDATE_BOARD)
 
-    const onChangeWriter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
         setWriter(event.target.value);
         if (event.target.value !== "") {
             setWriterError("")
@@ -37,7 +37,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
     };
 
-    const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
         if (event.target.value !== "") {
             setPasswordError("")
@@ -52,7 +52,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
     };
 
-    const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
         if (event.target.value !== "") {
             setTitleError("")
@@ -67,7 +67,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
     };
 
-    const onChangeContents = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setContents(event.target.value);
         if (event.target.value !== "") {
             setContentsError("")
@@ -82,9 +82,13 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
     };
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const onClickSubmit = async () => {
+
         if (!writer) {
             setWriterError("작성자를 입력해주세요.");
+            alert("")
         }
         if (!password) {
             setPasswordError("비밀번호를 입력해주세요.");
@@ -107,10 +111,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
                         }
                     }
                 })
-                console.log(result)
-                router.push(`/Board/${result.data.createBoard._id}`)
+                router.push(`/Board/${result.data?.createBoard._id}`)
             } catch (error) {
-                alert(error.message)
+                if(error instanceof Error) alert(error.message)
             }
         }
     };
@@ -131,9 +134,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
             const result = await updateBoard({
                 variables: myVariables
             })
-            router.push(`/Board/${result.data.updateBoard._id}`)
+            router.push(`/Board/${result.data?.updateBoard._id}`)
         } catch (error) {
-            alert(error.message)
+            if(error instanceof Error) alert(error.message)
         }
     }
 
@@ -178,7 +181,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
                 Active={Active}
                 isEdit={props.isEdit}
                 data={data}
-
+                inputRef={inputRef}
             />
         </div>
     );

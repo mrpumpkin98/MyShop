@@ -33,7 +33,7 @@
         "src/components/units/board/detail/BoardDetail.container.js",
         "src/components/units/board/write/BoardWrite.presenter.js",
         "src/components/units/board/write/BoardWrite.container.tsx",
-        "src/components/units/board/comment/BoardComment.container.js"
+        "src/components/units/board/comment/BoardComment.container.tsx"
     ],
     "exclude": [
         "node_modules"
