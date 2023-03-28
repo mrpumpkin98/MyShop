@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
+import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px;
-  
 `;
 
 export const CardWrapper = styled.div`
@@ -47,17 +47,58 @@ export const Info = styled.div`
 `;
 
 export const Writer = styled.div`
-font-weight: 600;
+  font-weight: 600;
 `;
 
 export const CreatedAt = styled.div`
-margin-left: 2px;
-color: #bdbdbd;
+  margin-left: 2px;
+  color: #bdbdbd;
 `;
 
 export const Body = styled.div`
   width: 100%;
   min-height: 800px;
+`;
+
+export const Footer = styled.div`
+  display: flex;
+  margin-top: 50px;
+`;
+
+export const LikeTie = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+`;
+
+export const Like = styled(LikeOutlined)`
+  font-size: 25px;
+  color: gold;
+  cursor: pointer;
+  margin-bottom: 8px;
+`;
+
+export const DisLike = styled(DislikeOutlined)`
+  font-size: 25px;
+  color: #bdbdbd;
+  cursor: pointer;
+  margin-bottom: 8px;
+`;
+
+export const LikeNumber = styled.div`
+  color: gold;
+`;
+
+export const DisLikeNumber = styled.div`
+  color: #bdbdbd;
+`;
+
+export const DisLikeTie = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 30px;
 `;
 
 export const Title = styled.h1`
@@ -66,7 +107,7 @@ export const Title = styled.h1`
 `;
 
 export const Contents = styled.div`
-    color: #424242;
+  color: #424242;
   padding: 40px;
   background-color: #f7f8fa;
   margin-top: 50px;

@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client"
+import { gql } from "@apollo/client";
 
 export const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
@@ -8,12 +8,26 @@ export const FETCH_BOARD = gql`
       title
       contents
       createdAt
+      likeCount
+      dislikeCount
     }
   }
-`
+`;
 
 export const DELETE_BOARD = gql`
-    mutation deleteBoard($boardId: ID!){
-        deleteBoard(boardId: $boardId)
-    }
-`
+  mutation deleteBoard($boardId: ID!) {
+    deleteBoard(boardId: $boardId)
+  }
+`;
+
+export const LIKE_BOARD = gql`
+  mutation likeBoard($boardId: ID!) {
+    likeBoard(boardId: $boardId)
+  }
+`;
+
+export const DIS_LIKE_BOARD = gql`
+  mutation dislikeBoard($boardId: ID!) {
+    dislikeBoard(boardId: $boardId)
+  }
+`;
