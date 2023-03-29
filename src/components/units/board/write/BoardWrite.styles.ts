@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { ISubmitButtonProps } from "./Boardwrite.types";
-
+import { Modal } from "antd";
+import DaumPostcode from "react-daum-postcode";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -121,7 +122,6 @@ export const UploadButton = styled.button`
   cursor: pointer;
 `;
 
-
 export const OptionWrapper = styled.div`
   width: 996px;
   padding-top: 40px;
@@ -166,7 +166,7 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
   border-radius: 4px;
-background-color: ${(props: ISubmitButtonProps) =>
+  background-color: ${(props: ISubmitButtonProps) =>
     props.Active ? "gold" : " #f7f8fa"};
 `;
 
@@ -175,3 +175,7 @@ export const Error = styled.div`
   font-size: 14px;
   color: red;
 `;
+
+export const AddressModal = styled(Modal)``;
+
+export const AddressSearchInput = styled(DaumPostcode)``;

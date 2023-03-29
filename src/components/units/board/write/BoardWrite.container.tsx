@@ -10,15 +10,20 @@ import {
 } from "../../../../commons/types/generated/types";
 import { IBoardWriteProps, myVariables } from "./Boardwrite.types";
 import { Button, Modal, Space } from "antd";
+import type { Address } from "react-daum-postcode";
 
 export default function BoardsNewPage(props: IBoardWriteProps) {
   const router = useRouter();
   const [Active, setIsActive] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -88,6 +93,22 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const onChangeAddressDetail = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setAddressDetail(event.target.value);
+  };
+
+  const onClickAddressSearch = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const onCompleteAddressSearch = (data: Address): void => {
+    setAddress(data.address);
+    setZipcode(data.zonecode);
+    setIsOpen((prev) => !prev);
+  };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -117,6 +138,11 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
               password,
               title,
               contents,
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail,
+              },
             },
           },
         });
@@ -132,51 +158,58 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   });
 
   const onClickUpdate = async () => {
+    const updateBoardInput: myVariables = {};
+    updateBoardInput.boardAddress = {};
+    if (title !== "") {
+      updateBoardInput.title = title;
+    }
+    if (contents !== "") {
+      updateBoardInput.contents = contents;
+    }
+    if (zipcode !== "") {
+      updateBoardInput.boardAddress.zipcode = zipcode;
+    }
+    if (address !== "") {
+      updateBoardInput.boardAddress.address = address;
+    }
+    if (addressDetail !== "") {
+      updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
+
     try {
-      const myVariables: myVariables = {};
-      myVariables.updateBoardInput = {};
-      if (contents !== "") myVariables.contents = contents;
-      if (title !== "") {
-        myVariables.updateBoardInput.title = title;
+      if (typeof router.query.boardId !== "string") {
+        alert("시스템에 문제가 있습니다.");
+        return;
       }
-      if (contents !== "") {
-        myVariables.updateBoardInput.contents = contents;
-      }
-      myVariables.password = myVariables.password = password;
-      myVariables.boardId = router.query.boardId;
+
       const result = await updateBoard({
-        variables: myVariables,
+        variables: {
+          boardId: router.query.boardId,
+          password,
+          updateBoardInput,
+        },
       });
-      router.push(`/Board/${result.data?.updateBoard._id}`);
+
+      if (result.data?.updateBoard._id === undefined) {
+        alert("요청에 문제가 있습니다.");
+        return;
+      }
+      void router.push(`/Board/${result.data?.updateBoard._id}`);
     } catch (error) {
-      if (error instanceof Error)
-        Modal.error({
-          title: "비밀번호 오류",
-          content: "비밀번호를 확인해주세요.",
-        });
+      if (error instanceof Error) alert(error.message);
     }
   };
 
-  // const onClickUpdate = async () => {
-  //     try {
-  //         console.log(router.query.boardId)
-  //         const result = await updateBoard({
-  //             variables: {
-  //                 updateBoardInput: {
-  //                     title,
-  //                     contents,
-  //                 }, password,
-  //                 boardId: router.query.boardId
-  //             }
-  //         })
-  //         router.push(`/Board/${result.data.updateBoard._id}`)
-  //     } catch (error) {
-  //         alert(error.message)
-  //     }
-  // }
-
   const onClickCancel = async () => {
     router.push(`/Board`);
+  };
+
+  const Ok = (): void => {
+    setIsOpen(false);
+  };
+
+  const Cancel = (): void => {
+    setIsOpen(false);
   };
 
   return (
@@ -189,6 +222,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
         onClickCancel={onClickCancel}
+        onClickAddressSearch={onClickAddressSearch}
+        onChangeAddressDetail={onChangeAddressDetail}
+        onCompleteAddressSearch={onCompleteAddressSearch}
         writerError={writerError}
         passwordError={passwordError}
         titleError={titleError}
@@ -197,6 +233,11 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         isEdit={props.isEdit}
         data={data}
         inputRef={inputRef}
+        isOpen={isOpen}
+        zipcode={zipcode}
+        address={address}
+        Ok={Ok}
+        Cancel={Cancel}
       />
     </div>
   );
