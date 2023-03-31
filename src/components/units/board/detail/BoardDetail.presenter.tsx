@@ -21,7 +21,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </B.Header>
           <B.Body>
             <B.Title>{props.data?.fetchBoard?.title}</B.Title>
-            <B.Contents>{props.data?.fetchBoard?.contents}</B.Contents>
+            <B.Contents>
+              {props.data?.fetchBoard?.contents}
+              {props.data?.fetchBoard.youtubeUrl !== "" && (
+                <B.Youtube
+                  url={props.data?.fetchBoard.youtubeUrl ?? ""}
+                  width="486px"
+                  height="240px"
+                />
+              )}
+            </B.Contents>
           </B.Body>
           <B.Footer>
             <B.LikeTie>

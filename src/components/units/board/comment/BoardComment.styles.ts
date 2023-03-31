@@ -24,7 +24,9 @@ export const Header = styled.div`
   margin-bottom: 30px;
 `;
 
-export const HeaderTitle = styled.div``;
+export const HeaderTitle = styled.div`
+  font-family: "SCDream4";
+`;
 
 export const HeaderImage = styled.img`
   margin-right: 20px;
@@ -44,6 +46,7 @@ export const InForWriter = styled.input`
   margin-right: 20px;
   padding-left: 20px;
   border-radius: 4px;
+  font-family: "SCDream4";
 `;
 
 export const InForPassword = styled.input`
@@ -54,6 +57,7 @@ export const InForPassword = styled.input`
   padding-left: 20px;
   margin-right: 20px;
   border-radius: 4px;
+  font-family: "SCDream4";
 `;
 
 export const Rate = styled.input``;
@@ -86,6 +90,7 @@ export const BodyInput = styled.input`
   border-top-right-radius: 4px;
   box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
   border-bottom: 1px solid gold;
+  font-family: "SCDream4";
 `;
 
 export const BodyNumberTie = styled.div`
@@ -101,6 +106,8 @@ export const BodyNumber = styled.div`
   background: rgb(247, 248, 250);
   border-bottom-left-radius: 4px;
   box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
+  font-size: 14px;
+  font-family: "SCDream4";
 `;
 
 export const BodyButton = styled.button`
@@ -110,6 +117,7 @@ export const BodyButton = styled.button`
   background-color: gold;
   border-bottom-right-radius: 4px;
   box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
+  font-family: "SCDream4";
   cursor: pointer;
   :hover {
     background-color: #ebc600;
@@ -148,8 +156,9 @@ export const CommentNameScope = styled.div`
 export const CommentName = styled.div`
   font-weight: 600;
   font-size: 16px;
-  margin-bottom: 5px;
-  margin-right: 10px;
+  margin-right: 15px;
+  font-family: "SCDream4";
+  margin-top: 10px;
 `;
 
 export const CommentScope = styled.div``;
@@ -161,12 +170,14 @@ export const CommentContent = styled.div`
   margin-bottom: 15px;
   margin-left: 2px;
   margin-right: 20px;
+  font-family: "SCDream4";
 `;
 
 export const CommentRegistrationTime = styled.div`
   font-weight: 400;
   font-size: 12px;
   color: #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const FooterEditDelete = styled.div`

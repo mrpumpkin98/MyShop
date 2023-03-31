@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
+import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -48,16 +49,23 @@ export const Info = styled.div`
 
 export const Writer = styled.div`
   font-weight: 600;
+  font-family: "SCDream4";
 `;
 
 export const CreatedAt = styled.div`
   margin-left: 2px;
   color: #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const Body = styled.div`
   width: 100%;
   min-height: 800px;
+`;
+
+export const Youtube = styled(ReactPlayer)`
+  margin: auto;
+  margin-top: 50px;
 `;
 
 export const Footer = styled.div`
@@ -88,10 +96,12 @@ export const DisLike = styled(DislikeOutlined)`
 
 export const LikeNumber = styled.div`
   color: gold;
+  font-family: "SCDream4";
 `;
 
 export const DisLikeNumber = styled.div`
   color: #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const DisLikeTie = styled.div`
@@ -104,6 +114,7 @@ export const DisLikeTie = styled.div`
 export const Title = styled.h1`
   padding-top: 50px;
   margin-left: 10px;
+  font-family: "Jalnan";
 `;
 
 export const Contents = styled.div`
@@ -113,6 +124,7 @@ export const Contents = styled.div`
   margin-top: 50px;
   border: none;
   border-radius: 4px;
+  font-family: "SCDream4";
 `;
 
 export const BottomWrapper = styled.div`
@@ -130,6 +142,7 @@ export const Button = styled.button`
   border-radius: 4px;
   margin: 0px 12px;
   cursor: pointer;
+  font-family: "SCDream4";
 
   :hover {
     background-color: gold;

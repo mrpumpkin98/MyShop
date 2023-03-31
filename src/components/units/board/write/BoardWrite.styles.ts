@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
 export const Title = styled.div`
   font-size: 34px;
   font-weight: bold;
+  font-family: "Jalnan";
 `;
 
 export const WriterWrapper = styled.div`
@@ -37,6 +38,7 @@ export const Writer = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const Password = styled.input`
@@ -44,12 +46,14 @@ export const Password = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const Label = styled.div`
   padding-bottom: 16px;
   font-size: 16px;
   font-weight: 500;
+  font-family: "SCDream4";
 `;
 
 export const InputWrapper = styled.div`
@@ -61,6 +65,7 @@ export const Subject = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const Contents = styled.textarea`
@@ -69,6 +74,7 @@ export const Contents = styled.textarea`
   padding-left: 16px;
   padding: 14px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const ZipcodeWrapper = styled.div`
@@ -81,6 +87,7 @@ export const Zipcode = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const SearchButton = styled.button`
@@ -90,6 +97,7 @@ export const SearchButton = styled.button`
   background-color: black;
   cursor: pointer;
   color: white;
+  font-family: "SCDream4";
 `;
 
 export const Address = styled.input`
@@ -98,6 +106,7 @@ export const Address = styled.input`
   margin-top: 16px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const Youtube = styled.input`
@@ -105,6 +114,7 @@ export const Youtube = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+  font-family: "SCDream4";
 `;
 
 export const ImageWrapper = styled.div`
@@ -136,6 +146,7 @@ export const RadioLabel = styled.label`
   margin-right: 20px;
   font-weight: 500;
   cursor: pointer;
+  font-family: "SCDream4";
 `;
 
 export const ButtonWrapper = styled.div`
@@ -155,6 +166,7 @@ export const CancelButton = styled.button`
   margin-right: 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-family: "SCDream4";
 `;
 
 export const SubmitButton = styled.button`
@@ -168,6 +180,7 @@ export const SubmitButton = styled.button`
   border-radius: 4px;
   background-color: ${(props: ISubmitButtonProps) =>
     props.Active ? "gold" : " #f7f8fa"};
+  font-family: "SCDream4";
 `;
 
 export const Error = styled.div`

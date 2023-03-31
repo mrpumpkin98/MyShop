@@ -24,6 +24,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -91,6 +92,10 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     }
   };
 
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>): void => {
+    setYoutubeUrl(event.target.value);
+  };
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onChangeAddressDetail = (
@@ -138,6 +143,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
               password,
               title,
               contents,
+              youtubeUrl,
               boardAddress: {
                 zipcode,
                 address,
@@ -165,6 +171,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     }
     if (contents !== "") {
       updateBoardInput.contents = contents;
+    }
+    if (youtubeUrl !== "") {
+      updateBoardInput.youtubeUrl = youtubeUrl;
     }
     if (zipcode !== "") {
       updateBoardInput.boardAddress.zipcode = zipcode;
@@ -238,6 +247,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         address={address}
         Ok={Ok}
         Cancel={Cancel}
+        onChangeYoutubeUrl={onChangeYoutubeUrl}
       />
     </div>
   );

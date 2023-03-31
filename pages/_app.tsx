@@ -1,21 +1,19 @@
-import '/styles/globals.css'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-import { AppProps } from 'next/app'
+// import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { Global } from "@emotion/react";
+import { globalStyles } from "../src/commons/styles/globalStyles";
+import ApolloSetting from "../src/components/commons/apollo";
+import Layout from "../src/components/commons/layout";
 
-
-export default function App({ Component }: AppProps) {
-
-  const client = new ApolloClient({
-    uri: "http://backend-practice.codebootcamp.co.kr/graphql",
-    cache: new InMemoryCache()  // 컴퓨터 메모리에다가 백엔드에서 받아온 데이터 모두 임시로 저장해놓기 => 나중에 알아보기
-  })
-
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <div>
-      <ApolloProvider client={client}>
-        <Component />
-      </ApolloProvider>
-    </div>
-  )
-
+    <ApolloSetting>
+      <>
+        <Global styles={globalStyles} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </>
+    </ApolloSetting>
+  );
 }
