@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   width: 1200px;
   border-top: 1px solid #bdbdbd;
-  margin: 100px;
+  margin: 0px 100px;
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -47,6 +47,7 @@ export const InForWriter = styled.input`
   padding-left: 20px;
   border-radius: 4px;
   font-family: "SCDream4";
+  border: ${(props) => props.Active && "solid 1px #D1D1D3"};
 `;
 
 export const InForPassword = styled.input`
@@ -58,6 +59,7 @@ export const InForPassword = styled.input`
   margin-right: 20px;
   border-radius: 4px;
   font-family: "SCDream4";
+  border: ${(props) => props.Active && "solid 1px #D1D1D3"};
 `;
 
 export const Rate = styled.input``;
@@ -91,6 +93,7 @@ export const BodyInput = styled.input`
   box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
   border-bottom: 1px solid gold;
   font-family: "SCDream4";
+  border-bottom: ${(props) => props.Active && "solid 1px #D1D1D3"};
 `;
 
 export const BodyNumberTie = styled.div`
@@ -122,7 +125,9 @@ export const BodyButton = styled.button`
   :hover {
     background-color: #ebc600;
     border-color: #ebc600;
+    background-color: ${(props) => props.Active && " #C6C6C8"};
   }
+  background-color: ${(props) => props.Active && "#D1D1D3"};
 `;
 
 export const Footer = styled.div`

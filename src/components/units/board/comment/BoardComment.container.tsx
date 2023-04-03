@@ -1,60 +1,65 @@
-import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
+import type { ChangeEvent } from "react";
+import BoardCommentWriteUI from "./BoardComment.presenter";
+import { FETCH_BOARD_COMMENTS } from "../commentlist/BoardCommentList.queries";
 import {
   CREATE_BOARD_COMMENT,
-  FETCH_BOARD_COMMENTS,
-  DELETE_BOARD_COMMENTS,
+  UPDATE_BOARD_COMMENT,
 } from "./BoardComment.queries";
-import BoardCommentUI from "./BoardComment.presenter";
-import { Button, Modal, Space } from "antd";
+import type {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+  IMutationUpdateBoardCommentArgs,
+  IUpdateBoardCommentInput,
+} from "../../../../commons/types/generated/types";
 
-export default function BoardDetail() {
+export default function BoardCommentWrite(
+  props: IBoardCommentWriteProps
+): JSX.Element {
   const router = useRouter();
-
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
-  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
-  });
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENTS);
-
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
-  const [value, setValue] = useState(0);
-  const [isOpen, setIsModalOpen] = useState(false);
-  console.log(value);
+  const [star, setStar] = useState(0);
 
-  const onChangeRate = (value: number): void => {
-    setValue(value);
-  };
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
 
-  const onChangeWriter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [updateBoardComment] = useMutation<
+    Pick<IMutation, "updateBoardComment">,
+    IMutationUpdateBoardCommentArgs
+  >(UPDATE_BOARD_COMMENT);
+
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
   };
 
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>): void => {
     setPassword(event.target.value);
   };
 
-  const onChangeContents = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setContents(event.target.value);
-    console.log(contents.length);
   };
 
-  // const onChangeContentsNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //     setContents((event.target.value).length);
-  // };
-
-  const onClickSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onClickWrite = async (): Promise<void> => {
     try {
-      const result = await createBoardComment({
+      if (typeof router.query.boardId !== "string") {
+        alert("시스템에 문제가 있습니다.");
+        return;
+      }
+
+      await createBoardComment({
         variables: {
           createBoardCommentInput: {
             writer,
             password,
             contents,
-            rating: value,
+            rating: star,
           },
           boardId: router.query.boardId,
         },
@@ -65,30 +70,39 @@ export default function BoardDetail() {
           },
         ],
       });
-      // router.push(`/Board/${result.data.createBoardComment._id}`)
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+
     setWriter("");
     setPassword("");
     setContents("");
   };
 
-  const onClickDelete = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setIsModalOpen(true);
-    const password = prompt("비밀번호를 입력하세요.");
+  const onClickUpdate = async (): Promise<void> => {
+    if (contents === "") {
+      alert("내용이 수정되지 않았습니다.");
+      return;
+    }
+    if (password === "") {
+      alert("비밀번호가 입력되지 않았습니다.");
+      return;
+    }
 
     try {
-      if (!(event.target instanceof HTMLImageElement)) {
+      const updateBoardCommentInput: IUpdateBoardCommentInput = {};
+      if (contents !== "") updateBoardCommentInput.contents = contents;
+      if (star !== props.el?.rating) updateBoardCommentInput.rating = star;
+
+      if (typeof props.el?._id !== "string") {
         alert("시스템에 문제가 있습니다.");
         return;
       }
-
-      console.log(event.target);
-      deleteBoardComment({
+      await updateBoardComment({
         variables: {
+          updateBoardCommentInput,
           password,
-          boardCommentId: event.target.id,
+          boardCommentId: props.el?._id,
         },
         refetchQueries: [
           {
@@ -97,41 +111,25 @@ export default function BoardDetail() {
           },
         ],
       });
+      props.setIsEdit?.(false);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
   };
 
-  const showCommentEditModal = (): void => {
-    setIsModalOpen(true);
-  };
-
-  const Ok = (): void => {
-    setIsModalOpen(false);
-  };
-
-  const Cancel = (): void => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <BoardCommentUI
-      data={data}
-      writer={writer}
-      password={password}
-      contents={contents}
-      onClickSubmit={onClickSubmit}
+    <BoardCommentWriteUI
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
-      onClickDelete={onClickDelete}
-      onChangeRate={onChangeRate}
-      value={value}
-      isOpen={isOpen}
-      showCommentEditModal={showCommentEditModal}
-      Ok={Ok}
-      Cancel={Cancel}
-      // onChangeContentsNumber={onChangeContentsNumber}
+      onClickWrite={onClickWrite}
+      onClickUpdate={onClickUpdate}
+      writer={writer}
+      password={password}
+      contents={contents}
+      setStar={setStar}
+      isEdit={props.isEdit}
+      el={props.el}
     />
   );
 }
