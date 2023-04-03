@@ -102,6 +102,18 @@ export default function BoardDetail() {
     }
   };
 
+  const showCommentEditModal = (): void => {
+    setIsModalOpen(true);
+  };
+
+  const Ok = (): void => {
+    setIsModalOpen(false);
+  };
+
+  const Cancel = (): void => {
+    setIsModalOpen(false);
+  };
+
   return (
     <BoardCommentUI
       data={data}
@@ -116,6 +128,9 @@ export default function BoardDetail() {
       onChangeRate={onChangeRate}
       value={value}
       isOpen={isOpen}
+      showCommentEditModal={showCommentEditModal}
+      Ok={Ok}
+      Cancel={Cancel}
       // onChangeContentsNumber={onChangeContentsNumber}
     />
   );

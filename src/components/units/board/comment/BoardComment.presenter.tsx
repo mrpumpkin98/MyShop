@@ -5,6 +5,22 @@ import { Rate, Modal } from "antd";
 export default function BoardCommentUI(props) {
   return (
     <div>
+      <Modal
+        title="댓글 수정"
+        open={props.isOpen}
+        onOk={props.Ok}
+        onCancel={props.Cancel}
+      >
+        작성자 : <input type="text" />
+        <br />
+        비밀번호 : <input type="text" />
+        <br />
+        <Rate onChange={props.onChangeRate} value={props.value} />
+        <br />
+        내용 : <input type="text" />
+        <br />
+        <button>GO</button>
+      </Modal>
       <B.Wrapper>
         <B.CardWrapper>
           <B.Header>
@@ -55,7 +71,10 @@ export default function BoardCommentUI(props) {
                 </B.CommentRegistrationTime>
               </B.FooterCommentInfor>
               <B.FooterEditDelete>
-                <B.CommentEdit src="/images/B.CommentEdit.png"></B.CommentEdit>
+                <B.CommentEdit
+                  src="/images/B.CommentEdit.png"
+                  onClick={props.showCommentEditModal}
+                ></B.CommentEdit>
                 <B.CommentDelete
                   src="/images/B.CommentDelete.png"
                   onClick={props.onClickDelete}

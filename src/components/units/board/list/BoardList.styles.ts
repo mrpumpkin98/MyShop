@@ -30,6 +30,12 @@ export const Td = styled.td`
   cursor: pointer;
 `;
 
+export const Pagination = styled.div`
+  margin-left: 100px;
+  margin-top: 30px;
+  text-align: center;
+`;
+
 export const ButtonTie = styled.div`
   width: 100%;
 `;
