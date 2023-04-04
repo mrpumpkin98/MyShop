@@ -117,6 +117,10 @@ export default function BoardCommentWrite(
     }
   };
 
+  const onClickExport = (): void => {
+    props.setIsEdit?.(false);
+  };
+
   return (
     <BoardCommentWriteUI
       onChangeWriter={onChangeWriter}
@@ -124,6 +128,7 @@ export default function BoardCommentWrite(
       onChangeContents={onChangeContents}
       onClickWrite={onClickWrite}
       onClickUpdate={onClickUpdate}
+      onClickExport={onClickExport}
       writer={writer}
       password={password}
       contents={contents}

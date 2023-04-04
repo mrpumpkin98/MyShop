@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
+import {
+  LikeOutlined,
+  DislikeOutlined,
+  EnvironmentOutlined,
+  PaperClipOutlined,
+} from "@ant-design/icons";
 import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
@@ -45,6 +50,21 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 830px;
+  margin-right: 30px;
+`;
+
+export const Environment = styled(EnvironmentOutlined)`
+  font-size: 20px;
+  color: gold;
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+export const PaperClip = styled(PaperClipOutlined)`
+  font-size: 20px;
+  color: gold;
+  cursor: pointer;
 `;
 
 export const Writer = styled.div`

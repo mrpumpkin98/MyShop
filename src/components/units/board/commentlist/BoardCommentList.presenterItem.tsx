@@ -61,6 +61,10 @@ export default function BoardCommentListUIItem(
     setIsOpenDeleteModal(true);
   };
 
+  const handleCancel = () => {
+    setIsOpenDeleteModal(false);
+  };
+
   const onChangeDeletePassword = (
     event: ChangeEvent<HTMLInputElement>
   ): void => {
@@ -70,8 +74,12 @@ export default function BoardCommentListUIItem(
   return (
     <>
       {isOpenDeleteModal && (
-        <S.PasswordModal visible={true} onOk={onClickDelete}>
-          <div>비밀번호 입력: </div>
+        <S.PasswordModal
+          visible={true}
+          onOk={onClickDelete}
+          onCancel={handleCancel}
+        >
+          <div>비밀번호 입력 : </div>
           <S.PasswordInput type="password" onChange={onChangeDeletePassword} />
         </S.PasswordModal>
       )}
@@ -87,14 +95,8 @@ export default function BoardCommentListUIItem(
               <S.Contents>{props.el.contents}</S.Contents>
             </S.MainWrapper>
             <S.OptionWrapper>
-              <S.UpdateIcon
-                src="/images/B.CommentEdit.png/"
-                onClick={onClickUpdate}
-              />
-              <S.DeleteIcon
-                src="/images/B.CommentDelete.png/"
-                onClick={onClickOpenDeleteModal}
-              />
+              <S.Edit onClick={onClickUpdate} />
+              <S.Delete onClick={onClickOpenDeleteModal} />
             </S.OptionWrapper>
           </S.FlexWrapper>
           <S.DateString>{getDate(props.el.createdAt)}</S.DateString>

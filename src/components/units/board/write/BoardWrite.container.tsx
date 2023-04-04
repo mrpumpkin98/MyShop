@@ -165,7 +165,6 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
   const onClickUpdate = async () => {
     const updateBoardInput: myVariables = {};
-    updateBoardInput.boardAddress = {};
     if (title !== "") {
       updateBoardInput.title = title;
     }

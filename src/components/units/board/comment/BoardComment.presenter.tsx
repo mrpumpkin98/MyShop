@@ -32,6 +32,9 @@ export default function BoardCommentUI(props) {
               Active={props.isEdit === true}
             />
             <Rate onChange={props.setStar} />
+            {props.isEdit === true && (
+              <B.Export onClick={props.onClickExport} />
+            )}
           </B.InFor>
           <B.Body>
             <B.BodyInput

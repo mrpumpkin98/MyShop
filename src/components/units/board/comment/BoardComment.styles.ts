@@ -1,4 +1,11 @@
 import styled from "@emotion/styled";
+import {
+  LikeOutlined,
+  DislikeOutlined,
+  EnvironmentOutlined,
+  PaperClipOutlined,
+  ExportOutlined,
+} from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -63,6 +70,14 @@ export const InForPassword = styled.input`
 `;
 
 export const Rate = styled.input``;
+
+export const Export = styled(ExportOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #bdbdbd;
+  margin-left: 630px;
+`;
 
 export const Scope = styled.img`
   margin-left: 3px;

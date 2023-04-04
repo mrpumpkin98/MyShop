@@ -1,4 +1,12 @@
 import styled from "@emotion/styled";
+import {
+  LikeOutlined,
+  DislikeOutlined,
+  EnvironmentOutlined,
+  PaperClipOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 import { Rate, Modal } from "antd";
 
 export const ItemWrapper = styled.div`
@@ -48,6 +56,20 @@ export const DeleteIcon = styled.img`
   height: 16px;
   cursor: pointer;
   margin-left: 10px;
+`;
+
+export const Edit = styled(EditOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #bdbdbd;
+`;
+
+export const Delete = styled(DeleteOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #bdbdbd;
 `;
 
 export const DateString = styled.div`
