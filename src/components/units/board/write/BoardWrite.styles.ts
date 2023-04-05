@@ -39,6 +39,10 @@ export const Writer = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const Password = styled.input`
@@ -47,6 +51,10 @@ export const Password = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const Label = styled.div`
@@ -66,6 +74,10 @@ export const Subject = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const Contents = styled.textarea`
@@ -75,6 +87,10 @@ export const Contents = styled.textarea`
   padding: 14px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const ZipcodeWrapper = styled.div`
@@ -88,6 +104,10 @@ export const Zipcode = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const SearchButton = styled.button`
@@ -107,6 +127,10 @@ export const Address = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const Youtube = styled.input`
@@ -115,6 +139,10 @@ export const Youtube = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
 `;
 
 export const ImageWrapper = styled.div`

@@ -16,10 +16,16 @@ export default function LayoutBannerUI(): JSX.Element {
     <Wrapper>
       <Slider {...settings}>
         <div>
-          <SliderItem src="/images/Banner_1.png" />
+          <SliderItem
+            src="/images/Banner_1.png"
+            onDoubleClick={() => window.open("https://github.com/mrpumpkin98")}
+          />
         </div>
         <div>
-          <SliderItem src="/images/Banner_2.png" />
+          <SliderItem
+            src="/images/Banner_2.png"
+            onDoubleClick={() => window.open("https://velog.io/@sju4486")}
+          />
         </div>
       </Slider>
     </Wrapper>

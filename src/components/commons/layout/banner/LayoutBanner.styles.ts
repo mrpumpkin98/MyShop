@@ -8,4 +8,5 @@ export const SliderItem = styled.img`
   width: 100%;
   height: 350px;
   margin: auto;
+  cursor: pointer;
 `;

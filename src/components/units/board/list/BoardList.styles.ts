@@ -4,8 +4,8 @@ export const Table = styled.table`
   width: 1200px;
   border-top: 1px solid #444444;
   border-collapse: collapse;
+  margin: auto;
   margin-top: 100px;
-  margin-left: 100px;
 `;
 
 export const Tr = styled.tr`
@@ -28,12 +28,13 @@ export const Td = styled.td`
   text-align: center;
   color: #4f4f4f;
   cursor: pointer;
+  width: 200px;
 `;
 
 export const Pagination = styled.div`
-  margin-left: 100px;
-  margin-top: 30px;
   text-align: center;
+  margin: auto;
+  margin-top: 30px;
 `;
 
 export const ButtonTie = styled.div`
@@ -53,21 +54,19 @@ export const DeleteButton = styled.button`
 `;
 
 export const Button = styled.button`
-  width: 200px;
-  height: 50px;
-  margin-left: 1100px;
+  width: 179px;
+  height: 45px;
+  margin-left: 1000px;
   margin-top: 30px;
-  border: 1px solid gold;
-  background-color: white;
+  margin-bottom: 80px;
+  background-color: #f7f8fa;
+  border: 1px solid #dbdbdb;
   border-radius: 4px;
-  font-size: 17px;
-  font-family: "Jalnan";
-  margin-bottom: 50px;
-  color: gold;
+  font-family: "SCDream4";
 
   cursor: pointer;
   :hover {
     background-color: gold;
-    color: white;
+    border-color: gold;
   }
 `;

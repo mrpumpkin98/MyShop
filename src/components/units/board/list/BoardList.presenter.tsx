@@ -21,7 +21,6 @@ export default function BoardListUI(props) {
           <Th>아이디</Th>
           <Th>제목</Th>
           <Th>작성자</Th>
-          <Th>삭제</Th>
         </Tr>
         {props.data?.fetchBoards.map((el) => (
           <Tr key={el._id}>
@@ -48,11 +47,6 @@ export default function BoardListUI(props) {
               onClick={props.onClickSubmit}
             >
               {el.writer}
-            </Td>
-            <Td>
-              <DeleteButton id={el._id} onClick={props.onClickDelete}>
-                삭제
-              </DeleteButton>
             </Td>
           </Tr>
         ))}

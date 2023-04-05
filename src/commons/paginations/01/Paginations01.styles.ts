@@ -11,6 +11,6 @@ export const Page = styled.span`
   margin: 0px 10px;
   color: ${(props: IPageProps) => (props.isActive ? "gold" : "black")};
   font-weight: ${(props: IPageProps) => (props.isActive ? "bold" : "normal")};
-  cursor: ${(props: IPageProps) => (props.isActive ? "none" : "pointer")};
+  cursor: ${(props: IPageProps) => (props.isActive ? "pointer" : "pointer")};
   font-family: "SCDream4";
 `;
