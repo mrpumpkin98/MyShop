@@ -1,4 +1,95 @@
 import styled from "@emotion/styled";
+import {
+  LikeOutlined,
+  DislikeOutlined,
+  EnvironmentOutlined,
+  PaperClipOutlined,
+} from "@ant-design/icons";
+
+export const BestPostsTie = styled.div`
+  display: flex;
+  cursor: pointer;
+  font-family: "SCDream4";
+`;
+
+export const BestPosts = styled.div`
+  width: 100%;
+  margin-top: 100px;
+`;
+
+export const BestPostBody = styled.div`
+  height: 257px;
+  margin: 14px;
+  background: rgb(250, 250, 252);
+  overflow: hidden;
+  border-radius: 20px;
+  &:hover {
+    background: rgb(250, 250, 252);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export const BestPostImg = styled.img`
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+`;
+
+export const BestPostContent = styled.div`
+  display: flex;
+`;
+
+export const BestPostTitle = styled.div`
+  margin: 10px 0px 15px 15px;
+  margin-bottom: 17px;
+  font-weight: 600;
+  font-size: 17px;
+`;
+
+export const BestPostInfo = styled.div`
+  width: 85%;
+  padding-left: 15px;
+`;
+
+export const AvatarWriterTie = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Avatar = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+`;
+
+export const Writer = styled.div`
+  font-weight: 400;
+  font-size: 15px;
+  margin-bottom: 2px;
+`;
+
+export const CreatedAt = styled.div`
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 7px;
+  color: #828282;
+`;
+
+export const LikeTie = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Like = styled(LikeOutlined)`
+  font-size: 18px;
+  color: gold;
+  cursor: pointer;
+  margin-bottom: 8px;
+`;
+
+export const LikeNum = styled.div`
+  font-size: 12px;
+`;
 
 export const Table = styled.table`
   width: 1200px;
@@ -11,7 +102,7 @@ export const Table = styled.table`
 export const Tr = styled.tr`
   font-family: "SCDream4";
   &:hover {
-    background: #fafafa;
+    background: rgb(250, 250, 252);
     color: black;
   }
 `;

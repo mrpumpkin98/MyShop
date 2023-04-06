@@ -1,12 +1,25 @@
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client"; // module 요즘
+import {
+  ApolloProvider,
+  ApolloClient,
+  InMemoryCache,
+  ApolloLink,
+} from "@apollo/client"; // module 요즘
+import {} from "apollo-upload-client";
+import { createUploadLink } from "apollo-upload-client";
+
+const GLOBAL_STATE = new InMemoryCache();
 
 interface IApolloSettingProps {
   children: JSX.Element;
 }
 export default function ApolloSetting(props: IApolloSettingProps): JSX.Element {
-  const client = new ApolloClient({
+  const uploadLink = createUploadLink({
     uri: "http://backend-practice.codebootcamp.co.kr/graphql",
-    cache: new InMemoryCache(),
+  });
+
+  const client = new ApolloClient({
+    link: ApolloLink.from([uploadLink]),
+    cache: GLOBAL_STATE,
   });
 
   // prettier-ignore
