@@ -38,6 +38,11 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
                   height="240px"
                 />
               )}
+              <B.imImageResult
+                src={`https://storage.googleapis.com/${
+                  props.data && props.data?.fetchBoard?.images.join("")
+                }`}
+              />
             </B.Contents>
           </B.Body>
           <B.Footer>

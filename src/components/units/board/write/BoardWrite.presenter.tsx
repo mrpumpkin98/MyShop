@@ -24,6 +24,7 @@ import {
   Error,
   AddressModal,
   AddressSearchInput,
+  ImageResult,
 } from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./Boardwrite.types";
 
@@ -76,7 +77,7 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             placeholder="내용을 작성해주세요."
             onChange={props.onChangeContents}
             defaultValue={props.data?.fetchBoard.contents}
-          />
+          ></Contents>
           <Error>{props.contentsError}</Error>
         </InputWrapper>
         <InputWrapper>
@@ -120,10 +121,18 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          <UploadButton>+</UploadButton>
+          <UploadButton onClick={props.onClickImage}>+</UploadButton>
+          <input
+            style={{ display: "none" }}
+            type="file"
+            onChange={props.onChangeFile}
+            ref={props.fileRef}
+            // accept="image/jpeg,image,png"
+          />
           <UploadButton>+</UploadButton>
           <UploadButton>+</UploadButton>
         </ImageWrapper>
+        <ImageResult src={`https://storage.googleapis.com/${props.imageUrl}`} />
         <OptionWrapper>
           <Label>메인설정</Label>
           <RadioButton type="radio" id="youtube" name="radio-button" />

@@ -220,3 +220,11 @@ export const Error = styled.div`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
+
+export const ImageResult = styled.img`
+  width: 100%;
+  height: 400px;
+  margin-top: 40px;
+  background-size: cover;
+  border: 1px solid #dbdbdb;
+`;

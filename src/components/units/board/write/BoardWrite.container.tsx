@@ -1,7 +1,12 @@
 import { ChangeEvent, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
+import {
+  CREATE_BOARD,
+  UPDATE_BOARD,
+  FETCH_BOARD,
+  UPLOAD_FILE,
+} from "./BoardWrite.queries";
 import BoardWriteUI from "./BoardWrite.presenter";
 import {
   IMutation,
@@ -11,11 +16,14 @@ import {
 import { IBoardWriteProps, myVariables } from "./Boardwrite.types";
 import { Button, Modal, Space } from "antd";
 import type { Address } from "react-daum-postcode";
+import { checkValidationFile } from "../../../../commons/libraries/utils";
 
 export default function BoardsNewPage(props: IBoardWriteProps) {
   const router = useRouter();
   const [Active, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -31,14 +39,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const [createBoard] = useMutation<
-    Pick<IMutation, "createBoard">,
-    IMutationCreateBoardArgs
-  >(CREATE_BOARD);
-  const [updateBoard] = useMutation<
-    Pick<IMutation, "updateBoard">,
-    IMutationUpdateBoardArgs
-  >(UPDATE_BOARD);
+  const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -144,6 +147,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
               title,
               contents,
               youtubeUrl,
+              images: [imageUrl],
               boardAddress: {
                 zipcode,
                 address,
@@ -220,6 +224,25 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     setIsOpen(false);
   };
 
+  const onChangeFile = async (
+    event: ChangeEvent<HTMLInputElement>
+  ): Promise<void> => {
+    const file = event.target.files?.[0]; // 배열로 들어오는 이유: <input type="file" multiple /> 일 때, 여러개 드래그 가능
+    console.log(file);
+
+    const isValid = checkValidationFile(file);
+    if (!isValid) return;
+
+    const result = await uploadFile({ variables: { file } });
+    console.log(result.data?.uploadFile.url);
+    setImageUrl(result.data?.uploadFile.url ?? "");
+  };
+
+  const onClickImage = (): void => {
+    // document.getElementById("파일태그ID")?.click()
+    fileRef.current?.click();
+  };
+
   return (
     <div>
       <BoardWriteUI
@@ -247,6 +270,10 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         Ok={Ok}
         Cancel={Cancel}
         onChangeYoutubeUrl={onChangeYoutubeUrl}
+        fileRef={fileRef}
+        onClickImage={onClickImage}
+        onChangeFile={onChangeFile}
+        imageUrl={imageUrl}
       />
     </div>
   );

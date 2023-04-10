@@ -88,6 +88,16 @@ export const Youtube = styled(ReactPlayer)`
   margin-top: 50px;
 `;
 
+export const imImageResult = styled.img`
+  width: 486px;
+  height: 240px;
+  background-size: cover;
+  border: 1px solid #dbdbdb;
+  display: block;
+  margin: auto;
+  margin-top: 50px;
+`;
+
 export const Footer = styled.div`
   display: flex;
   margin-top: 50px;
