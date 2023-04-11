@@ -3,10 +3,12 @@ import { getDate } from "../../../../commons/libraries/utils";
 import {} from "../../../../commons/libraries/utils";
 import { IBoardListUIProps } from "./BoardList.types";
 import Paginations01 from "../../../../commons/paginations/01/Paginations01.container";
+import { v4 as uuidv4 } from "uuid";
+// import { v1 as uuidv1 } from "uuid";
 
 export default function BoardListUI(props) {
   return (
-    <div>
+    <>
       <B.BestPostsTie>
         {props.best?.fetchBoardsOfTheBest.map((i) => (
           <B.BestPosts key={i._id}>
@@ -19,7 +21,7 @@ export default function BoardListUI(props) {
               <B.BestPostTitle id={i._id} onClick={props.onClickSubmit}>
                 {i.title}
               </B.BestPostTitle>
-              <B.BestPostContent>
+              <B.BestPostContent onClick={props.onClickSubmit}>
                 <B.BestPostInfo>
                   <B.AvatarWriterTie id={i._id} onClick={props.onClickSubmit}>
                     <B.Avatar src="/images/avatar.png" />
@@ -47,38 +49,54 @@ export default function BoardListUI(props) {
           </B.BestPosts>
         ))}
       </B.BestPostsTie>
+      <B.SearchTitle
+        onChange={props.onChangeSearch}
+        placeholder="제목을 검색해주세요."
+      />
+      {/* <B.SearchTime
+        onChange={props.onChangeSearch2}
+        placeholder="제목을 검색해주세요."
+      /> */}
       <B.Table>
         <B.Tr>
-          <B.Th>체크박스</B.Th>
           <B.Th>아이디</B.Th>
-          <B.Th>제목</B.Th>
           <B.Th>작성자</B.Th>
+          <B.Th>제목</B.Th>
+          <B.Th>날짜</B.Th>
         </B.Tr>
         {props.data?.fetchBoards.map((el) => (
           <B.Tr key={el._id}>
-            <B.Td>
-              <input type="checkbox" />
-            </B.Td>
-            <B.Td
-              style={{ margin: "10px" }}
-              id={el._id}
-              onClick={props.onClickSubmit}
-            >
-              {String(el._id).slice(-4).toUpperCase()}
-            </B.Td>
-            <B.Td
-              style={{ margin: "10px" }}
-              id={el._id}
-              onClick={props.onClickSubmit}
-            >
-              {el.title}
-            </B.Td>
+            <B.Td>{String(el._id).slice(-4).toUpperCase()}</B.Td>
             <B.Td
               style={{ margin: "10px" }}
               id={el._id}
               onClick={props.onClickSubmit}
             >
               {el.writer}
+            </B.Td>
+            <B.Td
+              style={{ margin: "10px" }}
+              id={el._id}
+              onClick={props.onClickSubmit}
+            >
+              {el.title
+                .replaceAll(props.keyword, `@@@${props.keyword}@@@`)
+                .split("@@@")
+                .map((el) => (
+                  <span
+                    key={uuidv4()}
+                    style={{ color: el === props.keyword ? "gold" : "black" }}
+                  >
+                    {el}
+                  </span>
+                ))}
+            </B.Td>
+            <B.Td
+              style={{ margin: "10px" }}
+              id={el._id}
+              onClick={props.onClickSubmit}
+            >
+              {getDate(el.createdAt)}
             </B.Td>
           </B.Tr>
         ))}
@@ -89,6 +107,6 @@ export default function BoardListUI(props) {
       <B.ButtonTie>
         <B.Button onClick={props.onClickWrite}>게시물 등록하기</B.Button>
       </B.ButtonTie>
-    </div>
+    </>
   );
 }

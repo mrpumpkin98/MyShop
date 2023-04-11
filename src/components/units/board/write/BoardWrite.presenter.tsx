@@ -1,47 +1,20 @@
-import {
-  Address,
-  ButtonWrapper,
-  Contents,
-  ImageWrapper,
-  InputWrapper,
-  Label,
-  OptionWrapper,
-  Password,
-  RadioButton,
-  RadioLabel,
-  SearchButton,
-  Subject,
-  SubmitButton,
-  Title,
-  UploadButton,
-  CancelButton,
-  Wrapper,
-  Writer,
-  WriterWrapper,
-  Youtube,
-  Zipcode,
-  ZipcodeWrapper,
-  Error,
-  AddressModal,
-  AddressSearchInput,
-  ImageResult,
-} from "./BoardWrite.styles";
+import * as B from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./Boardwrite.types";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <div>
       {props.isOpen && (
-        <AddressModal visible={true} onOk={props.Ok} onCancel={props.Cancel}>
-          <AddressSearchInput onComplete={props.onCompleteAddressSearch} />
-        </AddressModal>
+        <B.AddressModal visible={true} onOk={props.Ok} onCancel={props.Cancel}>
+          <B.AddressSearchInput onComplete={props.onCompleteAddressSearch} />
+        </B.AddressModal>
       )}
-      <Wrapper>
-        <Title>{props.isEdit ? "수정글" : "게시글"} 등록</Title>
-        <WriterWrapper>
-          <InputWrapper>
-            <Label>작성자</Label>
-            <Writer
+      <B.Wrapper>
+        <B.Title>{props.isEdit ? "수정글" : "게시글"} 등록</B.Title>
+        <B.WriterWrapper>
+          <B.InputWrapper>
+            <B.Label>작성자</B.Label>
+            <B.Writer
               type="text"
               placeholder="이름을 적어주세요."
               onChange={props.onChangeWriter}
@@ -49,41 +22,41 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
               readOnly={props.data?.fetchBoard.writer}
               ref={props.inputRef}
             />
-            <Error>{props.writerError}</Error>
-          </InputWrapper>
-          <InputWrapper>
-            <Label>비밀번호</Label>
-            <Password
+            <B.Error>{props.writerError}</B.Error>
+          </B.InputWrapper>
+          <B.InputWrapper>
+            <B.Label>비밀번호</B.Label>
+            <B.Password
               type="password"
               placeholder="비밀번호를 작성해주세요."
               onChange={props.onChangePassword}
             />
-            <Error>{props.passwordError}</Error>
-          </InputWrapper>
-        </WriterWrapper>
-        <InputWrapper>
-          <Label>제목</Label>
-          <Subject
+            <B.Error>{props.passwordError}</B.Error>
+          </B.InputWrapper>
+        </B.WriterWrapper>
+        <B.InputWrapper>
+          <B.Label>제목</B.Label>
+          <B.Subject
             type="text"
             placeholder="제목을 작성해주세요."
             onChange={props.onChangeTitle}
             defaultValue={props.data?.fetchBoard.title}
           />
-          <Error>{props.titleError}</Error>
-        </InputWrapper>
-        <InputWrapper>
-          <Label>내용</Label>
-          <Contents
+          <B.Error>{props.titleError}</B.Error>
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>내용</B.Label>
+          <B.Contents
             placeholder="내용을 작성해주세요."
             onChange={props.onChangeContents}
             defaultValue={props.data?.fetchBoard.contents}
-          ></Contents>
-          <Error>{props.contentsError}</Error>
-        </InputWrapper>
-        <InputWrapper>
-          <Label>주소</Label>
-          <ZipcodeWrapper>
-            <Zipcode
+          ></B.Contents>
+          <B.Error>{props.contentsError}</B.Error>
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>주소</B.Label>
+          <B.ZipcodeWrapper>
+            <B.Zipcode
               placeholder="07250"
               readOnly
               value={
@@ -92,11 +65,11 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
                   : props.data?.fetchBoard.boardAddress?.zipcode ?? ""
               }
             />
-            <SearchButton onClick={props.onClickAddressSearch}>
+            <B.SearchButton onClick={props.onClickAddressSearch}>
               우편번호 검색
-            </SearchButton>
-          </ZipcodeWrapper>
-          <Address
+            </B.SearchButton>
+          </B.ZipcodeWrapper>
+          <B.Address
             readOnly
             value={
               props.address !== ""
@@ -104,24 +77,24 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
                 : props.data?.fetchBoard.boardAddress?.address ?? ""
             }
           />
-          <Address
+          <B.Address
             onChange={props.onChangeAddressDetail}
             defaultValue={
               props.data?.fetchBoard.boardAddress?.addressDetail ?? ""
             }
           />
-        </InputWrapper>
-        <InputWrapper>
-          <Label>유튜브</Label>
-          <Youtube
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>유튜브</B.Label>
+          <B.Youtube
             placeholder="링크를 복사해주세요."
             onChange={props.onChangeYoutubeUrl}
             defaultValue={props.data?.fetchBoard.youtubeUrl ?? ""}
           />
-        </InputWrapper>
-        <ImageWrapper>
-          <Label>사진첨부</Label>
-          <UploadButton onClick={props.onClickImage}>+</UploadButton>
+        </B.InputWrapper>
+        <B.ImageWrapper>
+          <B.Label>사진첨부</B.Label>
+          <B.UploadButton onClick={props.onClickImage}>+</B.UploadButton>
           <input
             style={{ display: "none" }}
             type="file"
@@ -129,27 +102,29 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
             ref={props.fileRef}
             // accept="image/jpeg,image,png"
           />
-          <UploadButton>+</UploadButton>
-          <UploadButton>+</UploadButton>
-        </ImageWrapper>
-        <ImageResult src={`https://storage.googleapis.com/${props.imageUrl}`} />
-        <OptionWrapper>
-          <Label>메인설정</Label>
-          <RadioButton type="radio" id="youtube" name="radio-button" />
-          <RadioLabel htmlFor="youtube">유튜브</RadioLabel>
-          <RadioButton type="radio" id="image" name="radio-button" />
-          <RadioLabel htmlFor="image">사진</RadioLabel>
-        </OptionWrapper>
-        <ButtonWrapper>
-          <SubmitButton
+          <B.UploadButton>+</B.UploadButton>
+          <B.UploadButton>+</B.UploadButton>
+        </B.ImageWrapper>
+        <B.ImageResult src={`https://storage.googleapis.com/${props.images}`} />
+        <B.OptionWrapper>
+          <B.Label>메인설정</B.Label>
+          <B.RadioButton type="radio" id="youtube" name="radio-button" />
+          <B.RadioLabel htmlFor="youtube">유튜브</B.RadioLabel>
+          <B.RadioButton type="radio" id="image" name="radio-button" />
+          <B.RadioLabel htmlFor="image">사진</B.RadioLabel>
+        </B.OptionWrapper>
+        <B.ButtonWrapper>
+          <B.SubmitButton
             onClick={props.isEdit ? props.onClickUpdate : props.onClickSubmit}
             Active={props.isEdit ? true : props.Active}
           >
             {props.isEdit ? "수정하기" : "등록하기"}
-          </SubmitButton>
-          <CancelButton onClick={props.onClickCancel}>취소하기</CancelButton>
-        </ButtonWrapper>
-      </Wrapper>
+          </B.SubmitButton>
+          <B.CancelButton onClick={props.onClickCancel}>
+            취소하기
+          </B.CancelButton>
+        </B.ButtonWrapper>
+      </B.Wrapper>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import {
@@ -20,10 +20,13 @@ import { checkValidationFile } from "../../../../commons/libraries/utils";
 
 export default function BoardsNewPage(props: IBoardWriteProps) {
   const router = useRouter();
+
+  ///////////////////////////////////////////////////////////////
+  // useState
+  //////////////////////////////////////////////////////////////
+
   const [Active, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
-  const fileRef = useRef<HTMLInputElement>(null);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -33,15 +36,35 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [images, setImageUrl] = useState([]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
+  ///////////////////////////////////////////////////////////////
+  // queries
+  //////////////////////////////////////////////////////////////
+
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
   const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  const { data } = useQuery(FETCH_BOARD, {
+    variables: { boardId: router.query.boardId },
+  });
+
+  ///////////////////////////////////////////////////////////////
+  // Ref
+  //////////////////////////////////////////////////////////////
+
+  const fileRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  ///////////////////////////////////////////////////////////////
+  //  onChange
+  //////////////////////////////////////////////////////////////
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -99,23 +122,39 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     setYoutubeUrl(event.target.value);
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const onChangeAddressDetail = (
     event: ChangeEvent<HTMLInputElement>
   ): void => {
     setAddressDetail(event.target.value);
   };
 
-  const onClickAddressSearch = (): void => {
-    setIsOpen((prev) => !prev);
-  };
+  ///////////////////////////////////////////////////////////////
+  //  주소검색 라이브러리
+  //////////////////////////////////////////////////////////////
 
   const onCompleteAddressSearch = (data: Address): void => {
     setAddress(data.address);
     setZipcode(data.zonecode);
     setIsOpen((prev) => !prev);
   };
+
+  const onClickAddressSearch = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  //주소 모달 확인 / 취소 입력
+
+  const Ok = (): void => {
+    setIsOpen(false);
+  };
+
+  const Cancel = (): void => {
+    setIsOpen(false);
+  };
+
+  ///////////////////////////////////////////////////////////////
+  //  등록하기
+  //////////////////////////////////////////////////////////////
 
   const onClickSubmit = async () => {
     if (!writer) {
@@ -147,7 +186,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
               title,
               contents,
               youtubeUrl,
-              images: [imageUrl],
+              images: [images],
               boardAddress: {
                 zipcode,
                 address,
@@ -163,9 +202,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     }
   };
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
-  });
+  ///////////////////////////////////////////////////////////////
+  //  수정하기
+  //////////////////////////////////////////////////////////////
 
   const onClickUpdate = async () => {
     const updateBoardInput: myVariables = {};
@@ -174,6 +213,9 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     }
     if (contents !== "") {
       updateBoardInput.contents = contents;
+    }
+    if (images !== "") {
+      updateBoardInput.images = images;
     }
     if (youtubeUrl !== "") {
       updateBoardInput.youtubeUrl = youtubeUrl;
@@ -212,22 +254,22 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
     }
   };
 
+  ///////////////////////////////////////////////////////////////
+  //  취소하기
+  //////////////////////////////////////////////////////////////
+
   const onClickCancel = async () => {
     router.push(`/Board`);
   };
 
-  const Ok = (): void => {
-    setIsOpen(false);
-  };
-
-  const Cancel = (): void => {
-    setIsOpen(false);
-  };
+  ///////////////////////////////////////////////////////////////
+  //  이미지 등록
+  //////////////////////////////////////////////////////////////
 
   const onChangeFile = async (
     event: ChangeEvent<HTMLInputElement>
   ): Promise<void> => {
-    const file = event.target.files?.[0]; // 배열로 들어오는 이유: <input type="file" multiple /> 일 때, 여러개 드래그 가능
+    const file = event.target.files?.[0];
     console.log(file);
 
     const isValid = checkValidationFile(file);
@@ -239,7 +281,6 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   };
 
   const onClickImage = (): void => {
-    // document.getElementById("파일태그ID")?.click()
     fileRef.current?.click();
   };
 
@@ -273,7 +314,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         fileRef={fileRef}
         onClickImage={onClickImage}
         onChangeFile={onChangeFile}
-        imageUrl={imageUrl}
+        images={images}
       />
     </div>
   );

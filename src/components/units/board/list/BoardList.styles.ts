@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 
 export const BestPostsTie = styled.div`
+  width: 100%;
   display: flex;
   cursor: pointer;
   font-family: "SCDream4";
@@ -91,12 +92,32 @@ export const LikeNum = styled.div`
   font-size: 12px;
 `;
 
+export const SearchTitle = styled.input`
+  width: 776px;
+  height: 52px;
+  padding-left: 20px;
+  margin-top: 60px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 10px;
+`;
+
+export const SearchTime = styled.input`
+  width: 244px;
+  height: 52px;
+  padding-left: 20px;
+  margin-top: 60px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 10px;
+`;
+
 export const Table = styled.table`
-  width: 1200px;
+  width: 100%;
   border-top: 1px solid #444444;
   border-collapse: collapse;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 40px;
 `;
 
 export const Tr = styled.tr`

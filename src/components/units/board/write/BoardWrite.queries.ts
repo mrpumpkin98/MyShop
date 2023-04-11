@@ -31,6 +31,7 @@ export const UPDATE_BOARD = gql`
       writer
       title
       contents
+      images
     }
   }
 `;
@@ -44,6 +45,7 @@ export const FETCH_BOARD = gql`
       contents
       createdAt
       youtubeUrl
+      images
       boardAddress {
         zipcode
         address
