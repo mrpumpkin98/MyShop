@@ -4,7 +4,9 @@ import {} from "../../../../commons/libraries/utils";
 import { IBoardListUIProps } from "./BoardList.types";
 import Paginations01 from "../../../../commons/paginations/01/Paginations01.container";
 import { v4 as uuidv4 } from "uuid";
-// import { v1 as uuidv1 } from "uuid";
+import Searchbars01 from "../../../../commons/searchbars/01/Searchbars01.container";
+
+const SECRET = "@#$%";
 
 export default function BoardListUI(props) {
   return (
@@ -49,9 +51,10 @@ export default function BoardListUI(props) {
           </B.BestPosts>
         ))}
       </B.BestPostsTie>
-      <B.SearchTitle
-        onChange={props.onChangeSearch}
-        placeholder="제목을 검색해주세요."
+      <Searchbars01
+        refetch={props.refetch}
+        refetchBoardsCount={props.refetchBoardsCount}
+        onChangeKeyword={props.onChangeKeyword}
       />
       {/* <B.SearchTime
         onChange={props.onChangeSearch2}
@@ -80,15 +83,12 @@ export default function BoardListUI(props) {
               onClick={props.onClickSubmit}
             >
               {el.title
-                .replaceAll(props.keyword, `@@@${props.keyword}@@@`)
-                .split("@@@")
+                .replaceAll(props.keyword, `${SECRET}${props.keyword}${SECRET}`)
+                .split(SECRET)
                 .map((el) => (
-                  <span
-                    key={uuidv4()}
-                    style={{ color: el === props.keyword ? "gold" : "black" }}
-                  >
+                  <B.TextToken key={uuidv4()} isMatched={props.keyword === el}>
                     {el}
-                  </span>
+                  </B.TextToken>
                 ))}
             </B.Td>
             <B.Td

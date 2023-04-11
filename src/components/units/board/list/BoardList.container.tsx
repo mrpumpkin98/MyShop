@@ -14,7 +14,8 @@ export default function StaticRoutingPage() {
   const router = useRouter();
   const { data, refetch } = useQuery(FETCH_BOARDS);
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  const { data: dataBoardsCount } = useQuery(FETCH_BOARDS_COUNT);
+  const { data: dataBoardsCount, refetch: refetchBoardsCount } =
+    useQuery(FETCH_BOARDS_COUNT);
   const { data: dataBoardsOfTheBest } = useQuery(FETCH_BOARDS_OF_THE_BEST);
   const [keyword, setKeyword] = useState("");
   // const [keyword1, setKeyword2] = useState("");
@@ -44,15 +45,9 @@ export default function StaticRoutingPage() {
   //   setKeyword2(value);
   // }, 500);
 
-  const onChangeSearch = (event: ChangeEvent<HTMLInputElement>): void => {
-    // setSearch(event.currentTarget.value);
-    getDebounce(event.currentTarget.value);
+  const onChangeKeyword = (value: string): void => {
+    setKeyword(value);
   };
-
-  // const onChangeSearch2 = (event: ChangeEvent<HTMLInputElement>): void => {
-  //   // setSearch(event.currentTarget.value);
-  //   getDebounce2(event.currentTarget.value);
-  // };
 
   return (
     <>
@@ -64,10 +59,9 @@ export default function StaticRoutingPage() {
         count={dataBoardsCount?.fetchBoardsCount}
         best={dataBoardsOfTheBest}
         refetch={refetch}
-        onChangeSearch={onChangeSearch}
-        // onChangeSearch2={onChangeSearch2}
+        refetchBoardsCount={refetchBoardsCount}
         keyword={keyword}
-        // keyword1={keyword1}
+        onChangeKeyword={onChangeKeyword}
       />
     </>
   );

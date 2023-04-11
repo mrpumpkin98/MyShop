@@ -11,12 +11,13 @@ export const FETCH_BOARD = gql`
       createdAt
       likeCount
       dislikeCount
-      images
       boardAddress {
         zipcode
         address
         addressDetail
       }
+      images
+      createdAt
     }
   }
 `;

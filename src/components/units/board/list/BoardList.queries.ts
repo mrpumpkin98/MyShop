@@ -19,8 +19,8 @@ export const DELETE_BOARD = gql`
 `;
 
 export const FETCH_BOARDS_COUNT = gql`
-  query fetchBoardsCount {
-    fetchBoardsCount
+  query fetchBoardsCount($search: String) {
+    fetchBoardsCount(search: $search)
   }
 `;
 

@@ -30,7 +30,6 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           <B.Body>
             <B.Title>{props.data?.fetchBoard?.title}</B.Title>
             <B.Contents>
-              {props.data?.fetchBoard?.contents}
               {props.data?.fetchBoard.youtubeUrl !== "" && (
                 <B.Youtube
                   url={props.data?.fetchBoard.youtubeUrl ?? ""}
@@ -38,11 +37,17 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
                   height="240px"
                 />
               )}
-              <B.imImageResult
-                src={`https://storage.googleapis.com/${
-                  props.data && props.data?.fetchBoard?.images.join("")
-                }`}
-              />
+              <B.imImageResult>
+                {props.data?.fetchBoard.images
+                  ?.filter((el) => el)
+                  .map((el) => (
+                    <B.Image
+                      key={el}
+                      src={`https://storage.googleapis.com/${el}`}
+                    />
+                  ))}
+              </B.imImageResult>
+              {props.data?.fetchBoard?.contents}
             </B.Contents>
           </B.Body>
           <B.Footer>

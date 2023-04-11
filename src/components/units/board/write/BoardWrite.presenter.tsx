@@ -1,5 +1,7 @@
 import * as B from "./BoardWrite.styles";
 import { IBoardWriteUIProps } from "./Boardwrite.types";
+import Uploads01 from "../../../../commons/uploads/01/Uploads01.container";
+import { v4 as uuidv4 } from "uuid";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -94,18 +96,17 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
         </B.InputWrapper>
         <B.ImageWrapper>
           <B.Label>사진첨부</B.Label>
-          <B.UploadButton onClick={props.onClickImage}>+</B.UploadButton>
-          <input
-            style={{ display: "none" }}
-            type="file"
-            onChange={props.onChangeFile}
-            ref={props.fileRef}
-            // accept="image/jpeg,image,png"
-          />
-          <B.UploadButton>+</B.UploadButton>
-          <B.UploadButton>+</B.UploadButton>
+          <B.UploadButton>
+            {props.fileUrls.map((el, index) => (
+              <Uploads01
+                key={uuidv4()}
+                index={index}
+                fileUrl={el}
+                onChangeFileUrls={props.onChangeFileUrls}
+              />
+            ))}
+          </B.UploadButton>
         </B.ImageWrapper>
-        <B.ImageResult src={`https://storage.googleapis.com/${props.images}`} />
         <B.OptionWrapper>
           <B.Label>메인설정</B.Label>
           <B.RadioButton type="radio" id="youtube" name="radio-button" />

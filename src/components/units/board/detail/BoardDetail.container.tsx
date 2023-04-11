@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import {
@@ -11,12 +11,11 @@ import BoardDetailUI from "./BoardDetail.presenter";
 
 export default function BoardDetailPage() {
   const router = useRouter();
-
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
 
-  const { data } = useQuery(FETCH_BOARD, {
+  const { data, refetch } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.boardId },
   });
 
@@ -60,6 +59,18 @@ export default function BoardDetailPage() {
   const onClickUpdate = () => {
     router.push(`/Board/${router.query.boardId}/edit`);
   };
+
+  useEffect(() => {
+    const result = refetch({
+      variables: {},
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: { boardId: router.query.boardId },
+        },
+      ],
+    });
+  }, []);
 
   return (
     <div>

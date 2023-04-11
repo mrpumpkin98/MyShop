@@ -36,7 +36,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
-  const [images, setImageUrl] = useState([]);
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -186,7 +186,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
               title,
               contents,
               youtubeUrl,
-              images: [images],
+              images: [...fileUrls],
               boardAddress: {
                 zipcode,
                 address,
@@ -207,35 +207,45 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   //////////////////////////////////////////////////////////////
 
   const onClickUpdate = async () => {
-    const updateBoardInput: myVariables = {};
-    if (title !== "") {
-      updateBoardInput.title = title;
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFiles = currentFiles !== defaultFiles;
+
+    if (
+      title === "" &&
+      contents === "" &&
+      youtubeUrl === "" &&
+      address === "" &&
+      addressDetail === "" &&
+      zipcode === "" &&
+      !isChangedFiles
+    ) {
+      alert("수정한 내용이 없습니다.");
+      return;
     }
-    if (contents !== "") {
-      updateBoardInput.contents = contents;
+
+    if (password === "") {
+      alert("비밀번호를 입력해주세요.");
+      return;
     }
-    if (images !== "") {
-      updateBoardInput.images = images;
+    const updateBoardInput: IUpdateBoardInput = {};
+    if (title !== "") updateBoardInput.title = title;
+    if (contents !== "") updateBoardInput.contents = contents;
+    if (youtubeUrl !== "") updateBoardInput.youtubeUrl = youtubeUrl;
+    if (zipcode !== "" || address !== "" || addressDetail !== "") {
+      updateBoardInput.boardAddress = {};
+      if (zipcode !== "") updateBoardInput.boardAddress.zipcode = zipcode;
+      if (address !== "") updateBoardInput.boardAddress.address = address;
+      if (addressDetail !== "")
+        updateBoardInput.boardAddress.addressDetail = addressDetail;
     }
-    if (youtubeUrl !== "") {
-      updateBoardInput.youtubeUrl = youtubeUrl;
-    }
-    if (zipcode !== "") {
-      updateBoardInput.boardAddress.zipcode = zipcode;
-    }
-    if (address !== "") {
-      updateBoardInput.boardAddress.address = address;
-    }
-    if (addressDetail !== "") {
-      updateBoardInput.boardAddress.addressDetail = addressDetail;
-    }
+    if (isChangedFiles) updateBoardInput.images = fileUrls;
 
     try {
       if (typeof router.query.boardId !== "string") {
         alert("시스템에 문제가 있습니다.");
         return;
       }
-
       const result = await updateBoard({
         variables: {
           boardId: router.query.boardId,
@@ -266,23 +276,16 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   //  이미지 등록
   //////////////////////////////////////////////////////////////
 
-  const onChangeFile = async (
-    event: ChangeEvent<HTMLInputElement>
-  ): Promise<void> => {
-    const file = event.target.files?.[0];
-    console.log(file);
-
-    const isValid = checkValidationFile(file);
-    if (!isValid) return;
-
-    const result = await uploadFile({ variables: { file } });
-    console.log(result.data?.uploadFile.url);
-    setImageUrl(result.data?.uploadFile.url ?? "");
+  const onChangeFileUrls = (fileUrl: string, index: number): void => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
   };
 
-  const onClickImage = (): void => {
-    fileRef.current?.click();
-  };
+  useEffect(() => {
+    const images = props.data?.fetchBoard.images;
+    if (images !== undefined && images !== null) setFileUrls([...images]);
+  }, [props.data]);
 
   return (
     <div>
@@ -312,9 +315,8 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
         Cancel={Cancel}
         onChangeYoutubeUrl={onChangeYoutubeUrl}
         fileRef={fileRef}
-        onClickImage={onClickImage}
-        onChangeFile={onChangeFile}
-        images={images}
+        onChangeFileUrls={onChangeFileUrls}
+        fileUrls={fileUrls}
       />
     </div>
   );

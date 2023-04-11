@@ -11,6 +11,7 @@ export const BestPostsTie = styled.div`
   display: flex;
   cursor: pointer;
   font-family: "SCDream4";
+  margin-bottom: 20px;
 `;
 
 export const BestPosts = styled.div`
@@ -181,4 +182,8 @@ export const Button = styled.button`
     background-color: gold;
     border-color: gold;
   }
+`;
+
+export const TextToken = styled.span`
+  color: ${(props) => (props.isMatched ? "gold" : "black")};
 `;
