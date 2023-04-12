@@ -30,11 +30,12 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           <B.Body>
             <B.Title>{props.data?.fetchBoard?.title}</B.Title>
             <B.Contents>
+              {props.data?.fetchBoard?.contents}
               {props.data?.fetchBoard.youtubeUrl !== "" && (
                 <B.Youtube
                   url={props.data?.fetchBoard.youtubeUrl ?? ""}
-                  width="486px"
-                  height="240px"
+                  width="911px"
+                  height="480px"
                 />
               )}
               <B.imImageResult>
@@ -47,7 +48,6 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
                     />
                   ))}
               </B.imImageResult>
-              {props.data?.fetchBoard?.contents}
             </B.Contents>
           </B.Body>
           <B.Footer>

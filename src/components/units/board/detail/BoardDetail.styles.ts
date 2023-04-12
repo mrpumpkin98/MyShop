@@ -84,8 +84,8 @@ export const Body = styled.div`
 `;
 
 export const Youtube = styled(ReactPlayer)`
-  margin: auto;
-  margin-top: 50px; ;
+  margin-top: 50px;
+  margin-bottom: 30px;
 `;
 
 export const imImageResult = styled.div`
@@ -180,5 +180,6 @@ export const Button = styled.button`
 export const Image = styled.img`
   width: 911px;
   height: 480px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  margin-top: 30px;
 `;

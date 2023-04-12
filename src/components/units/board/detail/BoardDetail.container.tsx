@@ -10,14 +10,26 @@ import {
 import BoardDetailUI from "./BoardDetail.presenter";
 
 export default function BoardDetailPage() {
+  ///////////////////////////////////////////////////////////////
+  // router
+  //////////////////////////////////////////////////////////////
+
   const router = useRouter();
+
+  ///////////////////////////////////////////////////////////////
+  // queries
+  //////////////////////////////////////////////////////////////
+
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
-
   const { data, refetch } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.boardId },
   });
+
+  ///////////////////////////////////////////////////////////////
+  // 게시물 삭제
+  //////////////////////////////////////////////////////////////
 
   const onClickDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const result = await deleteBoard({
@@ -25,6 +37,10 @@ export default function BoardDetailPage() {
     });
     router.push(`/Board`);
   };
+
+  ///////////////////////////////////////////////////////////////
+  // 좋아요
+  //////////////////////////////////////////////////////////////
 
   const onClickLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.currentTarget.id);
@@ -39,6 +55,10 @@ export default function BoardDetailPage() {
     });
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 싫어요
+  //////////////////////////////////////////////////////////////
+
   const onClickDisLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.currentTarget.id);
     const result = await dislikeBoard({
@@ -52,24 +72,28 @@ export default function BoardDetailPage() {
     });
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 게시판 리스트 이동
+  //////////////////////////////////////////////////////////////
+
   const onClickBoard = () => {
     router.push(`/Board`);
   };
+
+  ///////////////////////////////////////////////////////////////
+  // 게시물 수정하기 이동
+  //////////////////////////////////////////////////////////////
 
   const onClickUpdate = () => {
     router.push(`/Board/${router.query.boardId}/edit`);
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 페이지 새로고침
+  //////////////////////////////////////////////////////////////
+
   useEffect(() => {
-    const result = refetch({
-      variables: {},
-      refetchQueries: [
-        {
-          query: FETCH_BOARD,
-          variables: { boardId: router.query.boardId },
-        },
-      ],
-    });
+    refetch({ page: 1 });
   }, []);
 
   return (

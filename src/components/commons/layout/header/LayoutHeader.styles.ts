@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { GitlabFilled } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   height: 120px;
@@ -31,4 +32,14 @@ export const InnerButton = styled.span`
   color: gold;
   cursor: pointer;
   font-family: "Jalnan";
+`;
+
+export const FireFilledIcon = styled(GitlabFilled)`
+  color: gold;
+  font-size: 35px;
+  cursor: pointer;
+  margin-right: 5px;
+  :hover {
+    color: orange;
+  }
 `;

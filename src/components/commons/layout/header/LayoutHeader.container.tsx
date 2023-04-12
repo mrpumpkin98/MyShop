@@ -5,11 +5,11 @@ export default function LayoutHeader(): JSX.Element {
   const router = useRouter();
 
   const onClickLogo = (): void => {
-    void router.push("/boards");
+    void router.push("/Board");
   };
 
   const onClickMoveToLogin = (): void => {
-    void router.push("/login");
+    void router.push("/Login");
   };
 
   return (
