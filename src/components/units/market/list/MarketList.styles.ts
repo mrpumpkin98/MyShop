@@ -14,6 +14,10 @@ export const Title = styled.div`
   font-family: "Jalnan";
 `;
 
+////////////////////////////////////////////
+// 중고 상품 베스트
+////////////////////////////////////////////
+
 export const BestPostsTie = styled.div`
   width: 100%;
   display: flex;
@@ -28,7 +32,7 @@ export const BestPosts = styled.div`
 `;
 
 export const BestPostBody = styled.div`
-  height: 257px;
+  height: 307px;
   margin: 14px;
   background: rgb(250, 250, 252);
   overflow: hidden;
@@ -53,7 +57,7 @@ export const BestPostTitle = styled.div`
   margin: 10px 0px 15px 15px;
   margin-bottom: 17px;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 19px;
 `;
 
 export const BestPostInfo = styled.div`
@@ -74,20 +78,22 @@ export const Avatar = styled.img`
 
 export const Writer = styled.div`
   font-weight: 400;
-  font-size: 15px;
+  font-size: 18px;
   margin-bottom: 2px;
 `;
 
 export const CreatedAt = styled.div`
   font-weight: 400;
   font-size: 12px;
-  margin-top: 7px;
   color: #828282;
+  margin-bottom: 30px;
 `;
 
 export const LikeTie = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Like = styled(LikeOutlined)`
@@ -99,79 +105,79 @@ export const Like = styled(LikeOutlined)`
 
 export const LikeNum = styled.div`
   font-size: 12px;
+  margin-top: 10px;
 `;
 
-export const SearchTitle = styled.input`
-  width: 776px;
-  height: 52px;
-  padding-left: 20px;
-  margin-top: 60px;
-  background: #f2f2f2;
-  border: none;
-  border-radius: 10px;
-`;
+////////////////////////////////////////////
+//  중고 상품 리스트
+////////////////////////////////////////////
 
-export const SearchTime = styled.input`
-  width: 244px;
-  height: 52px;
-  padding-left: 20px;
-  margin-top: 60px;
-  background: #f2f2f2;
-  border: none;
-  border-radius: 10px;
-`;
-
-export const Table = styled.table`
+export const List = styled.div`
+  overflow-y: auto;
   width: 100%;
-  border-top: 1px solid #444444;
+  height: 780px;
+  margin-top: 50px;
+`;
+
+export const Table = styled.div`
+  width: 100%;
   border-collapse: collapse;
   margin: auto;
-  margin-top: 40px;
-`;
-
-export const Tr = styled.tr`
-  font-family: "SCDream4";
-  &:hover {
-    background: rgb(250, 250, 252);
-    color: black;
-  }
-`;
-
-export const Th = styled.th`
-  border-bottom: 1px solid #444444;
-  padding: 10px;
-  background-color: white;
-`;
-
-export const Td = styled.td`
   border-bottom: 1px solid #bdbdbd;
-  padding: 10px;
-  text-align: center;
-  color: #4f4f4f;
-  cursor: pointer;
-  width: 200px;
 `;
 
-export const Pagination = styled.div`
-  text-align: center;
-  margin: auto;
-  margin-top: 30px;
+export const Tr = styled.div`
+  border-top: 1px solid #bdbdbd;
+  width: 100%;
+  font-family: "SCDream4";
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ListImg = styled.img`
+  width: 160px;
+  height: 160px;
+  margin: 10px 0px;
+`;
+
+export const ListName = styled.div`
+  font-size: 24px;
+`;
+
+export const TieTable = styled.div`
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0px;
+`;
+export const ListContents = styled.div`
+  height: 20px;
+`;
+export const ListTags = styled.div`
+  height: 20px;
+`;
+export const ListPickedCount = styled.div`
+  width: 18px;
+  height: 24px;
+`;
+export const ListPrice = styled.div`
+  width: 150px;
+  text-align: end;
+  margin: 10px 0px;
+`;
+export const ListSeller = styled.div`
+  width: 45px;
+`;
+
+export const TitleListSellerListPickedCount = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const ButtonTie = styled.div`
   width: 100%;
-`;
-
-export const DeleteButton = styled.button`
-  cursor: pointer;
-  height: 25px;
-  font-size: 12px;
-  background-color: gold;
-  border-radius: 4px;
-  border: none;
-  :hover {
-    background-color: #ebc600;
-  }
 `;
 
 export const Button = styled.button`

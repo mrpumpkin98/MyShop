@@ -1,15 +1,15 @@
 //####################################################################
 //
-// LOGIN MAIN
+// MARKET_LIST MAIN
 //
 //####################################################################
 
-import Login from "../../src/components/units/loginpage/login-check/login.container";
+import MarketList from "../../src/components/units/market/list/MarketList.container";
 
 export default function GraphqlMutationPage() {
   return (
     <div>
-      <Login />
+      <MarketList />
     </div>
   );
 }

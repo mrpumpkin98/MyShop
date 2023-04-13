@@ -3,8 +3,8 @@ import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
 import type { ILayoutNavigationUIProps } from "./LayoutNavigation.types";
 
 const NAVIGATION_MENUS = [
-  { name: "라이브게시판", page: "/Board" },
-  { name: "라이브상품", page: "/markets" },
+  { name: "자유게시판", page: "/Board" },
+  { name: "중고마켓", page: "/Market" },
   { name: "마이페이지", page: "/mypages" },
 ];
 

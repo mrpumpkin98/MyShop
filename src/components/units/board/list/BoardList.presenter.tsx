@@ -11,12 +11,13 @@ const SECRET = "@#$%";
 export default function BoardListUI(props) {
   return (
     <>
+      <B.Title>베스트 게시글</B.Title>
       <B.BestPostsTie>
         {props.best?.fetchBoardsOfTheBest.map((i) => (
           <B.BestPosts key={i._id}>
             <B.BestPostBody>
               <B.BestPostImg
-                src="/images/1.jpeg"
+                src={`https://storage.googleapis.com/${i.images[0]}`}
                 id={i._id}
                 onClick={props.onClickSubmit}
               />
