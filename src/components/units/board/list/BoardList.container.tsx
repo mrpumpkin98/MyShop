@@ -83,6 +83,13 @@ export default function StaticRoutingPage() {
     refetch({ page: 1 });
   }, []);
 
+  ///////////////////////////////////////////////////////////////
+  // 대체 이미지
+  //////////////////////////////////////////////////////////////
+  const onErrorImg = (e: any) => {
+    e.target.src = "/images/none.png";
+  };
+
   return (
     <>
       <BoardListUI
@@ -96,6 +103,7 @@ export default function StaticRoutingPage() {
         refetchBoardsCount={refetchBoardsCount}
         keyword={keyword}
         onChangeKeyword={onChangeKeyword}
+        onErrorImg={onErrorImg}
       />
     </>
   );

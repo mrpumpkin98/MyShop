@@ -18,6 +18,7 @@ export default function BoardListUI(props) {
             <B.BestPostBody>
               <B.BestPostImg
                 src={`https://storage.googleapis.com/${i.images[0]}`}
+                onError={props.onErrorImg}
                 id={i._id}
                 onClick={props.onClickSubmit}
               />

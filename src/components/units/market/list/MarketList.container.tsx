@@ -111,6 +111,13 @@ export default function StaticRoutingPage() {
     });
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 대체 이미지
+  //////////////////////////////////////////////////////////////
+  const onErrorImg = (e: any) => {
+    e.target.src = "/images/none.png";
+  };
+
   return (
     <>
       <MarketListUI
@@ -125,6 +132,7 @@ export default function StaticRoutingPage() {
         keyword={keyword}
         onChangeKeyword={onChangeKeyword}
         onLoadMore={onLoadMore}
+        onErrorImg={onErrorImg}
       />
     </>
   );

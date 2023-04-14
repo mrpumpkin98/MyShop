@@ -8,6 +8,8 @@ import Searchbars01 from "../../../../commons/searchbars/01/Searchbars01.contain
 import styled from "@emotion/styled";
 import InfiniteScroll from "react-infinite-scroller";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import { useRecoilCallback } from "recoil";
+import { onErrorImg } from "../../../../commons/stores";
 
 const SECRET = "@#$%";
 
@@ -20,11 +22,8 @@ export default function MarketListUI(props) {
           <B.BestPosts key={i._id}>
             <B.BestPostBody>
               <B.BestPostImg
-                src={
-                  i.images.length !== 0
-                    ? `https://storage.googleapis.com/${i.images[0]}`
-                    : "/images/noimg.gif"
-                }
+                src={`https://storage.googleapis.com/${i.images[0]}`}
+                onError={props.onErrorImg}
                 id={i._id}
                 onClick={props.onClickSubmit}
               />
@@ -64,7 +63,7 @@ export default function MarketListUI(props) {
         onChangeKeyword={props.onChangeKeyword}
       />
       <B.List>
-        <Scrollbars thumbSize={85}>
+        <Scrollbars thumbSize={105} autoHide>
           <InfiniteScroll
             pageStart={0}
             loadMore={props.onLoadMore}
@@ -75,11 +74,8 @@ export default function MarketListUI(props) {
               {props.data?.fetchUseditems.map((el) => (
                 <B.Tr key={el._id}>
                   <B.ListImg
-                    src={
-                      el.images.length !== 0
-                        ? `https://storage.googleapis.com/${el.images[0]}`
-                        : "/images/noimg.gif"
-                    }
+                    src={`https://storage.googleapis.com/${el.images[0]}`}
+                    onError={props.onErrorImg}
                   />
                   <B.TieTable>
                     <B.ListName style={{ margin: "10px" }} id={el._id}>

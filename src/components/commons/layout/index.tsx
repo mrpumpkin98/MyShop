@@ -4,7 +4,7 @@ import LayoutNavigation from "./navigation/LayoutNavigation.container";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
-const HIDDEN = ["/Login"];
+const HIDDEN = ["/Login", "/Login/SignUp"];
 
 const Body = styled.div`
   height: 500px;

@@ -12,9 +12,14 @@ export default function LayoutHeader(): JSX.Element {
     void router.push("/Login");
   };
 
+  const onClickMoveToSingUp = (): void => {
+    void router.push("/Login/SignUp");
+  };
+
   return (
     <LayoutHeaderUI
       onClickLogo={onClickLogo}
+      onClickMoveToSingUp={onClickMoveToSingUp}
       onClickMoveToLogin={onClickMoveToLogin}
     />
   );

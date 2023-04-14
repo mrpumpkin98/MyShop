@@ -133,12 +133,17 @@ export const Tr = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: rgb(250, 250, 252);
+    box-shadow: 5px 3px 5px 3px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const ListImg = styled.img`
   width: 160px;
   height: 160px;
-  margin: 10px 0px;
+  margin: 10px 7px;
 `;
 
 export const ListName = styled.div`
@@ -150,7 +155,7 @@ export const TieTable = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px 0px;
+  margin: 10px;
 `;
 export const ListContents = styled.div`
   height: 20px;
@@ -165,7 +170,7 @@ export const ListPickedCount = styled.div`
 export const ListPrice = styled.div`
   width: 150px;
   text-align: end;
-  margin: 10px 0px;
+  margin: 10px;
 `;
 export const ListSeller = styled.div`
   width: 45px;

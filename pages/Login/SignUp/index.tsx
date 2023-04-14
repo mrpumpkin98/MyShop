@@ -1,15 +1,15 @@
 //####################################################################
 //
-// LOGIN MAIN
+// LOGIN SIGN UP MAIN
 //
 //####################################################################
 
-import Login from "../../src/components/units/login/SignIn/login.container";
+import SignUp from "../../../src/components/units/login/SignUp/login.container";
 
 export default function GraphqlMutationPage() {
   return (
     <div>
-      <Login />
+      <SignUp />
     </div>
   );
 }
