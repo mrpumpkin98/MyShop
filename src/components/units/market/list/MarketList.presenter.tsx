@@ -57,11 +57,15 @@ export default function MarketListUI(props) {
           </B.BestPosts>
         ))}
       </B.BestPostsTie>
-      <Searchbars01
-        refetch={props.refetch}
-        refetchBoardsCount={props.refetchBoardsCount}
-        onChangeKeyword={props.onChangeKeyword}
-      />
+      <B.WidthWrapper>
+        {" "}
+        <Searchbars01
+          refetch={props.refetch}
+          refetchBoardsCount={props.refetchBoardsCount}
+          onChangeKeyword={props.onChangeKeyword}
+        />
+        {/* <B.Shopping /> */}
+      </B.WidthWrapper>
       <B.List>
         <Scrollbars thumbSize={105} autoHide>
           <InfiniteScroll
@@ -78,27 +82,19 @@ export default function MarketListUI(props) {
                     onError={props.onErrorImg}
                   />
                   <B.TieTable>
-                    <B.ListName style={{ margin: "10px" }} id={el._id}>
-                      {el.name}
-                    </B.ListName>
-                    <B.ListContents style={{ margin: "10px" }} id={el._id}>
-                      {el.remarks}
-                    </B.ListContents>
-                    <B.ListTags style={{ margin: "10px" }} id={el._id}>
-                      {el.tags}
-                    </B.ListTags>
+                    <B.ListName id={el._id}>{el.name}</B.ListName>
+                    <B.ListContents id={el._id}>{el.remarks}</B.ListContents>
+                    <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                     <B.TitleListSellerListPickedCount>
-                      <B.ListSeller style={{ margin: "10px" }} id={el._id}>
-                        {el.seller}
-                      </B.ListSeller>
-                      <B.ListPickedCount style={{ margin: "10px" }} id={el._id}>
+                      <B.ListSeller id={el._id}>{el.seller}</B.ListSeller>
+                      <B.Heart />
+                      <B.ListPickedCount id={el._id}>
                         {el.pickedCount ? el.pickedCount : 0}
                       </B.ListPickedCount>
+                      <B.Shopping onClick={props.onClickBasket(el)} />
                     </B.TitleListSellerListPickedCount>
                   </B.TieTable>
-                  <B.ListPrice style={{ margin: "10px" }} id={el._id}>
-                    {el.price}
-                  </B.ListPrice>
+                  <B.ListPrice id={el._id}>{el.price}원</B.ListPrice>
                 </B.Tr>
               ))}
             </B.Table>

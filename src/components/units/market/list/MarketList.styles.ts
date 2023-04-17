@@ -4,6 +4,8 @@ import {
   DislikeOutlined,
   EnvironmentOutlined,
   PaperClipOutlined,
+  HeartFilled,
+  ShoppingFilled,
 } from "@ant-design/icons";
 
 export const Title = styled.div`
@@ -24,6 +26,22 @@ export const BestPostsTie = styled.div`
   cursor: pointer;
   font-family: "SCDream4";
   margin-bottom: 20px;
+`;
+
+export const WidthWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Shopping = styled(ShoppingFilled)`
+  color: #bdbdbd;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+  &:hover {
+    color: #aaaaaa;
+  }
 `;
 
 export const BestPosts = styled.div`
@@ -96,7 +114,7 @@ export const LikeTie = styled.div`
   align-items: center;
 `;
 
-export const Like = styled(LikeOutlined)`
+export const Like = styled(HeartFilled)`
   font-size: 18px;
   color: gold;
   cursor: pointer;
@@ -134,7 +152,7 @@ export const Tr = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  &:hover {
+  :hover {
     background: rgb(250, 250, 252);
     box-shadow: 5px 3px 5px 3px rgba(0, 0, 0, 0.1);
   }
@@ -155,10 +173,12 @@ export const TieTable = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px;
 `;
 export const ListContents = styled.div`
-  height: 20px;
+  font-weight: 400;
+  font-size: 15px;
+  color: #828282;
+  margin: 5px 0px 0px 4px;
 `;
 export const ListTags = styled.div`
   height: 20px;
@@ -170,7 +190,9 @@ export const ListPickedCount = styled.div`
 export const ListPrice = styled.div`
   width: 150px;
   text-align: end;
-  margin: 10px;
+  margin-right: 20px;
+  font-weight: 600;
+  font-size: 20px;
 `;
 export const ListSeller = styled.div`
   width: 45px;
@@ -179,6 +201,16 @@ export const ListSeller = styled.div`
 export const TitleListSellerListPickedCount = styled.div`
   display: flex;
   flex-direction: row;
+`;
+
+export const Heart = styled(HeartFilled)`
+  font-size: 18px;
+  color: gold;
+  cursor: pointer;
+  margin-right: 10px;
+  :hover {
+    color: #e5c100;
+  }
 `;
 
 export const ButtonTie = styled.div`

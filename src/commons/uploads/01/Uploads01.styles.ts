@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { PlusCircleOutlined } from "@ant-design/icons";
 
 export const UploadImage = styled.img`
   width: 78px;
@@ -19,4 +20,9 @@ export const UploadButton = styled.button`
 
 export const UploadFileHidden = styled.input`
   display: none;
+`;
+
+export const Picture = styled(PlusCircleOutlined)`
+  font-size: 30px;
+  color: gray;
 `;

@@ -2,6 +2,7 @@ import {
   UploadButton,
   UploadFileHidden,
   UploadImage,
+  Picture,
 } from "./Uploads01.styles";
 import type { IUploads01UIProps } from "./Uploads01.types";
 
@@ -15,8 +16,7 @@ export default function Uploads01UI(props: IUploads01UIProps): JSX.Element {
         />
       ) : (
         <UploadButton onClick={props.onClickUpload}>
-          <>+</>
-          <>Upload</>
+          <Picture />
         </UploadButton>
       )}
       <UploadFileHidden
