@@ -7,6 +7,14 @@ import {
   HeartFilled,
   ShoppingFilled,
 } from "@ant-design/icons";
+import { Modal } from "antd";
+
+export const ListMain = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const Wrapper = styled.div``;
 
 export const Title = styled.div`
   width: 100%;
@@ -39,6 +47,16 @@ export const Shopping = styled(ShoppingFilled)`
   font-size: 20px;
   cursor: pointer;
   margin-left: 5px;
+  &:hover {
+    color: #aaaaaa;
+  }
+`;
+
+export const Shopping2 = styled(ShoppingFilled)`
+  color: #bdbdbd;
+  font-size: 30px;
+  cursor: pointer;
+  margin-left: 10px;
   &:hover {
     color: #aaaaaa;
   }
@@ -191,8 +209,8 @@ export const ListPrice = styled.div`
   width: 150px;
   text-align: end;
   margin-right: 20px;
-  font-weight: 600;
-  font-size: 20px;
+  font-weight: 500;
+  font-size: 18px;
 `;
 export const ListSeller = styled.div`
   width: 45px;
@@ -214,6 +232,7 @@ export const Heart = styled(HeartFilled)`
 `;
 
 export const ButtonTie = styled.div`
+  display: flex;
   width: 100%;
 `;
 
@@ -237,4 +256,74 @@ export const Button = styled.button`
 
 export const TextToken = styled.span`
   color: ${(props) => (props.isMatched ? "gold" : "black")};
+`;
+
+////////////////////////////////////////////
+// 비회원 장바구니
+////////////////////////////////////////////
+
+export const ShoppingBasket = styled.div`
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin: auto;
+`;
+export const BasketTitle = styled.div`
+  margin: 20px 20px 0px 20px;
+  font-weight: 700;
+  font-size: 18px;
+`;
+export const BasketList = styled.div``;
+export const BasketTable = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 6px;
+  margin-bottom: 10px;
+`;
+export const BasketTr = styled.div`
+  border: 1px solid #bdbdbd;
+  width: 156px;
+  height: 199px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3px;
+`;
+export const BasketListImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+export const BasketTieTable = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 120px;
+`;
+export const BasketListName = styled.div`
+  font-size: 12px;
+`;
+
+export const BasketListContents = styled.div`
+  font-size: 12px;
+  color: #4f4f4f;
+`;
+export const BasketListPrice = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+`;
+
+export const BasketListTags = styled.div``;
+
+export const AddressModal = styled(Modal)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

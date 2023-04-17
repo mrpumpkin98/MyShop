@@ -24,6 +24,8 @@ export default function StaticRoutingPage() {
   //////////////////////////////////////////////////////////////
 
   const [keyword, setKeyword] = useState("");
+  const [basketItems, setBasketItems] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   ///////////////////////////////////////////////////////////////
   // queries
@@ -138,6 +140,25 @@ export default function StaticRoutingPage() {
     localStorage.setItem("baskets", JSON.stringify(baskets));
   };
 
+  const onClickBasketModal = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  //주소 모달 확인 / 취소 입력
+
+  const Ok = (): void => {
+    setIsOpen(false);
+  };
+
+  const Cancel = (): void => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const baskets = JSON.parse(localStorage.getItem("baskets") || "[]");
+    setBasketItems(baskets);
+  }, [isOpen]);
+
   return (
     <>
       <MarketListUI
@@ -154,6 +175,11 @@ export default function StaticRoutingPage() {
         onLoadMore={onLoadMore}
         onErrorImg={onErrorImg}
         onClickBasket={onClickBasket}
+        basketItems={basketItems}
+        isOpen={isOpen}
+        onClickBasketModal={onClickBasketModal}
+        Ok={Ok}
+        Cancel={Cancel}
       />
     </>
   );

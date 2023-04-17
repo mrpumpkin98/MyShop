@@ -28,3 +28,8 @@ export const checkValidationFile = (file?: File): boolean => {
 
   return true;
 };
+
+export const Money = (date) => {
+  const mmmm = date.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return `${mmmm}원`;
+};
