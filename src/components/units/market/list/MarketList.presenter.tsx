@@ -12,6 +12,7 @@ import { useRecoilCallback } from "recoil";
 import { onErrorImg } from "../../../../commons/stores";
 import { Money } from "../../../../commons/libraries/utils";
 import { Wrapper } from "../../../commons/layout/banner/LayoutBanner.styles";
+import { useMoveToPage } from "../../../../commons/hooks/customs/useMoveToPage";
 
 const SECRET = "@#$%";
 
@@ -97,7 +98,10 @@ export default function MarketListUI(props) {
             refetchBoardsCount={props.refetchBoardsCount}
             onChangeKeyword={props.onChangeKeyword}
           />
-          <B.Shopping2 onClick={props.onClickBasketModal} />
+          <B.Shopping2
+            onClick={props.onClickBasketModal}
+            Active={props.basketItems.length > 0}
+          />
         </B.WidthWrapper>
         <B.List>
           <Scrollbars thumbSize={80} autoHide>
@@ -115,7 +119,9 @@ export default function MarketListUI(props) {
                       onError={props.onErrorImg}
                     />
                     <B.TieTable>
-                      <B.ListName id={el._id}>{el.name}</B.ListName>
+                      <B.ListName onClick={props.onClickSubmit} id={el._id}>
+                        {el.name}{" "}
+                      </B.ListName>
                       <B.ListContents id={el._id}>{el.remarks}</B.ListContents>
                       <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                       <B.TitleListSellerListPickedCount>

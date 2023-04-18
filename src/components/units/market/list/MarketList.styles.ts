@@ -54,12 +54,10 @@ export const Shopping = styled(ShoppingFilled)`
 
 export const Shopping2 = styled(ShoppingFilled)`
   color: #bdbdbd;
+  color: ${(props) => props.Active && "gold"};
   font-size: 30px;
   cursor: pointer;
   margin-left: 10px;
-  &:hover {
-    color: #aaaaaa;
-  }
 `;
 
 export const BestPosts = styled.div`

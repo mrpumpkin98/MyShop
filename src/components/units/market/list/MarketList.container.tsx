@@ -54,7 +54,7 @@ export default function StaticRoutingPage() {
   //////////////////////////////////////////////////////////////
 
   const onClickSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
-    router.push(`/Board/${event.currentTarget.id}`);
+    router.push(`/Market/${event.currentTarget.id}`);
   };
 
   ///////////////////////////////////////////////////////////////
