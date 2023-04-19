@@ -2,6 +2,7 @@ import * as B from "./BoardDetail.styles";
 import { Money, Money2, getDate } from "../../../../commons/libraries/utils";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 import { Button, Tooltip } from "antd";
+import DOMPurify from "dompurify";
 
 export default function BoardDetailUI(props) {
   return (
@@ -57,7 +58,13 @@ export default function BoardDetailUI(props) {
                     />
                   ))}
               </B.imImageResult>
-              <B.Contents>{props.data?.fetchUseditem?.contents}</B.Contents>
+              <B.Contents
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    props.data?.fetchUseditem?.contents
+                  ),
+                }}
+              />
               <B.Tags>#{props.data?.fetchUseditem?.tags}</B.Tags>
             </B.WrapperContents>
           </B.Body>

@@ -119,10 +119,12 @@ export default function MarketListUI(props) {
                       onError={props.onErrorImg}
                     />
                     <B.TieTable>
-                      <B.ListName onClick={props.onClickSubmit} id={el._id}>
+                      <B.ListName id={el._id} onClick={props.onClickSubmit}>
                         {el.name}{" "}
                       </B.ListName>
-                      <B.ListContents id={el._id}>{el.remarks}</B.ListContents>
+                      <B.ListContents id={el._id} onClick={props.onClickSubmit}>
+                        {el.remarks}
+                      </B.ListContents>
                       <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                       <B.TitleListSellerListPickedCount>
                         <B.ListSeller id={el._id}>{el.seller}</B.ListSeller>
