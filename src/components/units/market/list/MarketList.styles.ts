@@ -6,6 +6,10 @@ import {
   PaperClipOutlined,
   HeartFilled,
   ShoppingFilled,
+  ShoppingCartOutlined,
+  MehFilled,
+  UserOutlined,
+  SmileOutlined,
 } from "@ant-design/icons";
 import { Modal } from "antd";
 
@@ -52,7 +56,7 @@ export const Shopping = styled(ShoppingFilled)`
   }
 `;
 
-export const Shopping2 = styled(ShoppingFilled)`
+export const Shopping2 = styled(ShoppingCartOutlined)`
   color: #bdbdbd;
   color: ${(props) => props.Active && "gold"};
   font-size: 30px;
@@ -68,7 +72,7 @@ export const BestPosts = styled.div`
 export const BestPostBody = styled.div`
   height: 307px;
   margin: 14px;
-  background: rgb(250, 250, 252);
+  background: #f5f5f5;
   overflow: hidden;
   border-radius: 20px;
   &:hover {
@@ -156,21 +160,22 @@ export const List = styled.div`
 export const Table = styled.div`
   width: 100%;
   border-collapse: collapse;
-  margin: auto;
   border-bottom: 1px solid #bdbdbd;
+  padding: 10px;
 `;
 
 export const Tr = styled.div`
-  border-top: 1px solid #bdbdbd;
+  background: #f5f5f5;
   width: 100%;
   font-family: "SCDream4";
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 8px;
+  margin: 15px 0px;
   cursor: pointer;
   :hover {
-    background: rgb(250, 250, 252);
-    box-shadow: 5px 3px 5px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(0.2, 0.2, 0.2, 0.2);
   }
 `;
 
@@ -178,6 +183,7 @@ export const ListImg = styled.img`
   width: 160px;
   height: 160px;
   margin: 10px 7px;
+  border-radius: 8px;
 `;
 
 export const ListName = styled.div`
@@ -202,6 +208,7 @@ export const ListTags = styled.div`
 export const ListPickedCount = styled.div`
   width: 18px;
   height: 24px;
+  padding-top: 6px;
 `;
 export const ListPrice = styled.div`
   width: 150px;
@@ -211,7 +218,8 @@ export const ListPrice = styled.div`
   font-size: 18px;
 `;
 export const ListSeller = styled.div`
-  width: 45px;
+  width: 100px;
+  margin-top: 5px;
 `;
 
 export const TitleListSellerListPickedCount = styled.div`
@@ -224,8 +232,19 @@ export const Heart = styled(HeartFilled)`
   color: gold;
   cursor: pointer;
   margin-right: 10px;
+  margin-top: 3px;
   :hover {
     color: #e5c100;
+  }
+`;
+
+export const Smile = styled(SmileOutlined)`
+  font-size: 25px;
+  color: #bdbdbd;
+  cursor: pointer;
+  margin-right: 10px;
+  :hover {
+    color: #aaaaaa;
   }
 `;
 
@@ -240,8 +259,8 @@ export const Button = styled.button`
   margin-left: 1000px;
   margin-top: 30px;
   margin-bottom: 80px;
-  background-color: #f7f8fa;
-  border: 1px solid #dbdbdb;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   border-radius: 4px;
   font-family: "SCDream4";
 

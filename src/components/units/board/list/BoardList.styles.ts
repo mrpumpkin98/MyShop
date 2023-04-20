@@ -30,7 +30,7 @@ export const BestPosts = styled.div`
 export const BestPostBody = styled.div`
   height: 257px;
   margin: 14px;
-  background: rgb(250, 250, 252);
+  background: #f5f5f5;
   overflow: hidden;
   border-radius: 20px;
   &:hover {
@@ -180,8 +180,8 @@ export const Button = styled.button`
   margin-left: 1000px;
   margin-top: 30px;
   margin-bottom: 80px;
-  background-color: #f7f8fa;
-  border: 1px solid #dbdbdb;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   border-radius: 4px;
   font-family: "SCDream4";
 

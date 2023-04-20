@@ -8,6 +8,7 @@ import {
   FETCH_BOARDS_OF_THE_BEST,
   FETCH_USED_ITEMS,
   FETCH_USED_ITEMS_OF_THE_BEST,
+  FETCH_USER_LOGGED_IN,
 } from "./MarketList.queries";
 import MarketListUI from "./MarketList.presenter";
 import _ from "lodash";
@@ -37,6 +38,7 @@ export default function StaticRoutingPage() {
   const { data: dataUseditemsOfTheBest, refetch: refetchUseditemsOfTheBest } =
     useQuery(FETCH_USED_ITEMS_OF_THE_BEST);
   const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS);
+  const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
 
   ///////////////////////////////////////////////////////////////
   //  게시물 삭제
@@ -83,6 +85,10 @@ export default function StaticRoutingPage() {
   //////////////////////////////////////////////////////////////
 
   useEffect(() => {
+    if (localStorage.getItem("accessToken") === null) {
+      alert("로그인 후 이용 가능합니다.");
+      void router.push("/Login");
+    }
     refetchUseditemsOfTheBest({ page: 1 });
     refetch({ page: 1 });
   }, []);
@@ -167,6 +173,7 @@ export default function StaticRoutingPage() {
         onClickWrite={onClickWrite}
         data={data}
         count={dataBoardsCount?.fetchBoardsCount}
+        loginData={loginData}
         best={dataUseditemsOfTheBest}
         refetch={refetch}
         refetchBoardsCount={refetchBoardsCount}

@@ -43,3 +43,9 @@ export const FireFilledIcon = styled(GitlabFilled)`
     color: orange;
   }
 `;
+
+export const Rocket = styled.img`
+  margin-right: 5px;
+  width: 0px;
+  height: 20px;
+`;

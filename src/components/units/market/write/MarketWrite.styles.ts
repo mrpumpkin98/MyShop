@@ -20,13 +20,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 40px;
-  margin-top: 80px;
-  color: gold;
+  font-size: 34px;
+  font-weight: bold;
   font-family: "Jalnan";
-  margin-bottom: 10px;
-  text-align: center;
-  cursor: pointer;
+  margin-bottom: 70px;
 `;
 
 export const FireFilledIcon = styled(GitlabFilled)`
@@ -52,10 +49,11 @@ export const LoginTie = styled.div`
 `;
 
 export const Label = styled.div`
-  margin-bottom: 8px;
-  margin-top: 8px;
-  margin-left: 3px;
-  font-weight: 600;
+  padding: 16px 0px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: "SCDream4";
 `;
 
 export const Error = styled.div`
@@ -113,5 +111,13 @@ export const LoginButton = styled.button`
 `;
 
 export const UploadButton = styled.div`
+  width: 100%;
   display: flex;
+  margin-bottom: 50px;
+`;
+
+export const ButtonForm = styled.form``;
+
+export const WrapperReactQuill = styled.div`
+  height: 300px;
 `;

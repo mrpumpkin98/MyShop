@@ -22,8 +22,8 @@ export const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border: none;
-  border-radius: 4px;
-  box-shadow: 0px 0px 10px gray;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px #bdbdbd;
 `;
 
 export const Header = styled.div`
@@ -164,8 +164,8 @@ export const BottomWrapper = styled.div`
 export const Button = styled.button`
   width: 179px;
   height: 45px;
-  background-color: #f7f8fa;
-  border: 1px solid #dbdbdb;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   border-radius: 4px;
   margin: 0px 12px;
   cursor: pointer;

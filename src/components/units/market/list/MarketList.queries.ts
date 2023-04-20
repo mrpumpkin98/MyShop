@@ -62,3 +62,12 @@ export const FETCH_USED_ITEMS_OF_THE_BEST = gql`
     }
   }
 `;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query {
+    fetchUserLoggedIn {
+      email
+      name
+    }
+  }
+`;

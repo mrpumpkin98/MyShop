@@ -11,7 +11,7 @@ export default function LoginUI(props) {
         Header
       </B.Title>
       <B.Wrapper>
-        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickSubmit))}>
+        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickLogin))}>
           <B.LoginWrapper>
             <B.LoginTie>
               <B.Label>이메일</B.Label>

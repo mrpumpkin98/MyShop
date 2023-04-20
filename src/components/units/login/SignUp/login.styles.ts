@@ -16,7 +16,8 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   border: none;
-  box-shadow: 0px 0px 10px gray;
+  box-shadow: 0px 0px 10px #bdbdbd;
+  border-radius: 8px;
 `;
 
 export const Title = styled.div`

@@ -48,7 +48,6 @@ export default function MarketListUI(props) {
           </B.ShoppingBasket>
         </B.AddressModal>
       )}
-
       <B.Wrapper>
         <B.Title>베스트 상품</B.Title>
         <B.BestPostsTie>
@@ -127,7 +126,8 @@ export default function MarketListUI(props) {
                       </B.ListContents>
                       <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                       <B.TitleListSellerListPickedCount>
-                        <B.ListSeller id={el._id}>{el.seller}</B.ListSeller>
+                        <B.Smile />
+                        <B.ListSeller id={el._id}>임시 판매자</B.ListSeller>
                         <B.Heart />
                         <B.ListPickedCount id={el._id}>
                           {el.pickedCount ? el.pickedCount : 0}
@@ -146,31 +146,6 @@ export default function MarketListUI(props) {
           <B.Button onClick={props.onClickWrite}>상품 등록하기</B.Button>
         </B.ButtonTie>
       </B.Wrapper>
-      {/* <B.ShoppingBasket>
-        <B.BasketTitle>오늘 본 상품</B.BasketTitle>
-        <B.BasketList>
-          <B.BasketTable>
-            {props.basketItems.map((j) => (
-              <B.BasketTr key={j._id}>
-                <B.BasketListImg
-                  src={`https://storage.googleapis.com/${j.images[0]}`}
-                  onError={props.onErrorImg}
-                />
-                <B.BasketTieTable>
-                  <B.BasketListName id={j._id}>{j.name}</B.BasketListName>
-                  <B.BasketListContents id={j._id}>
-                    {j.remarks}
-                  </B.BasketListContents>
-                  <B.BasketListPrice id={j._id}>
-                    {Money(j.price)}
-                  </B.BasketListPrice>
-                  <B.BasketListTags id={j._id}>{j.tags}</B.BasketListTags>
-                </B.BasketTieTable>
-              </B.BasketTr>
-            ))}
-          </B.BasketTable>
-        </B.BasketList>
-      </B.ShoppingBasket> */}
     </B.ListMain>
   );
 }

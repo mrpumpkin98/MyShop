@@ -1,10 +1,11 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
-import {} from "./login.queries";
+import { CREATE_USER } from "./login.queries";
 import LoginUI from "./login.presenter";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useMutation } from "@apollo/client";
 
 export const schema = yup.object({
   email: yup
@@ -50,24 +51,42 @@ export const schema = yup.object({
 export default function LoginNewPage(props): JSX.Element {
   const router = useRouter();
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, setValue, trigger, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
-  const onClickLogo = (data): void => {
+  const [createUser] = useMutation(CREATE_USER);
+
+  const onClickLogo = () => {
     void router.push("/Board");
-    console.log(data);
   };
 
-  const onClickSubmit = (data): void => {
-    console.log(data);
+  const onClickLogin = async (data: any): Promise<void> => {
+    try {
+      // 1. 로그인 뮤테이션 날려서 accessToken 받아오기
+      const result = await createUser({
+        variables: {
+          createUserInput: {
+            email: String(data.email),
+            password: String(data.password),
+            name: String(data.name),
+          },
+        },
+      });
+
+      alert("화원가입에 성공했습니다!");
+
+      void router.push(`/Login`);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   };
   return (
     <div>
       <LoginUI
         onClickLogo={onClickLogo}
-        onClickSubmit={onClickSubmit}
+        onClickLogin={onClickLogin}
         register={register}
         handleSubmit={handleSubmit}
         formState={formState}

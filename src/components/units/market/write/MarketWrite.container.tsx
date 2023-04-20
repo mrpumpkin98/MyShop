@@ -39,24 +39,24 @@ export default function LoginNewPage(props): JSX.Element {
   /////////////////////////////////////////////////////////////////////////////////
   // onClickSubmit
   ////////////////////////////////////////////////////////////////////////////////
+  console.log(formState);
 
   const onClickSubmit = async (data: any): Promise<void> => {
     const result = await createUseditem({
       variables: {
-        createBoardInput: {
+        createUseditemInput: {
           name: data.name,
           remarks: data.remarks,
-          price: data.price,
-          tags: data.price,
-          images: data.price,
+          price: Number(data.price),
+          tags: data.tags,
+          images: [...fileUrls],
           contents: data.contents,
         },
       },
     });
 
     const { Modal } = await import("antd"); // code-splitting(코드스플릿팅)
-    Modal.success({ content: "게시글 등록에 성공하였습니다!!!" });
-
+    Modal.success({ content: "게시글 등록에 성공하였습니다!" });
     const useditemId: string = result.data.createUseditem._id;
     void router.push(`/Market/${useditemId}`);
   };
@@ -72,10 +72,10 @@ export default function LoginNewPage(props): JSX.Element {
     setFileUrls(newFileUrls);
   };
 
-  useEffect(() => {
-    const images = props.data?.fetchBoard.images;
-    if (images !== undefined && images !== null) setFileUrls([...images]);
-  }, [props.data]);
+  // useEffect(() => {
+  //   const images = props.data?.fetchBoard.images;
+  //   if (images !== undefined && images !== null) setFileUrls([...images]);
+  // }, [props.data]);
 
   return (
     <div>

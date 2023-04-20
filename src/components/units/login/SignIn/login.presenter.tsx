@@ -12,7 +12,7 @@ export default function LoginUI(props) {
           <B.FireFilledIcon />
           Header
         </B.Title>
-        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickSubmit))}>
+        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickLogin))}>
           <B.LoginWrapper>
             <B.LoginTie>
               <Input01

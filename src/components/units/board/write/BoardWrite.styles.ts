@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   border: 1px solid black;
   margin: 100px;
   padding-top: 80px;
+  border-radius: 8px;
   padding-bottom: 100px;
   padding-left: 102px;
   padding-right: 102px;
@@ -181,8 +182,8 @@ export const ButtonWrapper = styled.div`
 export const CancelButton = styled.button`
   width: 179px;
   height: 52px;
-  background-color: #f7f8fa;
-  border: 1px solid #dbdbdb;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   font-size: 16px;
   margin-left: 12px;
   margin-right: 12px;
@@ -194,7 +195,8 @@ export const CancelButton = styled.button`
 export const SubmitButton = styled.button`
   width: 179px;
   height: 52px;
-  border: 1px solid #dbdbdb;
+  background-color: #f5f5f5;
+  border: 1px solid #f5f5f5;
   font-size: 16px;
   margin-left: 12px;
   margin-right: 12px;
