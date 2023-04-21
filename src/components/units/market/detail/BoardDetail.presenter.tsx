@@ -3,6 +3,9 @@ import { Money, Money2, getDate } from "../../../../commons/libraries/utils";
 import { IBoardDetailUIProps } from "./BoardDetail.types";
 import { Button, Tooltip } from "antd";
 import DOMPurify from "dompurify";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 export default function BoardDetailUI(props) {
   return (
@@ -41,29 +44,40 @@ export default function BoardDetailUI(props) {
                 <B.Price>{Money(props.data?.fetchUseditem?.price)}</B.Price>
               </B.WrapperRemarksNamePrice>
               <B.WrapperPickedCount>
-                <B.Heart />
+                <B.Heart
+                  onClick={props.onClickLike}
+                  isActive={props.data?.fetchUseditem?.pickedCount}
+                />
                 <B.PickedCount>
                   {props.data?.fetchUseditem?.pickedCount}
                 </B.PickedCount>
               </B.WrapperPickedCount>
             </B.WidthWrapper>
             <B.WrapperContents>
-              <B.imImageResult>
-                {props.data?.fetchUseditem.images
-                  ?.filter((el) => el)
-                  .map((el) => (
-                    <B.Image
-                      key={el}
-                      src={`https://storage.googleapis.com/${el}`}
-                    />
-                  ))}
-              </B.imImageResult>
+              <B.WrapperImage>
+                <B.imImageResult>
+                  <Slider {...props.settings}>
+                    {props.data?.fetchUseditem.images
+                      ?.filter((el) => el)
+                      .map((el) => (
+                        <B.Image
+                          key={el}
+                          src={`https://storage.googleapis.com/${el}`}
+                        />
+                      ))}
+                  </Slider>
+                </B.imImageResult>
+              </B.WrapperImage>
               <B.Contents
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    props.data?.fetchUseditem?.contents
-                  ),
-                }}
+                dangerouslySetInnerHTML={
+                  props.data?.fetchUseditem?.contents
+                    ? {
+                        __html: DOMPurify.sanitize(
+                          props.data.fetchUseditem.contents
+                        ),
+                      }
+                    : undefined
+                }
               />
               <B.Tags>#{props.data?.fetchUseditem?.tags}</B.Tags>
             </B.WrapperContents>

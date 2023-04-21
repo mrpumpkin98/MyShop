@@ -90,10 +90,12 @@ export const Youtube = styled(ReactPlayer)`
   margin-bottom: 30px;
 `;
 
+export const WrapperImage = styled.div``;
+
 export const imImageResult = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 300px;
+  border-radius: 8px;
+  margin: auto;
 `;
 
 export const Footer = styled.div`
@@ -169,10 +171,10 @@ export const Button = styled.button`
 `;
 
 export const Image = styled.img`
-  width: 296px;
+  width: 100%;
   height: 296px;
-  margin-bottom: 10px;
-  margin-top: 30px;
+  margin: auto;
+  border-radius: 8px;
 `;
 
 // 중고마켓
@@ -214,7 +216,7 @@ export const Tags = styled.div`
 
 export const Heart = styled(HeartFilled)`
   font-size: 18px;
-  color: gold;
+  color: ${({ isActive }) => (isActive ? "gold" : "#bdbdbd")};
   cursor: pointer;
   margin-bottom: 8px;
 `;

@@ -28,11 +28,17 @@ export default function LoginUI(props) {
                 title="상품명을 작성해주세요."
                 register={props.register("name")}
               ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {props.formState.errors.name?.message}
+              </B.Error>
               <B.Label>한줄요약 </B.Label>
               <Input04
                 title="상품명을 작성해주세요."
                 register={props.register("remarks")}
               ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {props.formState.errors.remarks?.message}
+              </B.Error>
               <B.WrapperReactQuill>
                 <B.Label>상품설명 </B.Label>
                 <ReactQuill
@@ -40,11 +46,17 @@ export default function LoginUI(props) {
                   style={{ height: "200px" }}
                 />
               </B.WrapperReactQuill>
+              <B.Error style={{ color: "red" }}>
+                {props.formState.errors.contents?.message}
+              </B.Error>
               <B.Label>판매 가격</B.Label>
               <Input04
                 title="판매 가격을 입력해주세요."
                 register={props.register("price")}
               ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {props.formState.errors.price?.message}
+              </B.Error>
               <B.Label>태그입력</B.Label>
               <Input04
                 title="#태그  #태그  #태그  "

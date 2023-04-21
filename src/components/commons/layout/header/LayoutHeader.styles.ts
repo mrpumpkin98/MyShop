@@ -32,6 +32,9 @@ export const InnerButton = styled.span`
   color: gold;
   cursor: pointer;
   font-family: "Jalnan";
+  :hover {
+    color: orange;
+  }
 `;
 
 export const FireFilledIcon = styled(GitlabFilled)`

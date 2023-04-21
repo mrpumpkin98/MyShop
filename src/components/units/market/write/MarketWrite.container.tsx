@@ -8,6 +8,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { CREATE_USED_ITEM } from "./MarketWrite.queries";
 
+export const schema = yup.object({
+  name: yup.string().required("상품명을 입력하세요!"),
+  remarks: yup.string().required("한줄요약을 입력하세요!"),
+  price: yup.string().required("판매 가격을 입력하세요!"),
+  contents: yup.string().required("상품설명을 입력하세요!"),
+});
+
 export default function LoginNewPage(props): JSX.Element {
   const router = useRouter();
 
@@ -21,6 +28,7 @@ export default function LoginNewPage(props): JSX.Element {
   //////////////////////////////////////////////////////////////
 
   const { register, setValue, trigger, handleSubmit, formState } = useForm({
+    resolver: yupResolver(schema),
     mode: "onChange",
   });
 

@@ -7,6 +7,7 @@ import {
   LIKE_BOARD,
   DIS_LIKE_BOARD,
   FETCH_USED_ITEM,
+  TOGGLE_USED_ITEM_PICK,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -24,13 +25,10 @@ export default function BoardDetailPage() {
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
-  // const { data, refetch } = useQuery(FETCH_BOARD, {
-  //   variables: { boardId: router.query.boardId },
-  // });
-
   const { data, refetch } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
   });
+  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
 
   ///////////////////////////////////////////////////////////////
   // 게시물 삭제
@@ -44,34 +42,17 @@ export default function BoardDetailPage() {
   };
 
   ///////////////////////////////////////////////////////////////
-  // 좋아요
+  // 마켓 좋아요
   //////////////////////////////////////////////////////////////
 
   const onClickLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.currentTarget.id);
-    const result = await likeBoard({
-      variables: { boardId: router.query.boardId },
+    const result = await toggleUseditemPick({
+      variables: { useditemId: router.query.useditemId },
       refetchQueries: [
         {
-          query: FETCH_BOARD,
-          variables: { boardId: router.query.boardId },
-        },
-      ],
-    });
-  };
-
-  ///////////////////////////////////////////////////////////////
-  // 싫어요
-  //////////////////////////////////////////////////////////////
-
-  const onClickDisLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.id);
-    const result = await dislikeBoard({
-      variables: { boardId: router.query.boardId },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD,
-          variables: { boardId: router.query.boardId },
+          query: FETCH_USED_ITEM,
+          variables: { useditemId: router.query.useditemId },
         },
       ],
     });
@@ -101,6 +82,19 @@ export default function BoardDetailPage() {
     refetch({ page: 1 });
   }, []);
 
+  ///////////////////////////////////////////////////////////////
+  // 이미지 캐러셀
+  //////////////////////////////////////////////////////////////
+
+  const settings = {
+    arrows: true,
+    dots: true,
+    infinite: true,
+    speed: 800,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div>
       <BoardDetailUI
@@ -108,8 +102,8 @@ export default function BoardDetailPage() {
         onClickUpdate={onClickUpdate}
         onClickDelete={onClickDelete}
         onClickLike={onClickLike}
-        onClickDisLike={onClickDisLike}
         onClickBoard={onClickBoard}
+        settings={settings}
       />
     </div>
   );

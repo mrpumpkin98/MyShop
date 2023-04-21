@@ -46,6 +46,7 @@ export const FETCH_USED_ITEMS = gql`
       name
       remarks
       price
+      pickedCount
     }
   }
 `;
