@@ -45,6 +45,8 @@ export default function BoardDetailPage() {
   // 마켓 좋아요
   //////////////////////////////////////////////////////////////
 
+  const [Like, setLike] = useState(false);
+
   const onClickLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.currentTarget.id);
     const result = await toggleUseditemPick({
@@ -56,6 +58,7 @@ export default function BoardDetailPage() {
         },
       ],
     });
+    setLike((prevLike) => !prevLike); // 하트v누르면 true 아니면 false
   };
 
   ///////////////////////////////////////////////////////////////
@@ -104,6 +107,7 @@ export default function BoardDetailPage() {
         onClickLike={onClickLike}
         onClickBoard={onClickBoard}
         settings={settings}
+        Like={Like}
       />
     </div>
   );

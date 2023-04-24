@@ -216,7 +216,8 @@ export const Tags = styled.div`
 
 export const Heart = styled(HeartFilled)`
   font-size: 18px;
-  color: ${({ isActive }) => (isActive ? "gold" : "#bdbdbd")};
+  color: ${(props: ISubmitButtonProps) =>
+    props.Active === false ? " #bdbdbd" : "gold"};
   cursor: pointer;
   margin-bottom: 8px;
 `;

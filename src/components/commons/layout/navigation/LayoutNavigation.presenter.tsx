@@ -1,6 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { MenuItem, Wrapper } from "./LayoutNavigation.styles";
 import type { ILayoutNavigationUIProps } from "./LayoutNavigation.types";
+import { NavLink } from "react-router-dom";
 
 const NAVIGATION_MENUS = [
   { name: "자유게시판", page: "/Board" },

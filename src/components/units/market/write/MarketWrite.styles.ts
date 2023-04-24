@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
-import { GitlabFilled } from "@ant-design/icons";
+import { AimOutlined, GitlabFilled } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   /* height: 1847px; */
@@ -119,5 +119,82 @@ export const UploadButton = styled.div`
 export const ButtonForm = styled.form``;
 
 export const WrapperReactQuill = styled.div`
-  height: 300px;
+  height: 500px;
+`;
+
+export const Map = styled.div`
+  height: 500px;
+`;
+
+export const WrapperMapLatLng = styled.div`
+  display: flex;
+`;
+
+export const WrapperMap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const WrapperGPSAddress = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 588px;
+  margin-left: 23px;
+  justify-content: space-between;
+`;
+
+export const WrapperLatLng = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const TieLatLng = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const Lat = styled.input`
+  width: 180px;
+  height: 52px;
+  font-size: 15px;
+  padding: 13px 15px 14px;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 10px;
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
+`;
+
+export const Lng = styled.input`
+  width: 180px;
+  height: 52px;
+  font-size: 15px;
+  padding: 13px 15px 14px;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 10px;
+  :focus {
+    outline: none;
+    border: 1px solid gold;
+  }
+`;
+
+export const WrapperAddressAddressDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const AimOut = styled(AimOutlined)`
+  color: gold;
+  font-size: 30px;
+  cursor: pointer;
+  margin: 0px 15px;
+  :hover {
+    color: orange;
+  }
+  padding-top: 10px;
+`;
+
+export const KaKaoMap = styled.div`
+  display: flex;
 `;

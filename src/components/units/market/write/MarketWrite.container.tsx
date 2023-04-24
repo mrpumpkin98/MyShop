@@ -80,10 +80,9 @@ export default function LoginNewPage(props): JSX.Element {
     setFileUrls(newFileUrls);
   };
 
-  // useEffect(() => {
-  //   const images = props.data?.fetchBoard.images;
-  //   if (images !== undefined && images !== null) setFileUrls([...images]);
-  // }, [props.data]);
+  ///////////////////////////////////////////////////////////////
+  // 카카오맵
+  //////////////////////////////////////////////////////////////
 
   return (
     <div>

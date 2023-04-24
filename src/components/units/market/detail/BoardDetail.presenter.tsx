@@ -44,10 +44,7 @@ export default function BoardDetailUI(props) {
                 <B.Price>{Money(props.data?.fetchUseditem?.price)}</B.Price>
               </B.WrapperRemarksNamePrice>
               <B.WrapperPickedCount>
-                <B.Heart
-                  onClick={props.onClickLike}
-                  isActive={props.data?.fetchUseditem?.pickedCount}
-                />
+                <B.Heart onClick={props.onClickLike} Active={props.Like} />
                 <B.PickedCount>
                   {props.data?.fetchUseditem?.pickedCount}
                 </B.PickedCount>
