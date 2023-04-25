@@ -157,9 +157,9 @@ export const Lat = styled.input`
   width: 180px;
   height: 52px;
   font-size: 15px;
-  padding: 13px 15px 14px;
   border: 1px solid #dbdbdb;
-  margin-bottom: 10px;
+  padding: 13px 15px 14px;
+  margin-right: 20px;
   :focus {
     outline: none;
     border: 1px solid gold;
@@ -170,9 +170,8 @@ export const Lng = styled.input`
   width: 180px;
   height: 52px;
   font-size: 15px;
-  padding: 13px 15px 14px;
   border: 1px solid #dbdbdb;
-  margin-bottom: 10px;
+  padding: 13px 15px 14px;
   :focus {
     outline: none;
     border: 1px solid gold;
@@ -184,17 +183,41 @@ export const WrapperAddressAddressDetail = styled.div`
   flex-direction: column;
 `;
 
-export const AimOut = styled(AimOutlined)`
-  color: gold;
-  font-size: 30px;
-  cursor: pointer;
-  margin: 0px 15px;
-  :hover {
-    color: orange;
-  }
-  padding-top: 10px;
-`;
+// export const AimOut = styled(AimOutlined)`
+//   color: gold;
+//   font-size: 30px;
+//   cursor: pointer;
+//   margin: 0px 15px;
+// `;
 
 export const KaKaoMap = styled.div`
   display: flex;
+`;
+
+export const MapWrap = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+`;
+
+export const AddrTitle = styled.span`
+  font-weight: bold;
+  display: block;
+`;
+
+export const HAddr = styled.div`
+  position: absolute;
+  margin-left: 10px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background-color: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1;
+  padding: 5px;
+`;
+
+export const CenterAddr = styled.span`
+  display: block;
+  margin-top: 2px;
+  font-weight: normal;
 `;

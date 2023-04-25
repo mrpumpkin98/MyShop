@@ -9,7 +9,7 @@ import {
 import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 1000px;
   margin: 100px;
 `;
 
@@ -52,7 +52,7 @@ export const Info = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 830px;
+  width: 630px;
   margin-right: 30px;
 `;
 
@@ -93,7 +93,8 @@ export const Youtube = styled(ReactPlayer)`
 export const WrapperImage = styled.div``;
 
 export const imImageResult = styled.div`
-  width: 300px;
+  width: 400px;
+  height: 400px;
   border-radius: 8px;
   margin: auto;
 `;
@@ -212,6 +213,17 @@ export const Tags = styled.div`
   font-weight: 500;
   margin-top: 60px;
   width: 100%;
+`;
+
+export const Map = styled.div`
+  width: 100%;
+  height: 500px;
+  border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 `;
 
 export const Heart = styled(HeartFilled)`

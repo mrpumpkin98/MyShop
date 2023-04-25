@@ -1,16 +1,17 @@
 import type { UseFormRegisterReturn } from "react-hook-form";
-import * as B from "../styles/04";
+import * as B from "../styles/05";
 
 interface IInputProps {
   type?: "text" | "password";
   register: UseFormRegisterReturn;
 }
 
-export default function Input02(props: IInputProps): JSX.Element {
+export default function Input05(props: IInputProps): JSX.Element {
   return (
-    <B.Input03
+    <B.Input05
       placeholder={props.title ?? "입력해 주세요."}
-      // value={props.answer ?? ""}
+      readOnly
+      value={props.answer ?? ""}
       type={props.type ?? "text"}
       {...props.register}
     />

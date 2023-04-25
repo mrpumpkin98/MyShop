@@ -7,6 +7,10 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+declare const window: typeof globalThis & {
+  kakao: any;
+};
+
 export default function BoardDetailUI(props) {
   return (
     <div>
@@ -76,7 +80,13 @@ export default function BoardDetailUI(props) {
                     : undefined
                 }
               />
-              <B.Tags>#{props.data?.fetchUseditem?.tags}</B.Tags>
+              <B.Tags>{props.data?.fetchUseditem?.tags}</B.Tags>
+              <B.Map>
+                <div
+                  id={props.mapId}
+                  style={{ width: "100%", height: "360px" }}
+                ></div>
+              </B.Map>
             </B.WrapperContents>
           </B.Body>
           <B.Footer></B.Footer>
