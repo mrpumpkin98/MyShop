@@ -12,6 +12,7 @@ import type {
   IMutation,
   IMutationLoginUserArgs,
 } from "../../../src/commons/types/generated/types";
+import { IQuery } from "../../../../commons/types/generated/types";
 
 export const schema = yup.object({
   // email: yup
@@ -76,6 +77,7 @@ export default function LoginNewPage(props): JSX.Element {
       if (error instanceof Error) alert(error.message);
     }
   };
+
   return (
     <div>
       <LoginUI

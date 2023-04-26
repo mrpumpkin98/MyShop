@@ -43,7 +43,7 @@ export default function LoginUI(props) {
               <B.Label>닉네임</B.Label>
               <Input03
                 title="별명을 입력해 주세요."
-                register={props.register("username")}
+                register={props.register("name")}
               ></Input03>
               <B.Error style={{ color: "red" }}>
                 {props.formState.errors.username?.message}
