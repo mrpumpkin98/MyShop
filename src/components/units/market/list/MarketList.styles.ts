@@ -16,6 +16,7 @@ import { Modal } from "antd";
 export const ListMain = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 210px;
 `;
 
 export const Wrapper = styled.div``;
@@ -44,6 +45,7 @@ export const WidthWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 15px;
 `;
 
 export const Shopping = styled(ShoppingFilled)`
@@ -310,6 +312,7 @@ export const BasketTr = styled.div`
   align-items: center;
   justify-content: center;
   margin: 3px;
+  margin-bottom: 10px;
 `;
 export const BasketListImg = styled.img`
   width: 60px;
@@ -324,15 +327,18 @@ export const BasketTieTable = styled.div`
 `;
 export const BasketListName = styled.div`
   font-size: 12px;
+  cursor: pointer;
 `;
 
 export const BasketListContents = styled.div`
   font-size: 12px;
   color: #4f4f4f;
+  cursor: pointer;
 `;
 export const BasketListPrice = styled.div`
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 `;
 
 export const BasketListTags = styled.div``;
@@ -343,4 +349,37 @@ export const AddressModal = styled(Modal)`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const TodayTitle = styled.div`
+  font-family: "SCDream4";
+  text-align: center;
+  font-size: 14px;
+  margin: 20px 0px;
+`;
+
+export const TodayList = styled.div`
+  border: 1px solid #bdbdbd;
+  height: 100%;
+  width: 184px;
+  margin-top: 650px;
+  margin-left: 20px;
+  border-radius: 8px;
+`;
+
+export const TodayTable = styled.div`
+  margin: 0px 10px;
+`;
+
+export const ReactPaginate = styled.div`
+  margin: 0px 10px;
+`;
+
+export const PaginationContainer = styled.div`
+  /* margin-top: 20px; */
+`;
+
+export const Pagination = styled(ReactPaginate)`
+  /* margin-top: 20px; */
+  display: none;
 `;

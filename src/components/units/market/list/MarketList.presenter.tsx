@@ -13,10 +13,26 @@ import { onErrorImg } from "../../../../commons/stores";
 import { Money } from "../../../../commons/libraries/utils";
 import { Wrapper } from "../../../commons/layout/banner/LayoutBanner.styles";
 import { useMoveToPage } from "../../../../commons/hooks/customs/useMoveToPage";
+import { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 const SECRET = "@#$%";
+interface Props {
+  basketItems: any[];
+  onErrorImg: (e: any) => void;
+}
 
-export default function MarketListUI(props) {
+const ITEMS_PER_PAGE = 2;
+
+export default function MarketListUI(props: any) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const pageCount = Math.ceil(props.basketItems.length / ITEMS_PER_PAGE);
+  const offset = currentPage * ITEMS_PER_PAGE;
+
+  const handlePageClick = (data: any) => {
+    setCurrentPage(data.selected);
+  };
+
   return (
     <B.ListMain>
       {props.isOpen && (
@@ -25,7 +41,7 @@ export default function MarketListUI(props) {
             <B.BasketTitle>장바구니</B.BasketTitle>
             <B.BasketList>
               <B.BasketTable>
-                {props.basketItems.map((j) => (
+                {props.basketItems.map((j: any) => (
                   <B.BasketTr key={j._id}>
                     <B.BasketListImg
                       src={`https://storage.googleapis.com/${j.images[0]}`}
@@ -51,7 +67,7 @@ export default function MarketListUI(props) {
       <B.Wrapper>
         <B.Title>베스트 상품</B.Title>
         <B.BestPostsTie>
-          {props.best?.fetchUseditemsOfTheBest.map((i) => (
+          {props.best?.fetchUseditemsOfTheBest.map((i: any) => (
             <B.BestPosts key={i._id}>
               <B.BestPostBody>
                 <B.BestPostImg
@@ -111,14 +127,14 @@ export default function MarketListUI(props) {
               useWindow={false}
             >
               <B.Table>
-                {props.data?.fetchUseditems.map((el) => (
+                {props.data?.fetchUseditems.map((el: any) => (
                   <B.Tr key={el._id}>
                     <B.ListImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
                       onError={props.onErrorImg}
                     />
                     <B.TieTable>
-                      <B.ListName id={el._id} onClick={props.onClickSubmit}>
+                      <B.ListName id={el._id} onClick={props.onClickToday(el)}>
                         {el.name}{" "}
                       </B.ListName>
                       <B.ListContents id={el._id} onClick={props.onClickSubmit}>
@@ -146,6 +162,51 @@ export default function MarketListUI(props) {
           <B.Button onClick={props.onClickWrite}>상품 등록하기</B.Button>
         </B.ButtonTie>
       </B.Wrapper>
+      <B.TodayList>
+        <B.TodayTitle>오늘 본 상품</B.TodayTitle>
+        <B.TodayTable>
+          {props.todayItems
+            .slice(offset, offset + ITEMS_PER_PAGE)
+            .map((j: any) => (
+              <B.BasketTr key={j._id}>
+                <B.BasketListImg
+                  src={`https://storage.googleapis.com/${j.images[0]}`}
+                  onError={props.onErrorImg}
+                />
+                <B.BasketTieTable>
+                  <B.BasketListName id={j._id} onClick={props.onClickSubmit}>
+                    {j.name}{" "}
+                  </B.BasketListName>
+                  <B.BasketListContents
+                    id={j._id}
+                    onClick={props.onClickSubmit}
+                  >
+                    {j.remarks}
+                  </B.BasketListContents>
+                  <B.BasketListPrice id={j._id} onClick={props.onClickSubmit}>
+                    {Money(j.price)}
+                  </B.BasketListPrice>
+                  <B.BasketListTags id={j._id}>{j.tags}</B.BasketListTags>
+                </B.BasketTieTable>
+              </B.BasketTr>
+            ))}
+        </B.TodayTable>
+        <B.PaginationContainer>
+          <B.Pagination
+            previousLabel={"<"}
+            nextLabel={">"}
+            pageCount={pageCount}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination"}
+            previousLinkClassName={"pagination__link"}
+            nextLinkClassName={"pagination__link"}
+            disabledClassName={"pagination__link--disabled"}
+            activeClassName={"pagination__link--active"}
+            pageRangeDisplayed={0}
+            marginPagesDisplayed={0}
+          />
+        </B.PaginationContainer>
+      </B.TodayList>
     </B.ListMain>
   );
 }

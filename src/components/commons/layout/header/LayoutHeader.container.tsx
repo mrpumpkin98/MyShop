@@ -31,6 +31,8 @@ export default function LayoutHeader(): JSX.Element {
     void router.push("/Login");
     localStorage.removeItem("expiryTimestamp");
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("baskets");
+    localStorage.removeItem("todays");
     setShouldReload(true);
   };
 

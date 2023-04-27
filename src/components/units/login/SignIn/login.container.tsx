@@ -54,6 +54,10 @@ export default function LoginNewPage(props): JSX.Element {
     void router.push("/Board");
   };
 
+  const onClickSingUp = (): void => {
+    void router.push("/Login/SignUp");
+  };
+
   const onClickLogin = async (data: any): Promise<void> => {
     try {
       // 1. 로그인 뮤테이션 날려서 accessToken 받아오기
@@ -85,6 +89,7 @@ export default function LoginNewPage(props): JSX.Element {
         onClickLogin={onClickLogin}
         register={register}
         handleSubmit={handleSubmit}
+        onClickSingUp={onClickSingUp}
       />
     </div>
   );

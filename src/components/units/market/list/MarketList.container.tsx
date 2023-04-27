@@ -26,6 +26,7 @@ export default function StaticRoutingPage() {
 
   const [keyword, setKeyword] = useState("");
   const [basketItems, setBasketItems] = useState([]);
+  const [todayItems, setTodayItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   ///////////////////////////////////////////////////////////////
@@ -165,6 +166,35 @@ export default function StaticRoutingPage() {
     setBasketItems(baskets);
   }, [isOpen]);
 
+  ///////////////////////////////////////////////////////////////
+  // 오늘 본 상품
+  //////////////////////////////////////////////////////////////
+  const onClickToday =
+    (today: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      // 1. 기존 장바구니 가져오기
+      const todays = JSON.parse(localStorage.getItem("todays") ?? "[]");
+
+      const temp = todays.filter((el) => el._id === today._id);
+      if (todays.length > 3) {
+        todays.pop();
+      }
+
+      // 2. 내가 클릭한거 장바구니에 추가하기
+      const existingIndex = todays.findIndex((el) => el._id === today._id);
+      if (existingIndex !== -1) {
+        todays.splice(existingIndex, 1);
+      }
+      todays.unshift(today);
+
+      localStorage.setItem("todays", JSON.stringify(todays));
+
+      router.push(`/Market/${event.currentTarget.id}`);
+    };
+  useEffect(() => {
+    const todays = JSON.parse(localStorage.getItem("todays") || "[]");
+    setTodayItems(todays);
+  }, []);
+
   return (
     <>
       <MarketListUI
@@ -187,6 +217,8 @@ export default function StaticRoutingPage() {
         onClickBasketModal={onClickBasketModal}
         Ok={Ok}
         Cancel={Cancel}
+        onClickToday={onClickToday}
+        todayItems={todayItems}
       />
     </>
   );

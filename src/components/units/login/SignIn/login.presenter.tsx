@@ -26,6 +26,7 @@ export default function LoginUI(props) {
               ></Input02>
             </B.LoginTie>
             <Button01 title="로그인" />
+            <B.SingUp onClick={props.onClickSingUp}>회원가입</B.SingUp>
           </B.LoginWrapper>
         </form>
       </B.Wrapper>

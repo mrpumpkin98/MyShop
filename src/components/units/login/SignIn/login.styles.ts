@@ -98,3 +98,12 @@ export const LoginButton = styled.button`
     font-weight: 700;
   }
 `;
+
+export const SingUp = styled.div`
+  font-size: 15px;
+  color: #4f4f4f;
+  cursor: pointer;
+  font-family: "SCDream4";
+  margin-top: 20px;
+  text-align: center;
+`;
