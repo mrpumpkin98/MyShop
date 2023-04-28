@@ -74,32 +74,19 @@ export default function MarketListUI(props: any) {
                   src={`https://storage.googleapis.com/${i.images[0]}`}
                   onError={props.onErrorImg}
                   id={i._id}
-                  onClick={props.onClickSubmit}
+                  onClick={props.onClickToday(i)}
                 />
-                <B.BestPostTitle id={i._id} onClick={props.onClickSubmit}>
-                  {i.name}
-                </B.BestPostTitle>
-                <B.BestPostContent onClick={props.onClickSubmit}>
+                <B.BestPostTitle id={i._id}>{i.name}</B.BestPostTitle>
+                <B.BestPostContent>
                   <B.BestPostInfo>
-                    <B.CreatedAt id={i._id} onClick={props.onClickSubmit}>
-                      {i.remarks}
-                    </B.CreatedAt>
-                    <B.AvatarWriterTie id={i._id} onClick={props.onClickSubmit}>
-                      <B.Writer id={i._id} onClick={props.onClickSubmit}>
-                        {" "}
-                        {Money(i.price)}
-                      </B.Writer>
+                    <B.CreatedAt id={i._id}>{i.remarks}</B.CreatedAt>
+                    <B.AvatarWriterTie id={i._id}>
+                      <B.Writer id={i._id}> {Money(i.price)}</B.Writer>
                     </B.AvatarWriterTie>
                   </B.BestPostInfo>
                   <B.LikeTie>
-                    <B.Like
-                      src="/images/avatar.png"
-                      id={i._id}
-                      onClick={props.onClickSubmit}
-                    ></B.Like>
-                    <B.LikeNum id={i._id} onClick={props.onClickSubmit}>
-                      {i.pickedCount}
-                    </B.LikeNum>
+                    <B.Like src="/images/avatar.png" id={i._id}></B.Like>
+                    <B.LikeNum id={i._id}>{i.pickedCount}</B.LikeNum>
                   </B.LikeTie>
                 </B.BestPostContent>
               </B.BestPostBody>
