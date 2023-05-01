@@ -5,13 +5,15 @@
 //####################################################################
 
 import MarketDetail from "../../../src/components/units/market/detail/BoardDetail.container";
-import BoardComment from "../../../src/components/units/board/comment/BoardComment.container";
-import BoardCommentList from "../../../src/components/units/board/commentlist/BoardCommentList.container";
+import BoardComment from "../../../src/components/units/market/comment/BoardComment.container";
+import BoardCommentList from "../../../src/components/units/market/commentlist/BoardCommentList.container";
 
 export default function GraphqlMutationPage() {
   return (
     <div>
       <MarketDetail />
+      {/* <BoardComment />
+      <BoardCommentList /> */}
     </div>
   );
 }

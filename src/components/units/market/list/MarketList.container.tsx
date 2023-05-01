@@ -188,8 +188,9 @@ export default function StaticRoutingPage() {
 
       localStorage.setItem("todays", JSON.stringify(todays));
 
-      router.push(`/Market/${event.currentTarget.id}`);
+      router.push(`/Market/${today._id}`);
     };
+
   useEffect(() => {
     const todays = JSON.parse(localStorage.getItem("todays") || "[]");
     setTodayItems(todays);

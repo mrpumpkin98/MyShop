@@ -53,7 +53,7 @@ export default function LoginNewPage(props): JSX.Element {
           name: data.name,
           remarks: data.remarks,
           price: Number(data.price),
-          tags: data.tags,
+          tags: data.tags, //여기서도 split(" ")가능
           images: [...fileUrls],
           contents: data.contents,
           useditemAddress: {

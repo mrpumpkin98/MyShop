@@ -153,6 +153,8 @@ export const BottomWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   padding-top: 80px;
+  border-bottom: 1px solid #bdbdbd;
+  height: 200px;
 `;
 
 export const Button = styled.button`
@@ -209,10 +211,24 @@ export const Price = styled.div`
 
 export const Tags = styled.div`
   font-size: 16px;
-  color: #bdbdbd;
+  color: white;
   font-weight: 500;
   margin-top: 60px;
   width: 100%;
+  display: flex;
+`;
+
+export const Tag = styled.div`
+  margin-right: 10px;
+  background-color: #bdbdbd;
+  height: 27px;
+  font-size: 13px;
+  font-family: "SCDream4";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0px 10px;
 `;
 
 export const Map = styled.div`

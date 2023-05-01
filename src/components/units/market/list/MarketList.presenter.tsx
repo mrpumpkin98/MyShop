@@ -68,13 +68,12 @@ export default function MarketListUI(props: any) {
         <B.Title>베스트 상품</B.Title>
         <B.BestPostsTie>
           {props.best?.fetchUseditemsOfTheBest.map((i: any) => (
-            <B.BestPosts key={i._id}>
+            <B.BestPosts key={i._id} onClick={props.onClickToday(i)}>
               <B.BestPostBody>
                 <B.BestPostImg
                   src={`https://storage.googleapis.com/${i.images[0]}`}
                   onError={props.onErrorImg}
                   id={i._id}
-                  onClick={props.onClickToday(i)}
                 />
                 <B.BestPostTitle id={i._id}>{i.name}</B.BestPostTitle>
                 <B.BestPostContent>
@@ -115,15 +114,13 @@ export default function MarketListUI(props: any) {
             >
               <B.Table>
                 {props.data?.fetchUseditems.map((el: any) => (
-                  <B.Tr key={el._id}>
+                  <B.Tr key={el._id} onClick={props.onClickToday(el)}>
                     <B.ListImg
                       src={`https://storage.googleapis.com/${el.images[0]}`}
                       onError={props.onErrorImg}
                     />
                     <B.TieTable>
-                      <B.ListName id={el._id} onClick={props.onClickToday(el)}>
-                        {el.name}{" "}
-                      </B.ListName>
+                      <B.ListName id={el._id}>{el.name} </B.ListName>
                       <B.ListContents id={el._id} onClick={props.onClickSubmit}>
                         {el.remarks}
                       </B.ListContents>

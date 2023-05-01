@@ -6,6 +6,8 @@ import DOMPurify from "dompurify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import BoardComment from "../../market/comment/BoardComment.container";
+import BoardCommentList from "../../market/commentlist/BoardCommentList.container";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -80,7 +82,11 @@ export default function BoardDetailUI(props) {
                     : undefined
                 }
               />
-              <B.Tags>{props.data?.fetchUseditem?.tags}</B.Tags>
+              <B.Tags>
+                {props.Tag?.map((el: any, index: any) => (
+                  <B.Tag>#{props.Tag[index]}</B.Tag>
+                ))}
+              </B.Tags>
               <B.Map>
                 <div
                   id={props.mapId}
@@ -95,6 +101,8 @@ export default function BoardDetailUI(props) {
           <B.Button onClick={props.onClickBoard}>목록으로</B.Button>
           <B.Button onClick={props.onClickUpdate}>구매하기</B.Button>
         </B.BottomWrapper>
+        <BoardComment />
+        <BoardCommentList />
       </B.Wrapper>
     </div>
   );

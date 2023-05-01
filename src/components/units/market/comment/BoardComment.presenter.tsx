@@ -1,6 +1,8 @@
 import * as B from "./BoardComment.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import { Rate, Modal } from "antd";
+import BoardComment from "../../market/comment/BoardComment.container";
+import BoardCommentList from "../../market/commentlist/BoardCommentList.container";
 
 export default function BoardCommentUI(props: any) {
   return (
@@ -14,24 +16,6 @@ export default function BoardCommentUI(props: any) {
             </B.Header>
           )}
           <B.InFor>
-            <B.InForWriter
-              type="text"
-              placeholder="작성자"
-              onChange={props.onChangeWriter}
-              value={
-                props.writer !== "" ? props.writer : props.el?.writer ?? ""
-              }
-              readOnly={props.isEdit}
-              Active={props.isEdit === true}
-            />
-            <B.InForPassword
-              type="password"
-              placeholder="비밀번호"
-              onChange={props.onChangePassword}
-              value={props.password}
-              Active={props.isEdit === true}
-            />
-            <Rate onChange={props.setStar} />
             {props.isEdit === true && (
               <B.Export onClick={props.onClickExport} />
             )}

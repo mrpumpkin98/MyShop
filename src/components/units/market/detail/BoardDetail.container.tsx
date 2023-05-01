@@ -149,6 +149,12 @@ export default function BoardDetailPage() {
     };
   });
 
+  ///////////////////////////////////////////////////////////////
+  // 태그 생성
+  //////////////////////////////////////////////////////////////
+
+  const Tag = data?.fetchUseditem?.tags.join().split(" ");
+
   return (
     <div>
       <BoardDetailUI
@@ -160,6 +166,7 @@ export default function BoardDetailPage() {
         settings={settings}
         Like={Like}
         mapId="map"
+        Tag={Tag}
       />
     </div>
   );
