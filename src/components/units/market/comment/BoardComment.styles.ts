@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
 `;
 
 export const CardWrapper = styled.div`

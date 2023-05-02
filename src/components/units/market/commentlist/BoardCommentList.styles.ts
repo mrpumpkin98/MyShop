@@ -6,19 +6,36 @@ import {
   PaperClipOutlined,
   DeleteOutlined,
   EditOutlined,
+  FormOutlined,
+  RightSquareOutlined,
 } from "@ant-design/icons";
 import { Rate, Modal } from "antd";
+
+export const Wrapper = styled.div`
+  border-bottom: 1px solid #bdbdbd;
+`;
 
 export const ItemWrapper = styled.div`
   width: 100%;
   padding-top: 20px;
   height: 128px;
-  border-bottom: 1px solid lightgray;
+`;
+
+export const AnswerItemWrapper = styled.div`
+  width: 100%;
+  padding-top: 30px;
+  height: 128px;
+  padding-left: 100px;
+  display: flex;
 `;
 
 export const FlexWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 20px;
+  width: 100%;
+  padding-right: 30px;
+  margin-top: 10px;
 `;
 
 export const Avatar = styled.img`
@@ -39,7 +56,9 @@ export const Writer = styled.div`
   font-size: 20px;
   font-weight: bold;
 `;
-export const Contents = styled.div``;
+export const Contents = styled.div`
+  width: 100%;
+`;
 
 export const OptionWrapper = styled.div`
   display: flex;
@@ -55,6 +74,13 @@ export const DeleteIcon = styled.img`
   height: 16px;
   cursor: pointer;
   margin-left: 10px;
+`;
+
+export const FormOut = styled(FormOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: #bdbdbd;
 `;
 
 export const Edit = styled(EditOutlined)`
@@ -91,3 +117,14 @@ export const PasswordInput = styled.input`
 // export const BoardCommentCancel = styled.button`
 //   margin-bottom: 50px;
 // `;
+
+export const WapperBoardCommentWrite = styled.div`
+  padding-left: 100px;
+`;
+
+export const RightSquare = styled(RightSquareOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  color: gold;
+  padding-top: 25px;
+`;

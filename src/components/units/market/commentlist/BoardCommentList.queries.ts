@@ -37,3 +37,12 @@ export const DELETE_USED_ITEM_QUESTION = gql`
     deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId)
   }
 `;
+
+export const FETCH_USED_ITEM_QUESTION_ANSWERS = gql`
+  query fetchUseditemQuestionAnswers($useditemQuestionId: ID!) {
+    fetchUseditemQuestionAnswers(useditemQuestionId: $useditemQuestionId) {
+      _id
+      contents
+    }
+  }
+`;
