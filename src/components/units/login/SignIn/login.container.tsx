@@ -39,7 +39,7 @@ export const schema = yup.object({
   //   .required("휴대폰은 필수 입력입니다."),
 });
 
-export default function LoginNewPage(props): JSX.Element {
+export default function LoginNewPage(props: any): JSX.Element {
   const router = useRouter();
   const [, setAccessToken] = useRecoilState(accessTokenState);
 

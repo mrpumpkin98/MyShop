@@ -130,11 +130,11 @@ export default function StaticRoutingPage() {
   ///////////////////////////////////////////////////////////////
   // 장바구니
   //////////////////////////////////////////////////////////////
-  const onClickBasket = (basket) => () => {
+  const onClickBasket = (basket: any) => () => {
     // 1. 기존 장바구니 가져오기
     const baskets = JSON.parse(localStorage.getItem("baskets") ?? "[]");
 
-    const temp = baskets.filter((el) => el._id === basket._id);
+    const temp = baskets.filter((el: any) => el._id === basket._id);
     if (temp.length >= 1) {
       alert("이미 담으신 상품입니다!!!");
       return;
@@ -174,13 +174,13 @@ export default function StaticRoutingPage() {
       // 1. 기존 장바구니 가져오기
       const todays = JSON.parse(localStorage.getItem("todays") ?? "[]");
 
-      const temp = todays.filter((el) => el._id === today._id);
+      const temp = todays.filter((el: any) => el._id === today._id);
       if (todays.length > 3) {
         todays.pop();
       }
 
       // 2. 내가 클릭한거 장바구니에 추가하기
-      const existingIndex = todays.findIndex((el) => el._id === today._id);
+      const existingIndex = todays.findIndex((el: any) => el._id === today._id);
       if (existingIndex !== -1) {
         todays.splice(existingIndex, 1);
       }
@@ -195,6 +195,8 @@ export default function StaticRoutingPage() {
     const todays = JSON.parse(localStorage.getItem("todays") || "[]");
     setTodayItems(todays);
   }, []);
+
+  /////////////////////////////return/////////////////////////////////
 
   return (
     <>

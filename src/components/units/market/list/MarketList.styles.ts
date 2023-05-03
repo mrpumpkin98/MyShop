@@ -94,8 +94,8 @@ export const BestPostContent = styled.div`
 `;
 
 export const BestPostTitle = styled.div`
-  margin: 10px 0px 15px 15px;
-  margin-bottom: 17px;
+  height: 50px;
+  margin: 5px 10px 5px 15px;
   font-weight: 600;
   font-size: 19px;
 `;

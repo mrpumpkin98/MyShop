@@ -13,7 +13,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function BoardDetailUI(props) {
+export default function BoardDetailUI(props: any) {
   return (
     <div>
       <B.Wrapper>
@@ -61,8 +61,8 @@ export default function BoardDetailUI(props) {
                 <B.imImageResult>
                   <Slider {...props.settings}>
                     {props.data?.fetchUseditem.images
-                      ?.filter((el) => el)
-                      .map((el) => (
+                      ?.filter((el: any) => el)
+                      .map((el: any) => (
                         <B.Image
                           key={el}
                           src={`https://storage.googleapis.com/${el}`}
@@ -100,6 +100,7 @@ export default function BoardDetailUI(props) {
         <B.BottomWrapper>
           <B.Button onClick={props.onClickBoard}>목록으로</B.Button>
           <B.Button onClick={props.onClickUpdate}>구매하기</B.Button>
+          <B.Button onClick={props.onClickUpdate}>수정하기</B.Button>
         </B.BottomWrapper>
         <BoardComment />
         <BoardCommentList />

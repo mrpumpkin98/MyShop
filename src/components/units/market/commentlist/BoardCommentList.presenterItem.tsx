@@ -21,17 +21,26 @@ import { FETCH_USED_ITEM_QUESTION_ANSWERS } from "./BoardCommentList.queries";
 export default function BoardCommentListUIItem(
   props: IBoardCommentListUIItemProps
 ): JSX.Element {
+  ///////////////////////////////////////////////////////////////
+  // router
+  //////////////////////////////////////////////////////////////
   const router = useRouter();
+
+  ///////////////////////////////////////////////////////////////
+  // useState
+  //////////////////////////////////////////////////////////////
   const [isEdit, setIsEdit] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [password, setPassword] = useState("");
 
+  ///////////////////////////////////////////////////////////////
+  // queries
+  //////////////////////////////////////////////////////////////
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
 
-  const onClickAnswer = (): void => {
-    setIsEdit(true);
-    // console.log(data.fetchUseditemQuestions);
-  };
+  ////////////////////////////////////////
+  // 댓글 삭제
+  ////////////////////////////////////////
 
   const onClickDelete = async (
     event: MouseEvent<HTMLButtonElement>
@@ -72,7 +81,7 @@ export default function BoardCommentListUIItem(
   };
 
   ////////////////////////////////////////
-  // 댓글 답글
+  // 대댓글
   ////////////////////////////////////////
 
   if (typeof router.query.useditemId !== "string") return <></>;
@@ -84,6 +93,17 @@ export default function BoardCommentListUIItem(
   const onClickAnswer1 = (): void => {
     console.log(data.fetchUseditemQuestionAnswers);
   };
+
+  ////////////////////////////////////////
+  // 대댓글 클릭 이벤트
+  ////////////////////////////////////////
+
+  const onClickAnswer = (): void => {
+    setIsEdit(true);
+    // console.log(data.fetchUseditemQuestions);
+  };
+
+  /////////////////////////////return/////////////////////////////////
 
   return (
     <>

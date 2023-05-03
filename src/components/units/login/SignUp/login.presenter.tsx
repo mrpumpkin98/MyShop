@@ -3,7 +3,7 @@ import Input03 from "../../../../commons/inputs/03-SignUp";
 import Button02 from "../../../../commons/buttons/02-SignUp";
 import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
 
-export default function LoginUI(props) {
+export default function LoginUI(props: any) {
   return (
     <>
       <B.Title onClick={props.onClickLogo}>

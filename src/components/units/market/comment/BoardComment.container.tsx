@@ -105,34 +105,8 @@ export default function BoardCommentWrite(props: any): JSX.Element {
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
-  // 댓글 답글
+  // 대댓글
   ///////////////////////////////////////////////////////////////////////////////////////
-  // const onClickAnswer = async (): Promise<void> => {
-  //   try {
-  //     if (typeof router.query.useditemId !== "string") {
-  //       alert("시스템에 문제가 있습니다.");
-  //       return;
-  //     }
-
-  //     await createUseditemQuestionAnswer({
-  //       variables: {
-  //         createUseditemQuestionAnswerInput: {
-  //           contents,
-  //         },
-  //         useditemQuestionId: props.el?._id,
-  //       },
-  //       refetchQueries: [
-  //         {
-  //           query: FETCH_USED_ITEM_QUESTIONS,
-  //           variables: { useditemId: router.query.useditemId },
-  //         },
-  //       ],
-  //     });
-  //     props.setIsEdit?.(false);
-  //   } catch (error) {
-  //     if (error instanceof Error) alert(error.message);
-  //   }
-  // };
 
   const onClickAnswer = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const result = await createUseditemQuestionAnswer({
@@ -151,6 +125,8 @@ export default function BoardCommentWrite(props: any): JSX.Element {
     });
     props.setIsEdit?.(false);
   };
+
+  /////////////////////////////return/////////////////////////////////
 
   return (
     <BoardCommentWriteUI

@@ -1,6 +1,6 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import {} from "./MarketWrite.queries";
+import { UPDATE_USED_ITEM } from "./MarketWrite.queries";
 import LoginUI from "./MarketWrite.presenter";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
@@ -15,13 +15,17 @@ export const schema = yup.object({
   contents: yup.string().required("상품설명을 입력하세요!"),
 });
 
-export default function LoginNewPage(props): JSX.Element {
+export default function LoginNewPage(props: any): JSX.Element {
+  ///////////////////////////////////////////////////////////////
+  // router
+  //////////////////////////////////////////////////////////////
   const router = useRouter();
 
   ///////////////////////////////////////////////////////////////
   // queries
   //////////////////////////////////////////////////////////////
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
+  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
 
   ///////////////////////////////////////////////////////////////
   // useForm
@@ -43,7 +47,7 @@ export default function LoginNewPage(props): JSX.Element {
   };
 
   /////////////////////////////////////////////////////////////////////////////////
-  // onClickSubmit
+  // 상품 등록
   ////////////////////////////////////////////////////////////////////////////////
 
   const onClickSubmit = async (data: any): Promise<void> => {
@@ -70,6 +74,57 @@ export default function LoginNewPage(props): JSX.Element {
     Modal.success({ content: "게시글 등록에 성공하였습니다!" });
     const useditemId: string = result.data.createUseditem._id;
     void router.push(`/Market/${useditemId}`);
+  };
+
+  /////////////////////////////////////////////////////////////////////////////////
+  // 상품 업데이트
+  ////////////////////////////////////////////////////////////////////////////////
+  const onClickUpdate = async () => {
+    const currentFiles = JSON.stringify(fileUrls);
+    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const isChangedFiles = currentFiles !== defaultFiles;
+
+    if (address === "" && !isChangedFiles) {
+      alert("수정한 내용이 없습니다.");
+      return;
+    }
+
+    const updateUseditemInput = {};
+    // if (address !== "") {
+    //   updateUseditemInput.useditemAddress = {};
+    //   if (address !== "") updateUseditemInput.useditemAddress.address = address;
+    //   updateUseditemInput.useditemAddress.addressDetail = addressDetail;
+    // }
+    // if (isChangedFiles) updateUseditemInput.images = fileUrls;
+
+    try {
+      if (typeof router.query.useditemId !== "string") {
+        alert("시스템에 문제가 있습니다.");
+        return;
+      }
+      const result = await updateUseditem({
+        variables: {
+          useditemId: router.query.useditemId,
+          updateUseditemInput,
+        },
+      });
+
+      if (result.data?.updateUseditem._id === undefined) {
+        alert("요청에 문제가 있습니다.");
+        return;
+      }
+      void router.push(`/Market/${result.data?.updateUseditem._id}`);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////
+  //  취소하기
+  //////////////////////////////////////////////////////////////
+
+  const onClickCancel = async () => {
+    router.push(`/Board`);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -218,6 +273,8 @@ export default function LoginNewPage(props): JSX.Element {
     };
   }, []);
 
+  /////////////////////////////return/////////////////////////////////
+
   return (
     <div>
       <LoginUI
@@ -233,6 +290,8 @@ export default function LoginNewPage(props): JSX.Element {
         input1Ref={input1Ref}
         input2Ref={input2Ref}
         address={address}
+        onClickUpdate={onClickUpdate}
+        isEdit={props.isEdit}
       />
     </div>
   );

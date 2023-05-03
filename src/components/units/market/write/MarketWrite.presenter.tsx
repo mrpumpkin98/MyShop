@@ -24,7 +24,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function LoginUI(props) {
+export default function LoginUI(props: any) {
   return (
     <>
       <B.Wrapper>
@@ -123,7 +123,7 @@ export default function LoginUI(props) {
         </form>
         <B.Label>사진첨부</B.Label>
         <B.UploadButton>
-          {props.fileUrls.map((el, index) => (
+          {props.fileUrls.map((el: any, index: any) => (
             <Uploads01
               key={uuidv4()}
               index={index}
@@ -133,9 +133,16 @@ export default function LoginUI(props) {
           ))}
         </B.UploadButton>
         <B.ButtonForm
-          onSubmit={wrapFormAsync(props.handleSubmit(props.onClickSubmit))}
+          onSubmit={wrapFormAsync(
+            props.handleSubmit(
+              props.isEdit ? props.onClickUpdate : props.onClickSubmit
+            )
+          )}
         >
-          <Button03 title="등록하기" isActive={props.formState.isValid} />
+          <Button03
+            title={props.isEdit ? "수정하기" : "등록하기"}
+            isActive={props.formState.isValid}
+          />
         </B.ButtonForm>
       </B.Wrapper>
     </>

@@ -4,7 +4,7 @@ import Input02 from "../../../../commons/inputs/02-SignIn-under";
 import Button01 from "../../../../commons/buttons/01-SignIn";
 import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
 
-export default function LoginUI(props) {
+export default function LoginUI(props: any) {
   return (
     <>
       <B.Wrapper>

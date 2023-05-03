@@ -7,22 +7,28 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import BoardEdit from "../../../../src/components/units/board/write/BoardWrite.container";
+import BoardEdit from "../../../../src/components/units/market/write/MarketWrite.container";
 
-const FETCH_BOARD = gql`
-  query fetchBoard($boardId: ID!) {
-    fetchBoard(boardId: $boardId) {
+const FETCH_USED_ITEM = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
       _id
-      writer
-      title
+      name
+      remarks
       contents
-      youtubeUrl
-      boardAddress {
+      price
+      tags
+      images
+      createdAt
+      # seller
+      pickedCount
+      useditemAddress {
         zipcode
         address
         addressDetail
+        lat
+        lng
       }
-      images
     }
   }
 `;
@@ -31,8 +37,8 @@ export default function GraphqlMutationPage() {
   const router = useRouter();
   if (typeof router.query.boardId !== "string") return <></>;
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
+  const { data } = useQuery(FETCH_USED_ITEM, {
+    variables: { useditemId: router.query.useditemId },
   });
   return (
     <div>

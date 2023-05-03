@@ -74,7 +74,7 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const onClickUpdate = () => {
-    router.push(`/Board/${router.query.boardId}/edit`);
+    router.push(`/Market/${router.query.useditemId}/edit`);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -154,6 +154,8 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const Tag = data?.fetchUseditem?.tags.join().split(" ");
+
+  /////////////////////////////return/////////////////////////////////
 
   return (
     <div>
