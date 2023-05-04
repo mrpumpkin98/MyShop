@@ -127,7 +127,9 @@ export default function MarketListUI(props: any) {
                       <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                       <B.TitleListSellerListPickedCount>
                         <B.Smile />
-                        <B.ListSeller id={el._id}>임시 판매자</B.ListSeller>
+                        <B.ListSeller id={el._id}>
+                          {el.seller.name}
+                        </B.ListSeller>
                         <B.Heart />
                         <B.ListPickedCount id={el._id}>
                           {el.pickedCount ? el.pickedCount : 0}

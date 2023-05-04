@@ -28,6 +28,10 @@ export const FETCH_USED_ITEM_QUESTIONS = gql`
       _id
       contents
       createdAt
+      user {
+        _id
+        name
+      }
     }
   }
 `;
@@ -43,6 +47,10 @@ export const FETCH_USED_ITEM_QUESTION_ANSWERS = gql`
     fetchUseditemQuestionAnswers(useditemQuestionId: $useditemQuestionId) {
       _id
       contents
+      user {
+        _id
+        name
+      }
     }
   }
 `;

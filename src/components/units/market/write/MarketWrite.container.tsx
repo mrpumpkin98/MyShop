@@ -1,12 +1,16 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { UPDATE_USED_ITEM } from "./MarketWrite.queries";
+import {
+  UPDATE_USED_ITEM,
+  CREATE_USED_ITEM,
+  UPLOAD_FILE,
+  FETCH_USED_ITEM,
+} from "./MarketWrite.queries";
 import LoginUI from "./MarketWrite.presenter";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { CREATE_USED_ITEM } from "./MarketWrite.queries";
 
 export const schema = yup.object({
   name: yup.string().required("상품명을 입력하세요!"),
@@ -26,6 +30,11 @@ export default function LoginNewPage(props: any): JSX.Element {
   //////////////////////////////////////////////////////////////
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
+  const [uploadFile] = useMutation(UPLOAD_FILE);
+
+  const { data } = useQuery(FETCH_USED_ITEM, {
+    variables: { useditemId: router.query.useditemId },
+  });
 
   ///////////////////////////////////////////////////////////////
   // useForm
@@ -79,7 +88,7 @@ export default function LoginNewPage(props: any): JSX.Element {
   /////////////////////////////////////////////////////////////////////////////////
   // 상품 업데이트
   ////////////////////////////////////////////////////////////////////////////////
-  const onClickUpdate = async () => {
+  const onClickUpdate = async (data: any) => {
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
     const isChangedFiles = currentFiles !== defaultFiles;
@@ -89,7 +98,7 @@ export default function LoginNewPage(props: any): JSX.Element {
       return;
     }
 
-    const updateUseditemInput = {};
+    // const updateUseditemInput = {};
     // if (address !== "") {
     //   updateUseditemInput.useditemAddress = {};
     //   if (address !== "") updateUseditemInput.useditemAddress.address = address;
@@ -104,8 +113,21 @@ export default function LoginNewPage(props: any): JSX.Element {
       }
       const result = await updateUseditem({
         variables: {
+          updateUseditemInput: {
+            name: data.name,
+            remarks: data.remarks,
+            price: Number(data.price),
+            tags: data.tags, //여기서도 split(" ")가능
+            images: [...fileUrls],
+            contents: data.contents,
+            useditemAddress: {
+              address: address,
+              addressDetail: data.addressDetail,
+              lat: gLat,
+              lng: gLng,
+            },
+          },
           useditemId: router.query.useditemId,
-          updateUseditemInput,
         },
       });
 
@@ -292,6 +314,7 @@ export default function LoginNewPage(props: any): JSX.Element {
         address={address}
         onClickUpdate={onClickUpdate}
         isEdit={props.isEdit}
+        data={data}
       />
     </div>
   );

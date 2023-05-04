@@ -36,6 +36,7 @@ export default function LoginUI(props: any) {
               <Input04
                 title="상품명을 작성해주세요."
                 register={props.register("name")}
+                defaultValue={props.data?.fetchUseditem.name}
               ></Input04>
               <B.Error style={{ color: "red" }}>
                 {props.formState.errors.name?.message}
@@ -44,6 +45,7 @@ export default function LoginUI(props: any) {
               <Input04
                 title="상품명을 작성해주세요."
                 register={props.register("remarks")}
+                defaultValue={props.data?.fetchUseditem.remarks}
               ></Input04>
               <B.Error style={{ color: "red" }}>
                 {props.formState.errors.remarks?.message}
@@ -52,6 +54,7 @@ export default function LoginUI(props: any) {
                 <B.Label>상품설명 </B.Label>
                 <ReactQuill
                   onChange={props.onChangeContents}
+                  defaultValue={props.data?.fetchUseditem.contents}
                   style={{ height: "400px" }}
                 />
               </B.WrapperReactQuill>
@@ -62,6 +65,7 @@ export default function LoginUI(props: any) {
               <Input04
                 title="판매 가격을 입력해주세요."
                 register={props.register("price")}
+                defaultValue={props.data?.fetchUseditem.price}
               ></Input04>
               <B.Error style={{ color: "red" }}>
                 {props.formState.errors.price?.message}
@@ -70,6 +74,7 @@ export default function LoginUI(props: any) {
               <Input04
                 title="#태그  #태그  #태그  "
                 register={props.register("tags")}
+                defaultValue={props.data?.fetchUseditem.tags}
               ></Input04>
               <B.WrapperMapLatLng>
                 <B.WrapperMap>
@@ -97,9 +102,21 @@ export default function LoginUI(props: any) {
                   <B.WrapperLatLng>
                     <B.Label>GPS</B.Label>
                     <B.TieLatLng>
-                      <B.Lat ref={props.input1Ref} readOnly />
+                      <B.Lat
+                        ref={props.input1Ref}
+                        readOnly
+                        defaultValue={
+                          props.data?.fetchUseditem.useditemAddress.lat
+                        }
+                      />
                       {/* <B.AimOut /> */}
-                      <B.Lng ref={props.input2Ref} readOnly />
+                      <B.Lng
+                        ref={props.input2Ref}
+                        readOnly
+                        defaultValue={
+                          props.data?.fetchUseditem.useditemAddress.lng
+                        }
+                      />
                       <div style={{ display: "none" }} id="clickLatlng1"></div>
                       <div style={{ display: "none" }} id="clickLatlng2"></div>
                     </B.TieLatLng>
@@ -110,10 +127,16 @@ export default function LoginUI(props: any) {
                       title=""
                       answer={props.address}
                       register={props.register("address")}
+                      defaultValue={
+                        props.data?.fetchUseditem.useditemAddress.address
+                      }
                     ></Input05>
                     <Input04
                       title=""
                       register={props.register("addressDetail")}
+                      defaultValue={
+                        props.data?.fetchUseditem.useditemAddress.addressDetail
+                      }
                     ></Input04>
                   </B.WrapperAddressAddressDetail>
                 </B.WrapperGPSAddress>
@@ -133,11 +156,11 @@ export default function LoginUI(props: any) {
           ))}
         </B.UploadButton>
         <B.ButtonForm
-          onSubmit={wrapFormAsync(
-            props.handleSubmit(
-              props.isEdit ? props.onClickUpdate : props.onClickSubmit
-            )
-          )}
+          onSubmit={
+            props.isEdit
+              ? wrapFormAsync(props.handleSubmit(props.onClickUpdate))
+              : wrapFormAsync(props.handleSubmit(props.onClickSubmit))
+          }
         >
           <Button03
             title={props.isEdit ? "수정하기" : "등록하기"}

@@ -63,6 +63,7 @@ export const UserName = styled.div`
   font-family: "Jalnan";
   color: gold;
   cursor: pointer;
+  display: flex;
 `;
 
 export const Smile = styled(SmileOutlined)`
@@ -103,6 +104,21 @@ export const OutButton = styled.span`
   color: #828282;
   cursor: pointer;
   font-family: "Jalnan";
+  :hover {
+    color: #4f4f4f;
+  }
+`;
+
+export const UserAnswer = styled.div`
+  color: #555555;
+  margin-left: 10px;
+`;
+
+export const Charge = styled.div`
+  font-family: "Jalnan";
+  cursor: pointer;
+  color: #828282;
+  margin: 0px 10px;
   :hover {
     color: #4f4f4f;
   }

@@ -123,7 +123,7 @@ export default function BoardCommentListUIItem(
               <S.Avatar src="/images/avatar.png" />
               <S.MainWrapper>
                 <S.WriterWrapper>
-                  <S.Writer>임시 작성자</S.Writer>
+                  <S.Writer>{props.el.user.name}</S.Writer>
                 </S.WriterWrapper>
                 <S.Contents>{props.el.contents}</S.Contents>
               </S.MainWrapper>
@@ -142,7 +142,7 @@ export default function BoardCommentListUIItem(
                   <S.Avatar src="/images/avatar.png" />
                   <S.MainWrapper>
                     <S.WriterWrapper>
-                      <S.Writer>임시 작성자</S.Writer>
+                      <S.Writer>{i.user.name}</S.Writer>
                     </S.WriterWrapper>
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>
@@ -164,7 +164,7 @@ export default function BoardCommentListUIItem(
               <S.Avatar src="/images/avatar.png" />
               <S.MainWrapper>
                 <S.WriterWrapper>
-                  <S.Writer>임시 작성자</S.Writer>
+                  <S.Writer>{props.el.user.name}</S.Writer>
                 </S.WriterWrapper>
                 <S.Contents>{props.el.contents}</S.Contents>
               </S.MainWrapper>
@@ -190,7 +190,7 @@ export default function BoardCommentListUIItem(
                   <S.Avatar src="/images/avatar.png" />
                   <S.MainWrapper>
                     <S.WriterWrapper>
-                      <S.Writer>임시 작성자</S.Writer>
+                      <S.Writer>{i.user.name}</S.Writer>
                     </S.WriterWrapper>
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>

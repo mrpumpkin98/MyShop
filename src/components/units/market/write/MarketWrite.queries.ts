@@ -21,3 +21,35 @@ export const UPDATE_USED_ITEM = gql`
     }
   }
 `;
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      url
+    }
+  }
+`;
+
+export const FETCH_USED_ITEM = gql`
+  query fetchUseditem($useditemId: ID!) {
+    fetchUseditem(useditemId: $useditemId) {
+      _id
+      name
+      remarks
+      contents
+      price
+      tags
+      images
+      createdAt
+      # seller
+      pickedCount
+      useditemAddress {
+        zipcode
+        address
+        addressDetail
+        lat
+        lng
+      }
+    }
+  }
+`;

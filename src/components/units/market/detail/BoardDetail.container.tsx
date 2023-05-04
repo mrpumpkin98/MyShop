@@ -8,6 +8,7 @@ import {
   DIS_LIKE_BOARD,
   FETCH_USED_ITEM,
   TOGGLE_USED_ITEM_PICK,
+  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -29,6 +30,9 @@ export default function BoardDetailPage() {
     variables: { useditemId: router.query.useditemId },
   });
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
+  const [createPointTransactionOfBuyingAndSelling] = useMutation(
+    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
+  );
 
   ///////////////////////////////////////////////////////////////
   // 게시물 삭제
@@ -74,6 +78,7 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const onClickUpdate = () => {
+    console.log(router.query.useditemId);
     router.push(`/Market/${router.query.useditemId}/edit`);
   };
 
@@ -155,6 +160,23 @@ export default function BoardDetailPage() {
 
   const Tag = data?.fetchUseditem?.tags.join().split(" ");
 
+  ///////////////////////////////////////////////////////////////
+  // 게시물 수정하기 이동
+  //////////////////////////////////////////////////////////////
+
+  const onClickBuyingAndSelling = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log(router.query);
+    const result = await createPointTransactionOfBuyingAndSelling({
+      variables: {
+        useritemId: router.query.useditemId,
+      },
+    });
+    alert(`${data?.fetchUseditem?.seller?.name}님의 상품을 구매했습니다.`);
+    router.push(`/Market`);
+  };
+
   /////////////////////////////return/////////////////////////////////
 
   return (
@@ -169,6 +191,7 @@ export default function BoardDetailPage() {
         Like={Like}
         mapId="map"
         Tag={Tag}
+        onClickBuyingAndSelling={onClickBuyingAndSelling}
       />
     </div>
   );

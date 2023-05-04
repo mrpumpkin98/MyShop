@@ -13,6 +13,7 @@ export default function Input05(props: IInputProps): JSX.Element {
       readOnly
       value={props.answer ?? ""}
       type={props.type ?? "text"}
+      defaultValue={props.defaultValue ?? ""}
       {...props.register}
     />
   );

@@ -22,7 +22,7 @@ export default function BoardDetailUI(props: any) {
             <B.AvatarWrapper>
               <B.Avatar src="/images/avatar.png" />
               <B.Info>
-                <B.Writer>임시 판매자</B.Writer>
+                <B.Writer>{props.data?.fetchUseditem?.seller?.name}</B.Writer>
                 {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
                 <B.CreatedAt>
                   {getDate(props.data?.fetchUseditem?.createdAt)}
@@ -99,7 +99,7 @@ export default function BoardDetailUI(props: any) {
         </B.CardWrapper>
         <B.BottomWrapper>
           <B.Button onClick={props.onClickBoard}>목록으로</B.Button>
-          <B.Button onClick={props.onClickUpdate}>구매하기</B.Button>
+          <B.Button onClick={props.onClickBuyingAndSelling}>구매하기</B.Button>
           <B.Button onClick={props.onClickUpdate}>수정하기</B.Button>
         </B.BottomWrapper>
         <BoardComment />
