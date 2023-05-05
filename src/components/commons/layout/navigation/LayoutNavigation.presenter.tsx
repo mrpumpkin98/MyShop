@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 const NAVIGATION_MENUS = [
   { name: "자유게시판", page: "/Board" },
   { name: "중고마켓", page: "/Market" },
-  { name: "마이페이지", page: "/mypages" },
+  { name: "마이페이지", page: "/MyPage/MyShop" },
 ];
 
 export default function LayoutNavigationUI(

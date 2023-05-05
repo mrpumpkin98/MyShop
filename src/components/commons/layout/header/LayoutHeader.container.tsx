@@ -5,7 +5,10 @@ import { IQuery } from "../../../../commons/types/generated/types";
 import {
   FETCH_POINT_TRANSACTION_COUNT_OF_LOADING,
   FETCH_POINT_TRANSACTION_OF_LOADING,
+  FETCH_POINT_TRANSACTION_OF_SELLING,
   FETCH_USER_LOGGED_IN,
+  FETCH_POINT_TRANSACTION_OF_BUYING,
+  FETCH_POINT_TRANSACTION,
 } from "./LayoutHeader.queries";
 import { useTimer } from "react-timer-hook";
 import { useEffect, useState } from "react";
@@ -26,6 +29,11 @@ export default function LayoutHeader(): JSX.Element {
     FETCH_POINT_TRANSACTION_COUNT_OF_LOADING
   );
   const { data: pointData } = useQuery(FETCH_POINT_TRANSACTION_OF_LOADING);
+  const { data: pointDataSelling } = useQuery(
+    FETCH_POINT_TRANSACTION_OF_SELLING
+  );
+  const { data: pointDataBuying } = useQuery(FETCH_POINT_TRANSACTION_OF_BUYING);
+  const { data: pointDataTransactions } = useQuery(FETCH_POINT_TRANSACTION);
 
   const onClickLogo = (): void => {
     void router.push("/Board");
@@ -71,7 +79,10 @@ export default function LayoutHeader(): JSX.Element {
   );
 
   const onclickPayment = async () => {
-    console.log(answer);
+    // console.log(pointDataTransactions);
+    // console.log(pointData?.fetchPointTransactionsOfLoading);
+    // console.log(pointDataSelling?.fetchPointTransactionsOfSelling);
+    // console.log(pointDataBuying?.fetchPointTransactionsOfBuying);
     const IMP = window.IMP; // 생략 가능
     console.log(IMP);
     IMP.init("imp49910675"); // 예: imp00000000a
@@ -99,6 +110,12 @@ export default function LayoutHeader(): JSX.Element {
             variables: {
               impUid: String(rsp.imp_uid),
             },
+            refetchQueries: [
+              {
+                query: FETCH_USER_LOGGED_IN,
+                variables: { impUid: String(rsp.imp_uid) },
+              },
+            ],
           });
           console.log(rsp);
           console.log(pointData);
@@ -112,14 +129,26 @@ export default function LayoutHeader(): JSX.Element {
   };
 
   //////////////////////////////////////////////////
-  // 포인트 충전 총 값
+  // 포인트 충전 값 + 포인트 셀링 값 + 포인트 바잉 값
   /////////////////////////////////////////////////
+  const pointTransactions = pointDataTransactions?.fetchPointTransactions;
   const point = pointData?.fetchPointTransactionsOfLoading;
+  const sellingPoint = pointDataSelling?.fetchPointTransactionsOfSelling;
+  const buyingPoint = pointDataBuying?.fetchPointTransactionsOfBuying;
   let answer = 0;
 
-  for (let i = 0; i < point?.length; i++) {
-    answer += point[i].amount;
+  for (let i = 0; i < pointTransactions?.length; i++) {
+    answer += pointTransactions[i].amount;
   }
+  // for (let i = 0; i < point?.length; i++) {
+  //   answer += point[i].amount;
+  // }
+  // for (let j = 0; j < sellingPoint?.length; j++) {
+  //   answer += sellingPoint[j].amount;
+  // }
+  // for (let k = 0; k < buyingPoint?.length; k++) {
+  //   answer += buyingPoint[k].amount;
+  // }
 
   return (
     <LayoutHeaderUI
@@ -131,6 +160,7 @@ export default function LayoutHeader(): JSX.Element {
       onclickPayment={onclickPayment}
       pointCountData={pointCountData}
       answer={answer}
+      data={data}
     />
   );
 }

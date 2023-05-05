@@ -56,7 +56,10 @@ export default function LayoutHeaderUI(props: ILayoutHeaderProps): JSX.Element {
               <UserName>
                 {props.userName}님
                 <UserAnswer>
-                  포인트 {props.answer ? `${props.answer} P` : ""}
+                  포인트{" "}
+                  {props.answer
+                    ? `${props.data?.fetchUserLoggedIn?.userPoint?.amount} P`
+                    : ""}
                 </UserAnswer>
               </UserName>
             </TieSmile>

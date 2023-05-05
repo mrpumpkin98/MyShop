@@ -1,4 +1,4 @@
-export const getDate = (date) => {
+export const getDate = (date: any) => {
   const _date = new Date(date);
   const yyyy = _date.getFullYear();
   const mm = _date.getMonth() + 1;
@@ -6,7 +6,7 @@ export const getDate = (date) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-export const IDSlice = (a) => {
+export const IDSlice = (a: any) => {
   String(a).slice(-4).toUpperCase();
 };
 
@@ -29,7 +29,7 @@ export const checkValidationFile = (file?: File): boolean => {
   return true;
 };
 
-export const Money = (date) => {
+export const Money = (date: any) => {
   const mmmm = date?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   return `${mmmm}원`;
 };

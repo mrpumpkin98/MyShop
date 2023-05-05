@@ -82,3 +82,16 @@ export const CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING = gql`
     }
   }
 `;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query {
+    fetchUserLoggedIn {
+      _id
+      email
+      name
+      userPoint {
+        amount
+      }
+    }
+  }
+`;

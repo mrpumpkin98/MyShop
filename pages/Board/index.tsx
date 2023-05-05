@@ -7,13 +7,9 @@
 import BoardDetail from "../../src/components/units/board/list/BoardList.container";
 
 export default function GraphqlMutationPage() {
-
-
-    return (
-        <div>
-            <BoardDetail />
-        </div>
-    )
-
-
-} 
+  return (
+    <div>
+      <BoardDetail />
+    </div>
+  );
+}

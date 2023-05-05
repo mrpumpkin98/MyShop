@@ -9,6 +9,7 @@ import {
   FETCH_USED_ITEM,
   TOGGLE_USED_ITEM_PICK,
   CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
+  FETCH_USER_LOGGED_IN,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
 
@@ -86,9 +87,9 @@ export default function BoardDetailPage() {
   // 페이지 새로고침
   //////////////////////////////////////////////////////////////
 
-  useEffect(() => {
-    refetch({ page: 1 });
-  }, []);
+  // useEffect(() => {
+  //   refetch({ page: 1 });
+  // }, [onClickBuyingAndSelling]); // onClickBuyingAndSelling 이벤트 발생시 refetch 실행
 
   ///////////////////////////////////////////////////////////////
   // 이미지 캐러셀
@@ -161,7 +162,7 @@ export default function BoardDetailPage() {
   const Tag = data?.fetchUseditem?.tags.join().split(" ");
 
   ///////////////////////////////////////////////////////////////
-  // 게시물 수정하기 이동
+  // 상품 구매
   //////////////////////////////////////////////////////////////
 
   const onClickBuyingAndSelling = async (
@@ -172,8 +173,15 @@ export default function BoardDetailPage() {
       variables: {
         useritemId: router.query.useditemId,
       },
+      refetchQueries: [
+        {
+          query: FETCH_USER_LOGGED_IN,
+          variables: { useritemId: router.query.useditemId },
+        },
+      ],
     });
     alert(`${data?.fetchUseditem?.seller?.name}님의 상품을 구매했습니다.`);
+    // window.location.reload(); // 페이지 새로고침
     router.push(`/Market`);
   };
 
