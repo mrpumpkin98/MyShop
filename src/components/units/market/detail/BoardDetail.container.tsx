@@ -12,6 +12,10 @@ import {
   FETCH_USER_LOGGED_IN,
 } from "./BoardDetail.queries";
 import BoardDetailUI from "./BoardDetail.presenter";
+import {
+  FETCH_POINT_TRANSACTION,
+  FETCH_POINT_TRANSACTION_OF_BUYING,
+} from "../../mypage/list_mypoint/BoardList.queries";
 
 export default function BoardDetailPage() {
   ///////////////////////////////////////////////////////////////
@@ -176,6 +180,14 @@ export default function BoardDetailPage() {
       refetchQueries: [
         {
           query: FETCH_USER_LOGGED_IN,
+          variables: { useritemId: router.query.useditemId },
+        },
+        {
+          query: FETCH_POINT_TRANSACTION,
+          variables: { useritemId: router.query.useditemId },
+        },
+        {
+          query: FETCH_POINT_TRANSACTION_OF_BUYING,
           variables: { useritemId: router.query.useditemId },
         },
       ],

@@ -115,6 +115,10 @@ export default function LayoutHeader(): JSX.Element {
                 query: FETCH_USER_LOGGED_IN,
                 variables: { impUid: String(rsp.imp_uid) },
               },
+              {
+                query: FETCH_POINT_TRANSACTION_OF_LOADING,
+                variables: { impUid: String(rsp.imp_uid) },
+              },
             ],
           });
           console.log(rsp);

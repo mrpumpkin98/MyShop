@@ -55,9 +55,76 @@ export const FETCH_USED_ITEMS_I_SOLD = gql`
 export const FETCH_USED_ITEMS_I_PICKED = gql`
   query fetchUseditemsIPicked {
     fetchUseditemsIPicked {
+      _id
+      name
+      price
       seller {
+        _id
         name
       }
+    }
+  }
+`;
+
+export const FETCH_POINT_TRANSACTION_COUNT_OF_LOADING = gql`
+  query {
+    fetchPointTransactionsCountOfLoading
+  }
+`;
+
+export const FETCH_POINT_TRANSACTION_OF_LOADING = gql`
+  query {
+    fetchPointTransactionsOfLoading {
+      _id
+      createdAt
+      impUid
+      amount
+      balance
+    }
+  }
+`;
+
+export const FETCH_POINT_TRANSACTION_OF_SELLING = gql`
+  query {
+    fetchPointTransactionsOfSelling {
+      _id
+      createdAt
+      amount
+      useditem {
+        name
+        soldAt
+      }
+      balance
+    }
+  }
+`;
+
+export const FETCH_POINT_TRANSACTION_OF_BUYING = gql`
+  query {
+    fetchPointTransactionsOfBuying {
+      _id
+      createdAt
+      amount
+      # name
+      balance
+      useditem {
+        name
+        # seller {
+        #   name
+        # }
+      }
+    }
+  }
+`;
+
+export const FETCH_POINT_TRANSACTION = gql`
+  query {
+    fetchPointTransactions {
+      _id
+      balance
+      createdAt
+      status
+      amount
     }
   }
 `;

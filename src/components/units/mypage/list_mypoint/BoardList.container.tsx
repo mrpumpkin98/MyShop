@@ -8,6 +8,10 @@ import {
   FETCH_BOARDS_OF_THE_BEST,
   FETCH_USED_ITEMS_I_SOLD,
   FETCH_USED_ITEMS_I_PICKED,
+  FETCH_POINT_TRANSACTION_OF_SELLING,
+  FETCH_POINT_TRANSACTION_OF_LOADING,
+  FETCH_POINT_TRANSACTION_OF_BUYING,
+  FETCH_POINT_TRANSACTION,
 } from "./BoardList.queries";
 import BoardListUI from "./BoardList.presenter";
 import _ from "lodash";
@@ -42,6 +46,12 @@ export default function StaticRoutingPage() {
     useQuery(FETCH_BOARDS_COUNT);
   const { data: dataBoardsOfTheBest, refetch: refetchBoardsOfTheBest } =
     useQuery(FETCH_BOARDS_OF_THE_BEST);
+  const { data: pointData } = useQuery(FETCH_POINT_TRANSACTION_OF_LOADING);
+  const { data: pointDataSelling } = useQuery(
+    FETCH_POINT_TRANSACTION_OF_SELLING
+  );
+  const { data: pointDataBuying } = useQuery(FETCH_POINT_TRANSACTION_OF_BUYING);
+  const { data: pointDataTransactions } = useQuery(FETCH_POINT_TRANSACTION);
 
   ///////////////////////////////////////////////////////////////
   //  게시물 삭제
@@ -103,13 +113,23 @@ export default function StaticRoutingPage() {
   ///////////////////////////////////////////////////////////////
   //  게시물 등록 이동
   //////////////////////////////////////////////////////////////
-  const [select, setSelect] = useState("MyProduct");
-  const onClickSelected = () => {
-    setSelect("Selected");
+  const [select, setSelect] = useState("EntireHistory");
+  const onClickEntireHistory = () => {
+    setSelect("EntireHistory");
+    console.log(pointDataTransactions);
   };
-  const onClickProduct = () => {
-    setSelect("MyProduct");
-    console.log(dataIPicked);
+  const onClickRechargeHistory = () => {
+    setSelect("RechargeHistory");
+    console.log(pointData);
+  };
+  const onClickPurchaseHistory = () => {
+    setSelect("PurchaseHistory");
+    console.log(pointDataBuying);
+  };
+
+  const onClickSalesDetails = () => {
+    setSelect("SalesDetails");
+    console.log(pointDataTransactions);
   };
 
   return (
@@ -127,10 +147,16 @@ export default function StaticRoutingPage() {
         onChangeKeyword={onChangeKeyword}
         onErrorImg={onErrorImg}
         dataISold={dataISold}
-        onClickSelected={onClickSelected}
         select={select}
         dataIPicked={dataIPicked}
-        onClickProduct={onClickProduct}
+        pointData={pointData}
+        pointDataSelling={pointDataSelling}
+        pointDataBuying={pointDataBuying}
+        pointDataTransactions={pointDataTransactions}
+        onClickEntireHistory={onClickEntireHistory}
+        onClickRechargeHistory={onClickRechargeHistory}
+        onClickPurchaseHistory={onClickPurchaseHistory}
+        onClickSalesDetails={onClickSalesDetails}
       />
     </>
   );

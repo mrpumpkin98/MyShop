@@ -153,6 +153,7 @@ export const Td = styled.td`
   color: #4f4f4f;
   cursor: pointer;
   width: 200px;
+  margin: 10px;
 `;
 
 export const Pagination = styled.div`
@@ -210,8 +211,12 @@ export const MyProduct = styled.div`
   font-size: 16px;
   cursor: pointer;
   font-family: "SCDream4";
-  &:hover {
+  :hover {
     color: orange;
+  }
+  &.selected {
+    background-color: gray;
+    color: white;
   }
 `;
 
@@ -220,7 +225,4 @@ export const Selected = styled.div`
   font-size: 16px;
   cursor: pointer;
   font-family: "SCDream4";
-  &:hover {
-    color: orange;
-  }
 `;

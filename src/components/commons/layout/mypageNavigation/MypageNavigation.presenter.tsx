@@ -5,8 +5,8 @@ import { NavLink } from "react-router-dom";
 import { Money } from "../../../../commons/libraries/utils";
 
 const NAVIGATION_MENUS = [
-  { name: "내 장터", page: "/Board" },
-  { name: "내 포인트", page: "/Market" },
+  { name: "내 장터", page: "/MyPage/MyShop" },
+  { name: "내 포인트", page: "/MyPage/MyPoint" },
   { name: "내 프로필", page: "/MyPage/MyShop" },
 ];
 

@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import { Wrapper } from "./banner/LayoutBanner.styles";
 
 const HIDDEN = ["/Login", "/Login/SignUp"];
-const MYPAGE = ["/MyPage/MyShop"];
+const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint"];
 
 const Body = styled.div`
   height: 500px;
