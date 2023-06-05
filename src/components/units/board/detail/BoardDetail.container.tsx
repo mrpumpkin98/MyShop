@@ -43,7 +43,7 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const onClickLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.currentTarget.id);
+    console.log(data);
     const result = await likeBoard({
       variables: { boardId: router.query.boardId },
       refetchQueries: [

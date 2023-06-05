@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { Wrapper } from "./banner/LayoutBanner.styles";
 
-const HIDDEN = ["/Login", "/Login/SignUp"];
+const HIDDEN = ["/Login", "/Login/SignUp", "/"];
 const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint"];
 
 const Body = styled.div`

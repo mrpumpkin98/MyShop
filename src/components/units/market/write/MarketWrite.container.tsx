@@ -135,7 +135,7 @@ export default function LoginNewPage(props: any): JSX.Element {
         alert("요청에 문제가 있습니다.");
         return;
       }
-      void router.push(`/Market/${result.data?.updateUseditem._id}`);
+      void router.push(`/Market/${result.data?.updateUseditem.board_id}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
