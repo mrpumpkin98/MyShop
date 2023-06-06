@@ -9,7 +9,7 @@ import {
 } from "./BoardList.queries";
 import BoardListUI from "./BoardList.presenter";
 import _ from "lodash";
-import LayoutHeader from "../../../commons/layout/header/LayoutHeader.container";
+import LayoutHeader from "../../../commons/layout/header/LayoutHeader.index";
 
 export default function StaticRoutingPage() {
   ///////////////////////////////////////////////////////////////

@@ -1,11 +1,10 @@
-import LayoutBanner from "./banner/LayoutBanner.container";
-import LayoutHeader from "./header/LayoutHeader.container";
-import LayoutNavigation from "./navigation/LayoutNavigation.container";
-import MyPageNavigation from "./mypageNavigation/MypageNavigation.container";
+import LayoutBanner from "./banner/LayoutBanner.index";
+import LayoutHeader from "./header/LayoutHeader.index";
+import LayoutNavigation from "./navigation/LayoutNavigation.index";
+import MyPageNavigation from "./mypageNavigation/MypageNavigation.index";
 
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { Wrapper } from "./banner/LayoutBanner.styles";
 
 const HIDDEN = ["/Login", "/Login/SignUp", "/"];
 const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint"];

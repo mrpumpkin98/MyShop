@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export default function LayoutBannerUI(): JSX.Element {
+export default function LayoutBanner(): JSX.Element {
   const settings = {
     dots: true,
     infinite: true,
@@ -11,7 +11,6 @@ export default function LayoutBannerUI(): JSX.Element {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   return (
     <Wrapper>
       <Slider {...settings}>

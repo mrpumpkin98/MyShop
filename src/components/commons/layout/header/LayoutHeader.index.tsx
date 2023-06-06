@@ -1,19 +1,19 @@
 import { useRouter } from "next/router";
-import LayoutHeaderUI from "./LayoutHeader.presenter";
 import { useMutation, useQuery } from "@apollo/client";
 import { IQuery } from "../../../../commons/types/generated/types";
-import {
-  FETCH_POINT_TRANSACTION_COUNT_OF_LOADING,
-  FETCH_POINT_TRANSACTION_OF_LOADING,
-  FETCH_POINT_TRANSACTION_OF_SELLING,
-  FETCH_USER_LOGGED_IN,
-  FETCH_POINT_TRANSACTION_OF_BUYING,
-  FETCH_POINT_TRANSACTION,
-} from "./LayoutHeader.queries";
 import { useTimer } from "react-timer-hook";
 import { useEffect, useState } from "react";
 import StaticRoutingPage from "../../../units/board/list/BoardList.container";
-import { CREATE_POINT_TRANSACTION_OF_LOADING } from "./LayoutHeader.queries";
+import * as B from "./LayoutHeader.styles";
+import Head from "next/head";
+import Timer from "../../../../commons/timer/01";
+import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
+import { FETCH_POINT_TRANSACTION_COUNT_OF_LOADING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionCountOfLoading";
+import { FETCH_POINT_TRANSACTION_OF_LOADING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfLoading";
+import { FETCH_POINT_TRANSACTION_OF_SELLING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfSelling";
+import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfBuying";
+import { FETCH_POINT_TRANSACTION } from "../../../../commons/hooks/queries/UseQueryFetchPointTransaction";
+import { CREATE_POINT_TRANSACTION_OF_LOADING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfLoading";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -79,10 +79,6 @@ export default function LayoutHeader(): JSX.Element {
   );
 
   const onclickPayment = async () => {
-    // console.log(pointDataTransactions);
-    // console.log(pointData?.fetchPointTransactionsOfLoading);
-    // console.log(pointDataSelling?.fetchPointTransactionsOfSelling);
-    // console.log(pointDataBuying?.fetchPointTransactionsOfBuying);
     const IMP = window.IMP; // 생략 가능
     console.log(IMP);
     IMP.init("imp49910675"); // 예: imp00000000a
@@ -144,27 +140,55 @@ export default function LayoutHeader(): JSX.Element {
   for (let i = 0; i < pointTransactions?.length; i++) {
     answer += pointTransactions[i].amount;
   }
-  // for (let i = 0; i < point?.length; i++) {
-  //   answer += point[i].amount;
-  // }
-  // for (let j = 0; j < sellingPoint?.length; j++) {
-  //   answer += sellingPoint[j].amount;
-  // }
-  // for (let k = 0; k < buyingPoint?.length; k++) {
-  //   answer += buyingPoint[k].amount;
-  // }
 
   return (
-    <LayoutHeaderUI
-      onClickLogo={onClickLogo}
-      onClickMoveToSingUp={onClickMoveToSingUp}
-      onClickMoveToLogin={onClickMoveToLogin}
-      onClickMoveToLogOut={onClickMoveToLogOut}
-      userName={userName}
-      onclickPayment={onclickPayment}
-      pointCountData={pointCountData}
-      answer={answer}
-      data={data}
-    />
+    <B.Wrapper>
+      <Head>
+        <script
+          type="text/javascript"
+          src="https://code.jquery.com/jquery-1.12.4.min.js"
+        ></script>
+        <script
+          type="text/javascript"
+          src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"
+        ></script>
+      </Head>
+      <B.InnerWrapper>
+        <B.InnerLogo onClick={onClickLogo}>
+          {" "}
+          <B.FireFilledIcon />
+          Header
+        </B.InnerLogo>
+        {userName ? (
+          <B.WrapperSmile>
+            <B.WrapperTimer>
+              <B.Clock />
+              <Timer />
+            </B.WrapperTimer>
+            <B.TieSmile>
+              <B.Smile />
+              <B.UserName>
+                {userName}님
+                <B.UserAnswer>
+                  포인트{" "}
+                  {answer
+                    ? `${data?.fetchUserLoggedIn?.userPoint?.amount} P`
+                    : ""}
+                </B.UserAnswer>
+              </B.UserName>
+            </B.TieSmile>
+            <B.Charge onClick={onclickPayment}>충전</B.Charge>
+            <B.OutButton onClick={onClickMoveToLogOut}>로그아웃</B.OutButton>
+          </B.WrapperSmile>
+        ) : (
+          <div>
+            <B.InnerButton onClick={onClickMoveToLogin}>로그인</B.InnerButton>
+            <B.InnerButton onClick={onClickMoveToSingUp}>
+              회원가입
+            </B.InnerButton>
+          </div>
+        )}
+      </B.InnerWrapper>
+    </B.Wrapper>
   );
 }

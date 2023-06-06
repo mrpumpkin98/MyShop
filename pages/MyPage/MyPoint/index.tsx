@@ -4,8 +4,8 @@
 //
 //####################################################################
 
-import MyPointList from "../../../src/components/units/mypage/list_mypoint/BoardList.container";
-import MyPageNavigation from "../../../src/components/commons/layout/mypageNavigation/MypageNavigation.container";
+import MyPointList from "../../../src/components/units/mypage/list_mypoint/BoardList.index";
+import MyPageNavigation from "../../../src/components/commons/layout/mypageNavigation/MypageNavigation.index";
 
 export default function GraphqlMutationPage() {
   return (

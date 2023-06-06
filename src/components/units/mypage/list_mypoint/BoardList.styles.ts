@@ -196,10 +196,6 @@ export const Button = styled.button`
   }
 `;
 
-export const TextToken = styled.span`
-  color: ${(props) => (props.isMatched ? "gold" : "black")};
-`;
-
 export const WapperNavi = styled.div`
   display: flex;
   margin-bottom: 20px;

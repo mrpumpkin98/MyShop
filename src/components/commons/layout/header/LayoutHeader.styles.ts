@@ -6,12 +6,12 @@ import {
 } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
-  height: 120px;
-  background: rgb(247, 248, 250);
+  height: 80px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid #e0e0e0;
 `;
 
 export const InnerWrapper = styled.div`
