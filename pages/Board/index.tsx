@@ -4,7 +4,7 @@
 //
 //####################################################################
 
-import BoardDetail from "../../src/components/units/board/list/BoardList.container";
+import BoardDetail from "../../src/components/units/board/list/BoardList.index";
 
 export default function GraphqlMutationPage() {
   return (

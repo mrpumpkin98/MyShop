@@ -21,21 +21,3 @@ export const FETCH_BOARD = gql`
     }
   }
 `;
-
-export const DELETE_BOARD = gql`
-  mutation deleteBoard($boardId: ID!) {
-    deleteBoard(boardId: $boardId)
-  }
-`;
-
-export const LIKE_BOARD = gql`
-  mutation likeBoard($boardId: ID!) {
-    likeBoard(boardId: $boardId)
-  }
-`;
-
-export const DIS_LIKE_BOARD = gql`
-  mutation dislikeBoard($boardId: ID!) {
-    dislikeBoard(boardId: $boardId)
-  }
-`;

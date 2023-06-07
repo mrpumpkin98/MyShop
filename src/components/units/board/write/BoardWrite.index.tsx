@@ -1,24 +1,17 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import {
-  CREATE_BOARD,
-  UPDATE_BOARD,
-  FETCH_BOARD,
-  UPLOAD_FILE,
-} from "./BoardWrite.queries";
-import BoardWriteUI from "./BoardWrite.presenter";
-import {
-  IMutation,
-  IMutationCreateBoardArgs,
-  IMutationUpdateBoardArgs,
-} from "../../../../commons/types/generated/types";
-import { IBoardWriteProps, myVariables } from "./Boardwrite.types";
-import { Button, Modal, Space } from "antd";
+import { Modal } from "antd";
 import type { Address } from "react-daum-postcode";
-import { checkValidationFile } from "../../../../commons/libraries/utils";
+import * as B from "./BoardWrite.styles";
+import Uploads01 from "../../../../commons/uploads/01/Uploads01.container";
+import { v4 as uuidv4 } from "uuid";
+import { CREATE_BOARD } from "../../../../commons/hooks/mutations/UseMutationCreateBoard";
+import { UPDATE_BOARD } from "../../../../commons/hooks/mutations/UseMutationUpdateBoard";
+import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
+import { FETCH_BOARD } from "../../../../commons/hooks/queries/UseQueryFetchBoard";
 
-export default function BoardsNewPage(props: IBoardWriteProps) {
+export default function BoardsNewPage(props: any) {
   ///////////////////////////////////////////////////////////////
   // router
   //////////////////////////////////////////////////////////////
@@ -212,7 +205,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
 
   const onClickUpdate = async () => {
     const currentFiles = JSON.stringify(fileUrls);
-    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
+    const defaultFiles = JSON.stringify(data?.fetchBoard.images);
     const isChangedFiles = currentFiles !== defaultFiles;
 
     if (
@@ -232,7 +225,7 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
       alert("비밀번호를 입력해주세요.");
       return;
     }
-    const updateBoardInput: IUpdateBoardInput = {};
+    const updateBoardInput: any = {};
     if (title !== "") updateBoardInput.title = title;
     if (contents !== "") updateBoardInput.contents = contents;
     if (youtubeUrl !== "") updateBoardInput.youtubeUrl = youtubeUrl;
@@ -287,41 +280,128 @@ export default function BoardsNewPage(props: IBoardWriteProps) {
   };
 
   useEffect(() => {
-    const images = props.data?.fetchBoard.images;
+    const images = data?.fetchBoard.images;
     if (images !== undefined && images !== null) setFileUrls([...images]);
-  }, [props.data]);
+  }, [data]);
 
   return (
     <div>
-      <BoardWriteUI
-        onClickSubmit={onClickSubmit}
-        onClickUpdate={onClickUpdate}
-        onChangeWriter={onChangeWriter}
-        onChangePassword={onChangePassword}
-        onChangeTitle={onChangeTitle}
-        onChangeContents={onChangeContents}
-        onClickCancel={onClickCancel}
-        onClickAddressSearch={onClickAddressSearch}
-        onChangeAddressDetail={onChangeAddressDetail}
-        onCompleteAddressSearch={onCompleteAddressSearch}
-        writerError={writerError}
-        passwordError={passwordError}
-        titleError={titleError}
-        contentsError={contentsError}
-        Active={Active}
-        isEdit={props.isEdit}
-        data={data}
-        inputRef={inputRef}
-        isOpen={isOpen}
-        zipcode={zipcode}
-        address={address}
-        Ok={Ok}
-        Cancel={Cancel}
-        onChangeYoutubeUrl={onChangeYoutubeUrl}
-        fileRef={fileRef}
-        onChangeFileUrls={onChangeFileUrls}
-        fileUrls={fileUrls}
-      />
+      {isOpen && (
+        <B.AddressModal visible={true} onOk={Ok} onCancel={Cancel}>
+          <B.AddressSearchInput onComplete={onCompleteAddressSearch} />
+        </B.AddressModal>
+      )}
+      <B.Wrapper>
+        <B.Title>{props.isEdit ? "수정글" : "게시글"} 등록</B.Title>
+        <B.WriterWrapper>
+          <B.InputWrapper>
+            <B.Label>작성자</B.Label>
+            <B.Writer
+              type="text"
+              placeholder="이름을 적어주세요."
+              onChange={onChangeWriter}
+              value={data?.fetchBoard.writer}
+              readOnly={data?.fetchBoard.writer}
+              ref={inputRef}
+            />
+            <B.Error>{writerError}</B.Error>
+          </B.InputWrapper>
+          <B.InputWrapper>
+            <B.Label>비밀번호</B.Label>
+            <B.Password
+              type="password"
+              placeholder="비밀번호를 작성해주세요."
+              onChange={onChangePassword}
+            />
+            <B.Error>{passwordError}</B.Error>
+          </B.InputWrapper>
+        </B.WriterWrapper>
+        <B.InputWrapper>
+          <B.Label>제목</B.Label>
+          <B.Subject
+            type="text"
+            placeholder="제목을 작성해주세요."
+            onChange={onChangeTitle}
+            defaultValue={data?.fetchBoard.title}
+          />
+          <B.Error>{titleError}</B.Error>
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>내용</B.Label>
+          <B.Contents
+            placeholder="내용을 작성해주세요."
+            onChange={onChangeContents}
+            defaultValue={data?.fetchBoard.contents}
+          ></B.Contents>
+          <B.Error>{contentsError}</B.Error>
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>주소</B.Label>
+          <B.ZipcodeWrapper>
+            <B.Zipcode
+              placeholder="07250"
+              readOnly
+              value={
+                zipcode !== ""
+                  ? zipcode
+                  : data?.fetchBoard.boardAddress?.zipcode ?? ""
+              }
+            />
+            <B.SearchButton onClick={onClickAddressSearch}>
+              우편번호 검색
+            </B.SearchButton>
+          </B.ZipcodeWrapper>
+          <B.Address
+            readOnly
+            value={
+              address !== ""
+                ? address
+                : data?.fetchBoard.boardAddress?.address ?? ""
+            }
+          />
+          <B.Address
+            onChange={onChangeAddressDetail}
+            defaultValue={data?.fetchBoard.boardAddress?.addressDetail ?? ""}
+          />
+        </B.InputWrapper>
+        <B.InputWrapper>
+          <B.Label>유튜브</B.Label>
+          <B.Youtube
+            placeholder="링크를 복사해주세요."
+            onChange={onChangeYoutubeUrl}
+            defaultValue={data?.fetchBoard.youtubeUrl ?? ""}
+          />
+        </B.InputWrapper>
+        <B.ImageWrapper>
+          <B.Label>사진첨부</B.Label>
+          <B.UploadButton>
+            {fileUrls.map((el, index) => (
+              <Uploads01
+                key={uuidv4()}
+                index={index}
+                fileUrl={el}
+                onChangeFileUrls={onChangeFileUrls}
+              />
+            ))}
+          </B.UploadButton>
+        </B.ImageWrapper>
+        <B.OptionWrapper>
+          <B.Label>메인설정</B.Label>
+          <B.RadioButton type="radio" id="youtube" name="radio-button" />
+          <B.RadioLabel htmlFor="youtube">유튜브</B.RadioLabel>
+          <B.RadioButton type="radio" id="image" name="radio-button" />
+          <B.RadioLabel htmlFor="image">사진</B.RadioLabel>
+        </B.OptionWrapper>
+        <B.ButtonWrapper>
+          <B.SubmitButton
+            onClick={props.isEdit ? onClickUpdate : onClickSubmit}
+            Active={props.isEdit ? true : Active}
+          >
+            {props.isEdit ? "수정하기" : "등록하기"}
+          </B.SubmitButton>
+          <B.CancelButton onClick={onClickCancel}>취소하기</B.CancelButton>
+        </B.ButtonWrapper>
+      </B.Wrapper>
     </div>
   );
 }

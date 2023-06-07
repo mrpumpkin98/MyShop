@@ -1,18 +1,16 @@
-import { ChangeEvent, useState, useRef, useEffect } from "react";
-import { FETCH_USER_LOGGED_IN, LOGIN_USER } from "./login.queries";
-import LoginUI from "./login.presenter";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../../commons/stores";
-import { useMutation, useQuery } from "@apollo/client";
-import type {
-  IMutation,
-  IMutationLoginUserArgs,
-} from "../../../src/commons/types/generated/types";
-import { IQuery } from "../../../../commons/types/generated/types";
+import { useMutation } from "@apollo/client";
+import * as B from "./login.styles";
+import Input01 from "../../../../commons/inputs/01-SignIn-top";
+import Input02 from "../../../../commons/inputs/02-SignIn-under";
+import Button01 from "../../../../commons/buttons/01-SignIn";
+import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
+import { LOGIN_USER } from "../../../../commons/hooks/mutations/UseMutationLoginUser";
 
 export const schema = yup.object({
   // email: yup
@@ -83,14 +81,30 @@ export default function LoginNewPage(props: any): JSX.Element {
   };
 
   return (
-    <div>
-      <LoginUI
-        onClickLogo={onClickLogo}
-        onClickLogin={onClickLogin}
-        register={register}
-        handleSubmit={handleSubmit}
-        onClickSingUp={onClickSingUp}
-      />
-    </div>
+    <>
+      <B.Wrapper>
+        <B.Title onClick={props.onClickLogo}>
+          <B.FireFilledIcon />
+          Header
+        </B.Title>
+        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickLogin))}>
+          <B.LoginWrapper>
+            <B.LoginTie>
+              <Input01
+                title="이메일을 입력해주세요."
+                register={props.register("email")}
+              ></Input01>
+              <Input02
+                title="비밀번호를 입력해 주세요."
+                type="password"
+                register={props.register("password")}
+              ></Input02>
+            </B.LoginTie>
+            <Button01 title="로그인" />
+            <B.SingUp onClick={props.onClickSingUp}>회원가입</B.SingUp>
+          </B.LoginWrapper>
+        </form>
+      </B.Wrapper>
+    </>
   );
 }

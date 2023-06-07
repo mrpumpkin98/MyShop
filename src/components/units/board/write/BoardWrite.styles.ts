@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { ISubmitButtonProps } from "./Boardwrite.types";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 
@@ -192,7 +191,7 @@ export const CancelButton = styled.button`
   font-family: "SCDream4";
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{ Active: any }>`
   width: 179px;
   height: 52px;
   background-color: #f5f5f5;
@@ -202,8 +201,7 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
   border-radius: 4px;
-  background-color: ${(props: ISubmitButtonProps) =>
-    props.Active ? "gold" : " #f7f8fa"};
+  background-color: ${(props: any) => (props.Active ? "gold" : " #f7f8fa")};
   font-family: "SCDream4";
 `;
 

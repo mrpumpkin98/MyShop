@@ -7,7 +7,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import BoardEdit from "../../../../src/components/units/board/write/BoardWrite.container";
+import BoardEdit from "../../../../src/components/units/board/write/BoardWrite.index";
 
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {

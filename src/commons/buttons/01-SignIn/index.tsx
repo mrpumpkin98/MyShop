@@ -1,7 +1,6 @@
 import * as B from "../styles/01";
 
 interface IButtonProps {
-  isActive: boolean;
   title: string;
 }
 

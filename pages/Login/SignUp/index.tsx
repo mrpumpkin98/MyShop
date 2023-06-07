@@ -4,7 +4,7 @@
 //
 //####################################################################
 
-import SignUp from "../../../src/components/units/login/SignUp/login.container";
+import SignUp from "../../../src/components/units/login/SignUp/login.index";
 
 export default function GraphqlMutationPage() {
   return (

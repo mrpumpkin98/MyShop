@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { useTimer } from "react-timer-hook";
 import { useEffect, useState } from "react";
-import StaticRoutingPage from "../../../units/board/list/BoardList.container";
+import StaticRoutingPage from "../../../units/board/list/BoardList.index";
 import * as B from "./LayoutHeader.styles";
 import Head from "next/head";
 import Timer from "../../../../commons/timer/01";
