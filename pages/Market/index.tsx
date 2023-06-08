@@ -4,7 +4,7 @@
 //
 //####################################################################
 
-import MarketList from "../../src/components/units/market/list/MarketList.container";
+import MarketList from "../../src/components/units/market/list/MarketList.index";
 
 export default function GraphqlMutationPage() {
   return (

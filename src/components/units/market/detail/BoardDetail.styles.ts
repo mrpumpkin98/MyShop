@@ -242,10 +242,9 @@ export const Map = styled.div`
   margin-top: 50px;
 `;
 
-export const Heart = styled(HeartFilled)`
+export const Heart = styled(HeartFilled)<{ Active: any }>`
   font-size: 18px;
-  color: ${(props: ISubmitButtonProps) =>
-    props.Active === false ? " #bdbdbd" : "gold"};
+  color: ${(props: any) => (props.Active === false ? " #bdbdbd" : "gold")};
   cursor: pointer;
   margin-bottom: 8px;
 `;

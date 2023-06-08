@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import {
-  FETCH_BOARD,
-  DELETE_BOARD,
-  LIKE_BOARD,
-  DIS_LIKE_BOARD,
-  FETCH_USED_ITEM,
-  TOGGLE_USED_ITEM_PICK,
-  CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING,
-  FETCH_USER_LOGGED_IN,
-} from "./BoardDetail.queries";
-import BoardDetailUI from "./BoardDetail.presenter";
-import {
-  FETCH_POINT_TRANSACTION,
-  FETCH_POINT_TRANSACTION_OF_BUYING,
-} from "../../mypage/list_mypoint/BoardList.queries";
+import { FETCH_POINT_TRANSACTION } from "../../../../commons/hooks/queries/UseQueryFetchPointTransaction";
+import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfBuying";
+import { Tooltip } from "antd";
+import DOMPurify from "dompurify";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import BoardComment from "../comment/BoardComment.container";
+import BoardCommentList from "../commentlist/BoardCommentList.container";
+import * as B from "./BoardDetail.styles";
+import { Money, getDate } from "../../../../commons/libraries/utils";
+import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
+import { TOGGLE_USED_ITEM_PICK } from "../../../../commons/hooks/mutations/UseMutationToggleUsedItemPick";
+import { CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfBuyingAndSelling";
+import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
+
+declare const window: typeof globalThis & {
+  kakao: any;
+};
 
 export default function BoardDetailPage() {
   ///////////////////////////////////////////////////////////////
@@ -27,10 +31,6 @@ export default function BoardDetailPage() {
   ///////////////////////////////////////////////////////////////
   // queries
   //////////////////////////////////////////////////////////////
-
-  const [deleteBoard] = useMutation(DELETE_BOARD);
-  const [likeBoard] = useMutation(LIKE_BOARD);
-  const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
   const { data, refetch } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
   });
@@ -40,23 +40,14 @@ export default function BoardDetailPage() {
   );
 
   ///////////////////////////////////////////////////////////////
-  // 게시물 삭제
-  //////////////////////////////////////////////////////////////
-
-  const onClickDelete = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const result = await deleteBoard({
-      variables: { boardId: router.query.boardId },
-    });
-    router.push(`/Board`);
-  };
-
-  ///////////////////////////////////////////////////////////////
   // 마켓 좋아요
   //////////////////////////////////////////////////////////////
 
   const [Like, setLike] = useState(false);
 
-  const onClickLike = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onClickLike = async (
+    event: React.MouseEvent<HTMLTableDataCellElement>
+  ) => {
     console.log(event.currentTarget.id);
     const result = await toggleUseditemPick({
       variables: { useditemId: router.query.useditemId },
@@ -71,7 +62,7 @@ export default function BoardDetailPage() {
   };
 
   ///////////////////////////////////////////////////////////////
-  // 게시판 리스트 이동
+  // 마켓 리스트 이동
   //////////////////////////////////////////////////////////////
 
   const onClickBoard = () => {
@@ -79,21 +70,13 @@ export default function BoardDetailPage() {
   };
 
   ///////////////////////////////////////////////////////////////
-  // 게시물 수정하기 이동
+  // 마켓 수정하기 이동
   //////////////////////////////////////////////////////////////
 
   const onClickUpdate = () => {
     console.log(router.query.useditemId);
     router.push(`/Market/${router.query.useditemId}/edit`);
   };
-
-  ///////////////////////////////////////////////////////////////
-  // 페이지 새로고침
-  //////////////////////////////////////////////////////////////
-
-  // useEffect(() => {
-  //   refetch({ page: 1 });
-  // }, [onClickBuyingAndSelling]); // onClickBuyingAndSelling 이벤트 발생시 refetch 실행
 
   ///////////////////////////////////////////////////////////////
   // 이미지 캐러셀
@@ -120,15 +103,16 @@ export default function BoardDetailPage() {
 
     script.onload = () => {
       window.kakao.maps.load(function () {
-        if (data?.fetchUseditem?.useditemAddress?.lat) {
-          var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-            mapOption = {
-              center: new kakao.maps.LatLng(
-                data?.fetchUseditem?.useditemAddress?.lat,
-                data?.fetchUseditem?.useditemAddress?.lng
-              ), // 지도의 중심좌표
-              level: 3, // 지도의 확대 레벨
-            };
+        const mapContainer = document.getElementById("map");
+        if (mapContainer) {
+          // null 체크
+          const mapOption = {
+            center: new kakao.maps.LatLng(
+              data?.fetchUseditem?.useditemAddress?.lat,
+              data?.fetchUseditem?.useditemAddress?.lng
+            ),
+            level: 3,
+          };
 
           var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
@@ -170,7 +154,7 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const onClickBuyingAndSelling = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.MouseEvent<HTMLButtonElement>
   ) => {
     console.log(router.query);
     const result = await createPointTransactionOfBuyingAndSelling({
@@ -201,18 +185,86 @@ export default function BoardDetailPage() {
 
   return (
     <div>
-      <BoardDetailUI
-        data={data}
-        onClickUpdate={onClickUpdate}
-        onClickDelete={onClickDelete}
-        onClickLike={onClickLike}
-        onClickBoard={onClickBoard}
-        settings={settings}
-        Like={Like}
-        mapId="map"
-        Tag={Tag}
-        onClickBuyingAndSelling={onClickBuyingAndSelling}
-      />
+      <B.Wrapper>
+        <B.CardWrapper>
+          <B.Header>
+            <B.AvatarWrapper>
+              <B.Avatar src="/images/avatar.png" />
+              <B.Info>
+                <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
+                {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
+                <B.CreatedAt>
+                  {getDate(data?.fetchUseditem?.createdAt)}
+                </B.CreatedAt>
+              </B.Info>
+              <Tooltip
+                placement="top"
+                title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
+              ${data?.fetchUseditem.useditemAddress?.addressDetail ?? ""}`}
+              >
+                <B.Environment />
+              </Tooltip>
+              <B.PaperClip />
+            </B.AvatarWrapper>
+          </B.Header>
+          <B.Body>
+            <B.WidthWrapper>
+              <B.WrapperRemarksNamePrice>
+                <B.Remarks>{data?.fetchUseditem?.remarks}</B.Remarks>
+                <B.Name>{data?.fetchUseditem?.name}</B.Name>
+                <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
+              </B.WrapperRemarksNamePrice>
+              <B.WrapperPickedCount>
+                <B.Heart onClick={onClickLike} Active={Like} />
+                <B.PickedCount>
+                  {data?.fetchUseditem?.pickedCount}
+                </B.PickedCount>
+              </B.WrapperPickedCount>
+            </B.WidthWrapper>
+            <B.WrapperContents>
+              <B.WrapperImage>
+                <B.imImageResult>
+                  <Slider {...settings}>
+                    {data?.fetchUseditem.images
+                      ?.filter((el: any) => el)
+                      .map((el: any) => (
+                        <B.Image
+                          key={el}
+                          src={`https://storage.googleapis.com/${el}`}
+                        />
+                      ))}
+                  </Slider>
+                </B.imImageResult>
+              </B.WrapperImage>
+              <B.Contents
+                dangerouslySetInnerHTML={
+                  data?.fetchUseditem?.contents
+                    ? {
+                        __html: DOMPurify.sanitize(data.fetchUseditem.contents),
+                      }
+                    : undefined
+                }
+              />
+              <B.Tags>
+                {Tag?.map((el: any, index: any) => (
+                  <B.Tag>#{Tag[index]}</B.Tag>
+                ))}
+              </B.Tags>
+              <B.Map>
+                <div id="map" style={{ width: "100%", height: "360px" }}></div>
+              </B.Map>
+            </B.WrapperContents>
+          </B.Body>
+          <B.Footer></B.Footer>
+        </B.CardWrapper>
+        <B.BottomWrapper>
+          <B.Button onClick={onClickBoard}>목록으로</B.Button>
+          <B.Button onClick={onClickBuyingAndSelling}>구매하기</B.Button>
+          <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+        </B.BottomWrapper>
+        <BoardComment />
+        <BoardCommentList />
+      </B.Wrapper>
     </div>
   );
 }

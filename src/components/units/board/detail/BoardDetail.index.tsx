@@ -130,13 +130,15 @@ export default function BoardDetailPage() {
           <B.Body>
             <B.Title>{data?.fetchBoard?.title}</B.Title>
             <B.Contents>
-              {data?.fetchBoard?.contents}
-              {data?.fetchBoard.youtubeUrl !== "" && (
+              <div>{data?.fetchBoard?.contents}</div>
+              {data?.fetchBoard.youtubeUrl ? (
                 <B.Youtube
-                  url={data?.fetchBoard.youtubeUrl ?? ""}
+                  url={data?.fetchBoard.youtubeUrl}
                   width="911px"
                   height="480px"
                 />
+              ) : (
+                <div></div>
               )}
               <B.imImageResult>
                 {data?.fetchBoard.images

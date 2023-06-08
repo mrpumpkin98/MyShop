@@ -4,7 +4,7 @@
 //
 //####################################################################
 
-import MarketDetail from "../../../src/components/units/market/detail/BoardDetail.container";
+import MarketDetail from "../../../src/components/units/market/detail/BoardDetail.index";
 import BoardComment from "../../../src/components/units/market/comment/BoardComment.container";
 import BoardCommentList from "../../../src/components/units/market/commentlist/BoardCommentList.container";
 

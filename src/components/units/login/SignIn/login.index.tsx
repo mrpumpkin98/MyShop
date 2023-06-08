@@ -37,7 +37,7 @@ export const schema = yup.object({
   //   .required("휴대폰은 필수 입력입니다."),
 });
 
-export default function LoginNewPage(props: any): JSX.Element {
+export default function LoginNewPage(): JSX.Element {
   const router = useRouter();
   const [, setAccessToken] = useRecoilState(accessTokenState);
 
@@ -83,25 +83,25 @@ export default function LoginNewPage(props: any): JSX.Element {
   return (
     <>
       <B.Wrapper>
-        <B.Title onClick={props.onClickLogo}>
+        <B.Title onClick={onClickLogo}>
           <B.FireFilledIcon />
           Header
         </B.Title>
-        <form onSubmit={wrapFormAsync(props.handleSubmit(props.onClickLogin))}>
+        <form onSubmit={wrapFormAsync(handleSubmit(onClickLogin))}>
           <B.LoginWrapper>
             <B.LoginTie>
               <Input01
                 title="이메일을 입력해주세요."
-                register={props.register("email")}
+                register={register("email")}
               ></Input01>
               <Input02
                 title="비밀번호를 입력해 주세요."
                 type="password"
-                register={props.register("password")}
+                register={register("password")}
               ></Input02>
             </B.LoginTie>
             <Button01 title="로그인" />
-            <B.SingUp onClick={props.onClickSingUp}>회원가입</B.SingUp>
+            <B.SingUp onClick={onClickSingUp}>회원가입</B.SingUp>
           </B.LoginWrapper>
         </form>
       </B.Wrapper>

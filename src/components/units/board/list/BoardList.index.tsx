@@ -186,7 +186,10 @@ export default function StaticRoutingPage() {
         ))}
       </B.Table>
       <B.Pagination>
-        <Paginations01 refetch={refetch} count={dataBoardsCount} />
+        <Paginations01
+          refetch={refetch}
+          count={dataBoardsCount?.fetchBoardsCount}
+        />
       </B.Pagination>
       <B.ButtonTie>
         <B.Button onClick={onClickWrite}>게시물 등록하기</B.Button>

@@ -58,7 +58,7 @@ export const Shopping = styled(ShoppingFilled)`
   }
 `;
 
-export const Shopping2 = styled(ShoppingCartOutlined)`
+export const Shopping2 = styled(ShoppingCartOutlined)<{ Active: any }>`
   color: #bdbdbd;
   color: ${(props) => props.Active && "gold"};
   font-size: 30px;
@@ -273,7 +273,7 @@ export const Button = styled.button`
   }
 `;
 
-export const TextToken = styled.span`
+export const TextToken = styled.span<{ isMatched: boolean }>`
   color: ${(props) => (props.isMatched ? "gold" : "black")};
 `;
 
@@ -379,7 +379,19 @@ export const PaginationContainer = styled.div`
   /* margin-top: 20px; */
 `;
 
-export const Pagination = styled(ReactPaginate)`
+export const Pagination = styled(ReactPaginate)<{
+  previousLabel: string;
+  nextLabel: string;
+  pageCount: any;
+  onPageChange: any;
+  containerClassName: any;
+  previousLinkClassName: any;
+  nextLinkClassName: any;
+  disabledClassName: any;
+  activeClassName: any;
+  pageRangeDisplayed: any;
+  marginPagesDisplayed: any;
+}>`
   /* margin-top: 20px; */
   display: none;
 `;
