@@ -195,7 +195,7 @@ export const Button = styled.button`
   }
 `;
 
-export const TextToken = styled.span`
+export const TextToken = styled.span<{ isMatched: any }>`
   color: ${(props) => (props.isMatched ? "gold" : "black")};
 `;
 

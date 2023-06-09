@@ -4,6 +4,9 @@ import * as B from "../styles/05";
 interface IInputProps {
   type?: "text" | "password";
   register: UseFormRegisterReturn;
+  title?: any;
+  answer?: any;
+  defaultValue?: any;
 }
 
 export default function Input05(props: IInputProps): JSX.Element {

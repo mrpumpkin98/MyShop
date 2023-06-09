@@ -7,7 +7,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
-import BoardEdit from "../../../../src/components/units/market/write/MarketWrite.container";
+import BoardEdit from "../../../../src/components/units/market/write/MarketWrite.index";
 
 // const FETCH_USED_ITEM = gql`
 //   query fetchUseditem($useditemId: ID!) {

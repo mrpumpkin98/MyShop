@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>nemo-v</title>
+        <title>MyShop</title>
       </Head>
       <LandingPage />
     </div>

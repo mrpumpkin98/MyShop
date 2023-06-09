@@ -24,7 +24,7 @@ export const InnerWrapper = styled.div`
 `;
 
 export const InnerLogo = styled.div`
-  font-size: 35px;
+  font-size: 25px;
   font-weight: bold;
   font-family: "Jalnan";
   color: gold;
@@ -33,22 +33,31 @@ export const InnerLogo = styled.div`
 
 export const InnerButton = styled.span`
   margin: 10px;
-  color: gold;
+  font-family: "Arita-SemiBold";
+  font-size: 15px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
   cursor: pointer;
-  font-family: "Jalnan";
+  transition: background-color 0.3s;
   :hover {
-    color: orange;
+    background-color: #e7e7e7;
+  }
+  &.SignUp {
+    background-color: gold;
+    border-radius: 4px;
+    padding: 10px 20px;
+    :hover {
+      background-color: #efc900;
+    }
   }
 `;
 
 export const FireFilledIcon = styled(GitlabFilled)`
   color: gold;
-  font-size: 35px;
+  font-size: 30px;
   cursor: pointer;
   margin-right: 5px;
-  :hover {
-    color: orange;
-  }
 `;
 
 export const Rocket = styled.img`
@@ -101,11 +110,14 @@ export const Clock = styled(ClockCircleOutlined)`
 
 export const OutButton = styled.span`
   margin: 10px;
-  color: #828282;
   cursor: pointer;
-  font-family: "Jalnan";
+  font-family: "Arita-SemiBold";
+  font-size: 15px;
+  transition: background-color 0.3s;
+  padding: 10px 20px;
+  border-radius: 4px;
   :hover {
-    color: #4f4f4f;
+    background-color: #e7e7e7;
   }
 `;
 
@@ -115,11 +127,14 @@ export const UserAnswer = styled.div`
 `;
 
 export const Charge = styled.div`
-  font-family: "Jalnan";
+  font-family: "Arita-SemiBold";
+  font-size: 15px;
   cursor: pointer;
-  color: #828282;
-  margin: 0px 10px;
+  margin: 0px 5px;
+  transition: background-color 0.3s;
+  padding: 10px 20px;
+  border-radius: 4px;
   :hover {
-    color: #4f4f4f;
+    background-color: #e7e7e7;
   }
 `;

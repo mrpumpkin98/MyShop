@@ -1,16 +1,21 @@
 import { ChangeEvent, useState, useRef, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import {
-  UPDATE_USED_ITEM,
-  CREATE_USED_ITEM,
-  UPLOAD_FILE,
-  FETCH_USED_ITEM,
-} from "./MarketWrite.queries";
-import LoginUI from "./MarketWrite.presenter";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { v4 as uuidv4 } from "uuid";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
+import * as B from "./MarketWrite.styles";
+import Input04 from "../../../../commons/inputs/04-Market";
+import Input05 from "../../../../commons/inputs/05-Market-value";
+import Button03 from "../../../../commons/buttons/03-Smple";
+import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
+import { CREATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationCreateUsedItem";
+import { UPDATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationUpdateUsedItem";
+import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
+import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
 
 export const schema = yup.object({
   name: yup.string().required("상품명을 입력하세요!"),
@@ -18,6 +23,22 @@ export const schema = yup.object({
   price: yup.string().required("판매 가격을 입력하세요!"),
   contents: yup.string().required("상품설명을 입력하세요!"),
 });
+
+const ReactQuill = dynamic(async () => await import("react-quill"), {
+  ssr: false,
+});
+
+const Uploads01 = dynamic(
+  async () =>
+    await import("../../../../commons/uploads/01/Uploads01.container"),
+  {
+    ssr: false,
+  }
+);
+
+declare const window: typeof globalThis & {
+  kakao: any;
+};
 
 export default function LoginNewPage(props: any): JSX.Element {
   ///////////////////////////////////////////////////////////////
@@ -135,7 +156,8 @@ export default function LoginNewPage(props: any): JSX.Element {
         alert("요청에 문제가 있습니다.");
         return;
       }
-      void router.push(`/Market/${result.data?.updateUseditem.board_id}`);
+      void router.push(`/Market/${result.data?.updateUseditem._id}`);
+      // console.log(result.data?.updateUseditem._id);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -159,6 +181,11 @@ export default function LoginNewPage(props: any): JSX.Element {
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);
   };
+
+  useEffect(() => {
+    const images = data?.fetchUseditem.images;
+    if (images !== undefined && images !== null) setFileUrls([...images]);
+  }, [data]);
 
   ///////////////////////////////////////////////////////////////
   // 카카오 MAP
@@ -254,11 +281,13 @@ export default function LoginNewPage(props: any): JSX.Element {
           if (status === kakao.maps.services.Status.OK) {
             var infoDiv = document.getElementById("centerAddr");
 
-            for (var i = 0; i < result.length; i++) {
-              // 행정동의 region_type 값은 'H' 이므로
-              if (result[i].region_type === "H") {
-                infoDiv.innerHTML = result[i].address_name;
-                break;
+            if (infoDiv !== null) {
+              for (var i = 0; i < result.length; i++) {
+                // 행정동의 region_type 값은 'H' 이므로
+                if (result[i].region_type === "H") {
+                  infoDiv.innerHTML = result[i].address_name;
+                  break;
+                }
               }
             }
           }
@@ -298,24 +327,142 @@ export default function LoginNewPage(props: any): JSX.Element {
   /////////////////////////////return/////////////////////////////////
 
   return (
-    <div>
-      <LoginUI
-        onClickSubmit={onClickSubmit}
-        register={register}
-        handleSubmit={handleSubmit}
-        formState={formState}
-        fileUrls={fileUrls}
-        onChangeFileUrls={onChangeFileUrls}
-        onChangeContents={onChangeContents}
-        mapId="map"
-        centerAddr="centerAddr"
-        input1Ref={input1Ref}
-        input2Ref={input2Ref}
-        address={address}
-        onClickUpdate={onClickUpdate}
-        isEdit={props.isEdit}
-        data={data}
-      />
-    </div>
+    <>
+      <B.Wrapper>
+        <B.Title>{props.isEdit ? "상품 수정" : "상품 등록"} 하기</B.Title>
+        <form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
+          <B.LoginWrapper>
+            <B.LoginTie>
+              <B.Label>상품명</B.Label>
+              <Input04
+                title="상품명을 작성해주세요."
+                register={register("name")}
+                defaultValue={data?.fetchUseditem.name}
+              ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {formState.errors.name?.message}
+              </B.Error>
+              <B.Label>한줄요약 </B.Label>
+              <Input04
+                title="상품명을 작성해주세요."
+                register={register("remarks")}
+                defaultValue={data?.fetchUseditem.remarks}
+              ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {formState.errors.remarks?.message}
+              </B.Error>
+              <B.WrapperReactQuill>
+                <B.Label>상품설명 </B.Label>
+                <ReactQuill
+                  onChange={onChangeContents}
+                  defaultValue={data?.fetchUseditem.contents}
+                  style={{ height: "400px" }}
+                />
+              </B.WrapperReactQuill>
+              <B.Error style={{ color: "red" }}>
+                {formState.errors.contents?.message}
+              </B.Error>
+              <B.Label>판매 가격</B.Label>
+              <Input04
+                title="판매 가격을 입력해주세요."
+                register={register("price")}
+                defaultValue={data?.fetchUseditem.price}
+              ></Input04>
+              <B.Error style={{ color: "red" }}>
+                {formState.errors.price?.message}
+              </B.Error>
+              <B.Label>태그입력</B.Label>
+              <Input04
+                title="#태그  #태그  #태그  "
+                register={register("tags")}
+                defaultValue={data?.fetchUseditem.tags}
+              ></Input04>
+              <B.WrapperMapLatLng>
+                <B.WrapperMap>
+                  <B.Label>거래위치</B.Label>
+                  <B.MapWrap>
+                    <div
+                      id="map"
+                      style={{
+                        width: "384px",
+                        height: "252px",
+                        position: "relative",
+                        overflow: "hidden",
+                      }}
+                    ></div>
+                    <B.HAddr>
+                      {/* <B.AddrTitle>지도중심기준 행정동 주소정보</B.AddrTitle> */}
+                      <B.CenterAddr
+                        id="centerAddr"
+                        style={{ display: "none" }}
+                      ></B.CenterAddr>
+                    </B.HAddr>
+                  </B.MapWrap>
+                </B.WrapperMap>
+                <B.WrapperGPSAddress>
+                  <B.WrapperLatLng>
+                    <B.Label>GPS</B.Label>
+                    <B.TieLatLng>
+                      <B.Lat
+                        ref={input1Ref}
+                        readOnly
+                        defaultValue={data?.fetchUseditem.useditemAddress.lat}
+                      />
+                      {/* <B.AimOut /> */}
+                      <B.Lng
+                        ref={input2Ref}
+                        readOnly
+                        defaultValue={data?.fetchUseditem.useditemAddress.lng}
+                      />
+                      <div style={{ display: "none" }} id="clickLatlng1"></div>
+                      <div style={{ display: "none" }} id="clickLatlng2"></div>
+                    </B.TieLatLng>
+                  </B.WrapperLatLng>
+                  <B.WrapperAddressAddressDetail>
+                    <B.Label>주소</B.Label>
+                    <Input05
+                      title=""
+                      answer={address}
+                      register={register("address")}
+                      defaultValue={data?.fetchUseditem.useditemAddress.address}
+                    ></Input05>
+                    <Input04
+                      title=""
+                      register={register("addressDetail")}
+                      defaultValue={
+                        data?.fetchUseditem.useditemAddress.addressDetail
+                      }
+                    ></Input04>
+                  </B.WrapperAddressAddressDetail>
+                </B.WrapperGPSAddress>
+              </B.WrapperMapLatLng>
+            </B.LoginTie>
+          </B.LoginWrapper>
+        </form>
+        <B.Label>사진첨부</B.Label>
+        <B.UploadButton>
+          {fileUrls.map((el: any, index: any) => (
+            <Uploads01
+              key={uuidv4()}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={onChangeFileUrls}
+            />
+          ))}
+        </B.UploadButton>
+        <B.ButtonForm
+          onSubmit={
+            props.isEdit
+              ? wrapFormAsync(handleSubmit(onClickUpdate))
+              : wrapFormAsync(handleSubmit(onClickSubmit))
+          }
+        >
+          <Button03
+            title={props.isEdit ? "수정하기" : "등록하기"}
+            isActive={formState.isValid}
+          />
+        </B.ButtonForm>
+      </B.Wrapper>
+    </>
   );
 }

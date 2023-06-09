@@ -157,7 +157,7 @@ export default function LayoutHeader(): JSX.Element {
         <B.InnerLogo onClick={onClickLogo}>
           {" "}
           <B.FireFilledIcon />
-          Header
+          MyShop
         </B.InnerLogo>
         {userName ? (
           <B.WrapperSmile>
@@ -183,7 +183,7 @@ export default function LayoutHeader(): JSX.Element {
         ) : (
           <div>
             <B.InnerButton onClick={onClickMoveToLogin}>로그인</B.InnerButton>
-            <B.InnerButton onClick={onClickMoveToSingUp}>
+            <B.InnerButton onClick={onClickMoveToSingUp} className="SignUp">
               회원가입
             </B.InnerButton>
           </div>
