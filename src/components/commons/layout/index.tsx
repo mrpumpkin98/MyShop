@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
 const HIDDEN = ["/Login", "/Login/SignUp", "/"];
-const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint"];
+const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint", "/MyPage/MyProfile"];
 
 const Body = styled.div`
   height: 500px;

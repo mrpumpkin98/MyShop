@@ -41,6 +41,7 @@ export const Name = styled.div`
   font-size: 24px;
   margin-bottom: 10px;
   font-family: "SCDream4";
+  margin-top: 20px;
 `;
 
 export const WrapperPoint = styled.div`

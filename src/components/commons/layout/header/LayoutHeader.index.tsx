@@ -14,6 +14,8 @@ import { FETCH_POINT_TRANSACTION_OF_SELLING } from "../../../../commons/hooks/qu
 import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfBuying";
 import { FETCH_POINT_TRANSACTION } from "../../../../commons/hooks/queries/UseQueryFetchPointTransaction";
 import { CREATE_POINT_TRANSACTION_OF_LOADING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfLoading";
+import { Avatar, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -166,7 +168,14 @@ export default function LayoutHeader(): JSX.Element {
               <Timer />
             </B.WrapperTimer>
             <B.TieSmile>
-              <B.Smile />
+              <Space>
+                <Avatar
+                  size={35}
+                  style={{ cursor: "pointer", margin: "0px 10px 0px 0px" }}
+                  icon={<UserOutlined />}
+                  src={`https://storage.googleapis.com/${data?.fetchUserLoggedIn.picture}`}
+                />
+              </Space>
               <B.UserName>
                 {userName}님
                 <B.UserAnswer>

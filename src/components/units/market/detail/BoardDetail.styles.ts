@@ -9,7 +9,7 @@ import {
 import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
-  width: 1000px;
+  width: 1200px;
   margin: 100px;
 `;
 

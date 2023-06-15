@@ -11,6 +11,8 @@ import { FETCH_USED_ITEMS_OF_THE_BEST } from "../../../../commons/hooks/queries/
 import { FETCH_USED_ITEMS } from "../../../../commons/hooks/queries/UseQueryFetchUsedItems";
 import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
 import { FETCH_BOARDS_COUNT } from "../../../../commons/hooks/queries/UseQueryFetchBoardsCount";
+import { Avatar, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const SECRET = "@#$%";
 interface Props {
@@ -50,6 +52,7 @@ export default function StaticRoutingPage() {
     useQuery(FETCH_USED_ITEMS_OF_THE_BEST);
   const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS);
   const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
+  const userName = loginData?.fetchUserLoggedIn.name;
 
   ///////////////////////////////////////////////////////////////
   //  게시물 이동
@@ -123,7 +126,7 @@ export default function StaticRoutingPage() {
   // 대체 이미지
   //////////////////////////////////////////////////////////////
   const onErrorImg = (e: any) => {
-    e.target.src = "/images/none.png";
+    e.target.src = "/images/icons/all-icon.png";
   };
 
   ///////////////////////////////////////////////////////////////
@@ -294,7 +297,17 @@ export default function StaticRoutingPage() {
                       </B.ListContents>
                       <B.ListTags id={el._id}>{el.tags}</B.ListTags>
                       <B.TitleListSellerListPickedCount>
-                        <B.Smile />
+                        <Space>
+                          <Avatar
+                            size={27}
+                            style={{
+                              cursor: "pointer",
+                              margin: "0px 10px 0px 5px",
+                            }}
+                            icon={<UserOutlined />}
+                            src={`https://storage.googleapis.com/${el?.seller?.picture}`}
+                          />
+                        </Space>
                         <B.ListSeller id={el._id}>
                           {el.seller.name}
                         </B.ListSeller>

@@ -186,6 +186,7 @@ export const ListImg = styled.img`
   height: 160px;
   margin: 10px 7px;
   border-radius: 8px;
+  background-color: white;
 `;
 
 export const ListName = styled.div`
@@ -197,6 +198,7 @@ export const TieTable = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 10px;
 `;
 export const ListContents = styled.div`
   font-weight: 400;

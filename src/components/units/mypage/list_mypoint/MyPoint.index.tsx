@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import _ from "lodash";
-import * as B from "./BoardList.styles";
+import * as B from "./MyPoint.styles";
 import { Money, getDate } from "../../../../commons/libraries/utils";
 import { FETCH_BOARDS } from "../../../../commons/hooks/queries/UseQueryFetchBoards";
 import { FETCH_USED_ITEMS_I_SOLD } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemsISold";
