@@ -1,12 +1,12 @@
 import Head from "next/head";
-import LandingPage from "../src/components/units/landingPage";
+import Board from "../src/components/units/board/list/BoardList.index";
 export default function Home() {
   return (
     <div>
       <Head>
         <title>MyShop</title>
       </Head>
-      <LandingPage />
+      <Board />
     </div>
   );
 }

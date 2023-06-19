@@ -221,3 +221,19 @@ export const CenterAddr = styled.span`
   margin-top: 2px;
   font-weight: normal;
 `;
+
+export const Button = styled.button`
+  width: 179px;
+  height: 52px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 17px;
+  cursor: pointer;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+`;

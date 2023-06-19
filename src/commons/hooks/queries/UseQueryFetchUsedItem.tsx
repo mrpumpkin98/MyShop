@@ -14,6 +14,7 @@ export const FETCH_USED_ITEM = gql`
       seller {
         _id
         name
+        email
       }
       pickedCount
       useditemAddress {

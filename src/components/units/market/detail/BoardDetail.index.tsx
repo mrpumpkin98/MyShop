@@ -34,6 +34,7 @@ export default function BoardDetailPage() {
   const { data, refetch } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
   });
+  const { data: fetchUserLoggedInData } = useQuery(FETCH_USER_LOGGED_IN);
   const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
@@ -48,7 +49,6 @@ export default function BoardDetailPage() {
   const onClickLike = async (
     event: React.MouseEvent<HTMLTableDataCellElement>
   ) => {
-    console.log(event.currentTarget.id);
     const result = await toggleUseditemPick({
       variables: { useditemId: router.query.useditemId },
       refetchQueries: [
@@ -181,6 +181,13 @@ export default function BoardDetailPage() {
     router.push(`/Market`);
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 대체 이미지
+  //////////////////////////////////////////////////////////////
+  const onErrorImg = (e: any) => {
+    e.target.src = "/images/icons/all-icon-after-hover.png";
+  };
+
   /////////////////////////////return/////////////////////////////////
 
   return (
@@ -189,22 +196,25 @@ export default function BoardDetailPage() {
         <B.CardWrapper>
           <B.Header>
             <B.AvatarWrapper>
-              <B.Avatar src="/images/avatar.png" />
-              <B.Info>
-                <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
-                {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
-                <B.CreatedAt>
-                  {getDate(data?.fetchUseditem?.createdAt)}
-                </B.CreatedAt>
-              </B.Info>
-              <Tooltip
-                placement="top"
-                title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
+              <B.AvatarInfoWrapper>
+                <B.Avatar src="/images/avatar.png" />
+                <B.Info>
+                  <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
+                  {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
+                  <B.CreatedAt>
+                    {getDate(data?.fetchUseditem?.createdAt)}
+                  </B.CreatedAt>
+                </B.Info>
+              </B.AvatarInfoWrapper>
+              <B.TooltipWrapper>
+                <Tooltip
+                  placement="top"
+                  title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
               ${data?.fetchUseditem.useditemAddress?.addressDetail ?? ""}`}
-              >
+                ></Tooltip>
+                <B.PaperClip />
                 <B.Environment />
-              </Tooltip>
-              <B.PaperClip />
+              </B.TooltipWrapper>
             </B.AvatarWrapper>
           </B.Header>
           <B.Body>
@@ -231,6 +241,7 @@ export default function BoardDetailPage() {
                         <B.Image
                           key={el}
                           src={`https://storage.googleapis.com/${el}`}
+                          onError={onErrorImg}
                         />
                       ))}
                   </Slider>
@@ -260,7 +271,10 @@ export default function BoardDetailPage() {
         <B.BottomWrapper>
           <B.Button onClick={onClickBoard}>목록으로</B.Button>
           <B.Button onClick={onClickBuyingAndSelling}>구매하기</B.Button>
-          <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+          {data?.fetchUseditem?.seller?.email ===
+            fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
+            <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+          )}
         </B.BottomWrapper>
         <BoardComment />
         <BoardCommentList />

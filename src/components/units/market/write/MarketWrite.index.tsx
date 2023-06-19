@@ -150,6 +150,12 @@ export default function LoginNewPage(props: any): JSX.Element {
           },
           useditemId: router.query.useditemId,
         },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM,
+            variables: { useditemId: router.query.useditemId },
+          },
+        ],
       });
 
       if (result.data?.updateUseditem._id === undefined) {
@@ -168,7 +174,7 @@ export default function LoginNewPage(props: any): JSX.Element {
   //////////////////////////////////////////////////////////////
 
   const onClickCancel = async () => {
-    router.push(`/Board`);
+    router.push(`/Market`);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -185,6 +191,7 @@ export default function LoginNewPage(props: any): JSX.Element {
   useEffect(() => {
     const images = data?.fetchUseditem.images;
     if (images !== undefined && images !== null) setFileUrls([...images]);
+    // console.log(data.fetchUseditem.useditemAddress.address);
   }, [data]);
 
   ///////////////////////////////////////////////////////////////
@@ -311,11 +318,15 @@ export default function LoginNewPage(props: any): JSX.Element {
             marker.setMap(map);
 
             const resultDiv1 = document.getElementById("clickLatlng1");
-            resultDiv1.innerHTML = latlng.getLat();
-            setGetLat(latlng.getLat());
+            if (resultDiv1 !== null) {
+              resultDiv1.innerHTML = latlng.getLat();
+              setGetLat(latlng.getLat());
+            }
             const resultDiv2 = document.getElementById("clickLatlng2");
-            resultDiv2.innerHTML = latlng.getLng();
-            setGetLng(latlng.getLng());
+            if (resultDiv2 !== null) {
+              resultDiv2.innerHTML = latlng.getLng();
+              setGetLng(latlng.getLng());
+            }
             input1Ref.current.value = clickLatlng1.innerHTML;
             input2Ref.current.value = clickLatlng2.innerHTML;
           }
@@ -450,18 +461,21 @@ export default function LoginNewPage(props: any): JSX.Element {
             />
           ))}
         </B.UploadButton>
-        <B.ButtonForm
-          onSubmit={
-            props.isEdit
-              ? wrapFormAsync(handleSubmit(onClickUpdate))
-              : wrapFormAsync(handleSubmit(onClickSubmit))
-          }
-        >
-          <Button03
-            title={props.isEdit ? "수정하기" : "등록하기"}
-            isActive={formState.isValid}
-          />
-        </B.ButtonForm>
+        <B.ButtonWrapper>
+          <B.ButtonForm
+            onSubmit={
+              props.isEdit
+                ? wrapFormAsync(handleSubmit(onClickUpdate))
+                : wrapFormAsync(handleSubmit(onClickSubmit))
+            }
+          >
+            <Button03
+              title={props.isEdit ? "수정하기" : "등록하기"}
+              isActive={formState.isValid}
+            />
+          </B.ButtonForm>
+          <B.Button onClick={onClickCancel}>취소하기</B.Button>
+        </B.ButtonWrapper>
       </B.Wrapper>
     </>
   );

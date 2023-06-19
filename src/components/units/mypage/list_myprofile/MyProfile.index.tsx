@@ -46,15 +46,21 @@ export default function MyPage() {
     if (!name) {
       setNameError("작성자를 입력해주세요.");
     }
+
+    const updateUserInput: any = {};
+    if (name !== "") updateUserInput.name = name;
+    if (isChangedFiles) updateUserInput.picture = String([fileUrls]);
     try {
       const result = await updateUser({
         variables: {
-          updateUserInput: {
-            name,
-            picture: String([fileUrls]),
-          },
+          updateUserInput,
+          // : {
+          //   name,
+          //   picture: String([fileUrls]),
+          // },
         },
       });
+      alert("회원정보수정이 완료되었습니다!");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -66,7 +72,11 @@ export default function MyPage() {
         <B.Title>회원정보수정</B.Title>
         <B.InputWrapper>
           <B.Label>이메일</B.Label>
-          <B.Subject type="text" readOnly={data?.fetchUserLoggedIn.email} />
+          <B.Subject
+            type="text"
+            readOnly={data?.fetchUserLoggedIn.email}
+            value={data?.fetchUserLoggedIn.email}
+          />
         </B.InputWrapper>
         <B.InputWrapper>
           <B.Label>닉네임</B.Label>

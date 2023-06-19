@@ -9,5 +9,4 @@ export const Button03 = styled.button`
   border-radius: 4px;
   font-size: 17px;
   cursor: pointer;
-  font-family: "SCDream4";
 `;

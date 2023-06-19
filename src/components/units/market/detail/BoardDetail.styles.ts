@@ -42,6 +42,12 @@ export const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const AvatarInfoWrapper = styled.div`
+  display: flex;
 `;
 
 export const Avatar = styled.img`
@@ -61,6 +67,7 @@ export const Environment = styled(EnvironmentOutlined)`
   color: gold;
   cursor: pointer;
   margin-right: 10px;
+  margin-left: 10px;
 `;
 
 export const PaperClip = styled(PaperClipOutlined)`
@@ -68,6 +75,8 @@ export const PaperClip = styled(PaperClipOutlined)`
   color: gold;
   cursor: pointer;
 `;
+
+export const TooltipWrapper = styled.div``;
 
 export const Writer = styled.div`
   font-weight: 600;
