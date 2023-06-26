@@ -115,7 +115,7 @@ export default function StaticRoutingPage() {
     <B.Wapper>
       <B.WapperNavi>
         <B.MyProduct onClick={onClickProduct}>나의상품</B.MyProduct>
-        <B.Selected onClick={onClickSelected}>마이찜</B.Selected>
+        {/* <B.Selected onClick={onClickSelected}>마이찜</B.Selected> */}
       </B.WapperNavi>
       {select === "MyProduct" ? (
         <>

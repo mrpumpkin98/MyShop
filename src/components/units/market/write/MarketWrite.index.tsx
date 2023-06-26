@@ -163,6 +163,7 @@ export default function LoginNewPage(props: any): JSX.Element {
         return;
       }
       void router.push(`/Market/${result.data?.updateUseditem._id}`);
+      alert("상품이 수정되었습니다!!");
       // console.log(result.data?.updateUseditem._id);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
@@ -197,8 +198,8 @@ export default function LoginNewPage(props: any): JSX.Element {
   ///////////////////////////////////////////////////////////////
   // 카카오 MAP
   //////////////////////////////////////////////////////////////
-  const input1Ref = useRef(null);
-  const input2Ref = useRef(null);
+  const input1Ref = useRef<HTMLInputElement>(null);
+  const input2Ref = useRef<HTMLInputElement>(null);
   const [gLat, setGetLat] = useState("");
   const [gLng, setGetLng] = useState("");
   const [address, setAddress] = useState("");
@@ -318,6 +319,7 @@ export default function LoginNewPage(props: any): JSX.Element {
             marker.setMap(map);
 
             const resultDiv1 = document.getElementById("clickLatlng1");
+
             if (resultDiv1 !== null) {
               resultDiv1.innerHTML = latlng.getLat();
               setGetLat(latlng.getLat());
@@ -327,8 +329,13 @@ export default function LoginNewPage(props: any): JSX.Element {
               resultDiv2.innerHTML = latlng.getLng();
               setGetLng(latlng.getLng());
             }
-            input1Ref.current.value = clickLatlng1.innerHTML;
-            input2Ref.current.value = clickLatlng2.innerHTML;
+            if (input1Ref.current) {
+              input1Ref.current.value = gLat;
+            }
+
+            if (input2Ref.current) {
+              input2Ref.current.value = gLng;
+            }
           }
         );
       });
@@ -411,24 +418,6 @@ export default function LoginNewPage(props: any): JSX.Element {
                   </B.MapWrap>
                 </B.WrapperMap>
                 <B.WrapperGPSAddress>
-                  <B.WrapperLatLng>
-                    <B.Label>GPS</B.Label>
-                    <B.TieLatLng>
-                      <B.Lat
-                        ref={input1Ref}
-                        readOnly
-                        defaultValue={data?.fetchUseditem.useditemAddress.lat}
-                      />
-                      {/* <B.AimOut /> */}
-                      <B.Lng
-                        ref={input2Ref}
-                        readOnly
-                        defaultValue={data?.fetchUseditem.useditemAddress.lng}
-                      />
-                      <div style={{ display: "none" }} id="clickLatlng1"></div>
-                      <div style={{ display: "none" }} id="clickLatlng2"></div>
-                    </B.TieLatLng>
-                  </B.WrapperLatLng>
                   <B.WrapperAddressAddressDetail>
                     <B.Label>주소</B.Label>
                     <Input05
