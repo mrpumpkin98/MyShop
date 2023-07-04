@@ -83,12 +83,26 @@ export default function BoardDetailPage() {
   //////////////////////////////////////////////////////////////
 
   const settings = {
-    arrows: true,
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 800,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrows: true, // 화살표 비활성화
+    autoplay: true, // 자동 재생 활성화
+    autoplaySpeed: 3000, // 자동 재생 속도 (5초마다 슬라이드 변경)
+    customPaging: (i: number) => (
+      <div
+        style={{
+          width: "10px",
+          height: "10px",
+          borderRadius: "50%",
+          backgroundColor: i === 0 ? "#fff" : "#888",
+          marginLeft: "8px",
+          transition: "background-color 0.3s ease",
+        }}
+      />
+    ), // 커스텀 도트 스타일
   };
 
   ///////////////////////////////////////////////////////////////
@@ -195,35 +209,78 @@ export default function BoardDetailPage() {
       <B.Wrapper>
         <B.CardWrapper>
           <B.Header>
-            <B.AvatarWrapper>
-              <B.AvatarInfoWrapper>
-                <B.Avatar src="/images/avatar.png" />
-                <B.Info>
-                  <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
-                  {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
-                  <B.CreatedAt>
-                    {getDate(data?.fetchUseditem?.createdAt)}
-                  </B.CreatedAt>
-                </B.Info>
-              </B.AvatarInfoWrapper>
-              <B.TooltipWrapper>
-                <Tooltip
-                  placement="top"
-                  title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
-              ${data?.fetchUseditem.useditemAddress?.addressDetail ?? ""}`}
-                ></Tooltip>
-                <B.PaperClip />
-                <B.Environment />
-              </B.TooltipWrapper>
-            </B.AvatarWrapper>
+            <B.imImageResult>
+              <Slider {...settings}>
+                {data?.fetchUseditem.images
+                  ?.filter((el: any) => el)
+                  .map((el: any) => (
+                    <B.Image
+                      key={el}
+                      src={`https://storage.googleapis.com/${el}`}
+                      onError={onErrorImg}
+                    />
+                  ))}
+              </Slider>
+            </B.imImageResult>
+            <B.WrapperRemarksNamePrice>
+              <B.Name>{data?.fetchUseditem?.name}</B.Name>
+              <B.Remarks>{data?.fetchUseditem?.remarks}</B.Remarks>
+              <B.Tags>
+                {Tag?.map((el: any, index: any) => (
+                  <B.Tag>#{Tag[index]}</B.Tag>
+                ))}
+              </B.Tags>
+              <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
+              <B.AreaWrapper>
+                <B.AreaTie>
+                  <B.AreaInformation>거래지역</B.AreaInformation>
+                  <B.Area>
+                    {data?.fetchUseditem?.useditemAddress?.address}
+                  </B.Area>
+                </B.AreaTie>
+                <B.Map>
+                  <div
+                    id="map"
+                    style={{ width: "100%", height: "180px" }}
+                  ></div>
+                </B.Map>
+              </B.AreaWrapper>
+              <B.BottomWrapper>
+                <B.Button onClick={onClickBuyingAndSelling}>구매하기</B.Button>
+                <B.Button onClick={onClickBoard} className="List">
+                  목록으로
+                </B.Button>
+                {data?.fetchUseditem?.seller?.email ===
+                  fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
+                  <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+                )}
+              </B.BottomWrapper>
+            </B.WrapperRemarksNamePrice>
           </B.Header>
+
+          <B.AvatarWrapper>
+            <B.AvatarInfoWrapper>
+              <B.Avatar src="/images/avatar.png" />
+              <B.Info>
+                <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
+                {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
+                <B.CreatedAt>
+                  {getDate(data?.fetchUseditem?.createdAt)}
+                </B.CreatedAt>
+              </B.Info>
+            </B.AvatarInfoWrapper>
+            <B.TooltipWrapper>
+              <Tooltip
+                placement="top"
+                title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
+              ${data?.fetchUseditem.useditemAddress?.addressDetail ?? ""}`}
+              ></Tooltip>
+              <B.PaperClip />
+              <B.Environment />
+            </B.TooltipWrapper>
+          </B.AvatarWrapper>
           <B.Body>
             <B.WidthWrapper>
-              <B.WrapperRemarksNamePrice>
-                <B.Remarks>{data?.fetchUseditem?.remarks}</B.Remarks>
-                <B.Name>{data?.fetchUseditem?.name}</B.Name>
-                <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
-              </B.WrapperRemarksNamePrice>
               <B.WrapperPickedCount>
                 <B.Heart onClick={onClickLike} Active={Like} />
                 <B.PickedCount>
@@ -232,21 +289,7 @@ export default function BoardDetailPage() {
               </B.WrapperPickedCount>
             </B.WidthWrapper>
             <B.WrapperContents>
-              <B.WrapperImage>
-                <B.imImageResult>
-                  <Slider {...settings}>
-                    {data?.fetchUseditem.images
-                      ?.filter((el: any) => el)
-                      .map((el: any) => (
-                        <B.Image
-                          key={el}
-                          src={`https://storage.googleapis.com/${el}`}
-                          onError={onErrorImg}
-                        />
-                      ))}
-                  </Slider>
-                </B.imImageResult>
-              </B.WrapperImage>
+              <B.WrapperImage></B.WrapperImage>
               <B.Contents
                 dangerouslySetInnerHTML={
                   data?.fetchUseditem?.contents
@@ -256,26 +299,9 @@ export default function BoardDetailPage() {
                     : undefined
                 }
               />
-              <B.Tags>
-                {Tag?.map((el: any, index: any) => (
-                  <B.Tag>#{Tag[index]}</B.Tag>
-                ))}
-              </B.Tags>
-              <B.Map>
-                <div id="map" style={{ width: "100%", height: "360px" }}></div>
-              </B.Map>
             </B.WrapperContents>
           </B.Body>
-          <B.Footer></B.Footer>
         </B.CardWrapper>
-        <B.BottomWrapper>
-          <B.Button onClick={onClickBoard}>목록으로</B.Button>
-          <B.Button onClick={onClickBuyingAndSelling}>구매하기</B.Button>
-          {data?.fetchUseditem?.seller?.email ===
-            fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
-            <B.Button onClick={onClickUpdate}>수정하기</B.Button>
-          )}
-        </B.BottomWrapper>
         <BoardComment />
         <BoardCommentList />
       </B.Wrapper>

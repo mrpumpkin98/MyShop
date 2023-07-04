@@ -4,35 +4,35 @@ import {
   DislikeOutlined,
   EnvironmentOutlined,
   PaperClipOutlined,
+  HeartFilled,
 } from "@ant-design/icons";
 
-export const Title = styled.div`
+export const Title = styled.h3`
   width: 100%;
-  text-align: center;
   margin-top: 70px;
-  font-size: 36px;
-  font-family: "Jalnan";
+  font-size: 19px;
+  font-family: "Arita-Bold";
 `;
 
 export const BestPostsTie = styled.div`
-  width: 100%;
+  width: 1100px;
   display: flex;
   cursor: pointer;
   font-family: "SCDream4";
-  margin-bottom: 20px;
+  margin-bottom: 70px;
 `;
 
 export const BestPosts = styled.div`
   width: 100%;
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 export const BestPostBody = styled.div`
-  height: 257px;
+  height: 230px;
   margin: 14px;
   background: #f5f5f5;
   overflow: hidden;
-  border-radius: 20px;
+  border-radius: 6px;
   &:hover {
     background: rgb(250, 250, 252);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
@@ -41,7 +41,7 @@ export const BestPostBody = styled.div`
 
 export const BestPostImg = styled.img`
   width: 100%;
-  height: 50%;
+  height: 54%;
   object-fit: cover;
 `;
 
@@ -51,9 +51,8 @@ export const BestPostContent = styled.div`
 
 export const BestPostTitle = styled.div`
   margin: 10px 0px 15px 15px;
-  margin-bottom: 17px;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 15px;
 `;
 
 export const BestPostInfo = styled.div`
@@ -88,13 +87,21 @@ export const CreatedAt = styled.div`
 export const LikeTie = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
-export const Like = styled(LikeOutlined)`
-  font-size: 18px;
+export const Like = styled(HeartFilled)`
+  font-size: 15px;
   color: gold;
+  height: 30px;
   cursor: pointer;
-  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  border-radius: 200px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const LikeNum = styled.div`
@@ -121,35 +128,81 @@ export const SearchTime = styled.input`
   border-radius: 10px;
 `;
 
-export const Table = styled.table`
-  width: 100%;
-  border-top: 1px solid #444444;
+export const Body = styled.div`
+  display: flex;
+  width: 1100px;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-collapse: collapse;
-  margin: auto;
-  margin-top: 40px;
+  margin-top: 30px;
+  margin-bottom: 100px;
 `;
 
-export const Tr = styled.tr`
+export const BodyWrapper = styled.div`
   font-family: "SCDream4";
+  margin-bottom: 20px;
   &:hover {
-    background: rgb(250, 250, 252);
-    color: black;
+    cursor: pointer;
   }
 `;
 
-export const Th = styled.th`
-  border-bottom: 1px solid #444444;
-  padding: 10px;
-  background-color: white;
+export const LabelWrapper = styled.div`
+  display: flex;
+  width: 100%;
 `;
 
-export const Td = styled.td`
-  border-bottom: 1px solid #bdbdbd;
-  padding: 10px;
-  text-align: center;
-  color: #4f4f4f;
+export const LabelTie = styled.div`
+  width: 100%;
+`;
+
+export const Label = styled.div`
   cursor: pointer;
-  width: 200px;
+  &.Writer {
+    margin-left: 5px;
+    font-size: 14px;
+  }
+  &.Like {
+    background-color: gold;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  &.Time {
+    font-size: 13px;
+    color: gray;
+    margin-top: 5px;
+  }
+  &.Title {
+    width: 160px;
+    margin-bottom: 5px;
+  }
+`;
+
+export const Likes = styled(HeartFilled)`
+  font-size: 15px;
+  color: gold;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  border-radius: 200px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
+  margin-top: 10px;
+`;
+
+export const LikesNum = styled.p`
+  margin-top: 5px;
+  font-size: 12px;
+`;
+
+export const LikesTie = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Pagination = styled.div`
@@ -160,6 +213,10 @@ export const Pagination = styled.div`
 
 export const ButtonTie = styled.div`
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px;
 `;
 
 export const DeleteButton = styled.button`
@@ -177,9 +234,6 @@ export const DeleteButton = styled.button`
 export const Button = styled.button`
   width: 179px;
   height: 45px;
-  margin-left: 1000px;
-  margin-top: 30px;
-  margin-bottom: 80px;
   background-color: #f5f5f5;
   border: 1px solid #f5f5f5;
   border-radius: 4px;
@@ -194,4 +248,26 @@ export const Button = styled.button`
 
 export const TextToken = styled.span<{ isMatched: boolean }>`
   color: ${(props) => (props.isMatched ? "gold" : "black")};
+`;
+
+export const BasketListImg = styled.img`
+  width: 250px;
+  height: 250px;
+  border-radius: 4px;
+  &:hover {
+    background: rgb(250, 250, 252);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+export const InfTie = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const TitleTie = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
 `;

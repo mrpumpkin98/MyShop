@@ -19,7 +19,9 @@ export const ListMain = styled.div`
   margin-left: 210px;
 `;
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  width: 900px;
+`;
 
 export const Title = styled.div`
   width: 100%;
@@ -50,9 +52,17 @@ export const WidthWrapper = styled.div`
 
 export const Shopping = styled(ShoppingFilled)`
   color: #bdbdbd;
-  font-size: 20px;
+  font-size: 18px;
+  height: 30px;
   cursor: pointer;
-  margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  border-radius: 200px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
+  margin-left: 15px;
   &:hover {
     color: #aaaaaa;
   }
@@ -156,7 +166,8 @@ export const List = styled.div`
   overflow-y: auto;
   width: 100%;
   height: 780px;
-  margin-top: 50px;
+  margin-top: 40px;
+  margin-bottom: 50px;
 `;
 
 export const Table = styled.div`
@@ -189,8 +200,9 @@ export const ListImg = styled.img`
   background-color: white;
 `;
 
-export const ListName = styled.div`
-  font-size: 24px;
+export const ListName = styled.p`
+  font-size: 30px;
+  font-family: "GmarketSansTTFLight";
 `;
 
 export const TieTable = styled.div`
@@ -199,12 +211,14 @@ export const TieTable = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-left: 10px;
+  padding: 0px 15px;
 `;
-export const ListContents = styled.div`
+export const ListContents = styled.p`
   font-weight: 400;
-  font-size: 15px;
+  font-size: 17px;
   color: #828282;
   margin: 5px 0px 0px 4px;
+  font-family: "GmarketSansTTFLight";
 `;
 export const ListTags = styled.div`
   height: 20px;
@@ -213,17 +227,22 @@ export const ListPickedCount = styled.div`
   width: 18px;
   height: 24px;
   padding-top: 6px;
+  font-family: "GmarketSansTTFLight";
+  margin-left: 5px;
 `;
 export const ListPrice = styled.div`
   width: 150px;
   text-align: end;
   margin-right: 20px;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 20px;
+  font-family: "GmarketSansTTFLight";
+  padding-right: 10px;
 `;
-export const ListSeller = styled.div`
+export const ListSeller = styled.p`
   width: 100px;
   margin-top: 5px;
+  font-family: "GmarketSansTTFLight";
 `;
 
 export const TitleListSellerListPickedCount = styled.div`
@@ -232,14 +251,17 @@ export const TitleListSellerListPickedCount = styled.div`
 `;
 
 export const Heart = styled(HeartFilled)`
-  font-size: 18px;
+  font-size: 16px;
   color: gold;
+  height: 30px;
   cursor: pointer;
-  margin-right: 10px;
-  margin-top: 3px;
-  :hover {
-    color: #e5c100;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  border-radius: 200px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const Smile = styled(SmileOutlined)`
@@ -254,20 +276,21 @@ export const Smile = styled(SmileOutlined)`
 
 export const ButtonTie = styled.div`
   display: flex;
+  justify-content: end;
+  align-items: center;
   width: 100%;
+  margin-top: 30px;
 `;
 
 export const Button = styled.button`
   width: 179px;
   height: 45px;
-  margin-left: 1000px;
-  margin-top: 30px;
-  margin-bottom: 80px;
   background-color: #f5f5f5;
   border: 1px solid #f5f5f5;
   border-radius: 4px;
   font-family: "SCDream4";
-
+  margin-left: 10px;
+  margin-right: 10px;
   cursor: pointer;
   :hover {
     background-color: gold;
@@ -364,7 +387,7 @@ export const TodayList = styled.div`
   border: 1px solid #bdbdbd;
   height: 100%;
   width: 184px;
-  margin-top: 650px;
+  margin-top: 305px;
   margin-left: 20px;
   border-radius: 8px;
 `;
@@ -396,4 +419,37 @@ export const Pagination = styled(ReactPaginate)<{
 }>`
   /* margin-top: 20px; */
   display: none;
+`;
+
+////////////////////////////////////////////
+//  베스트 광고
+////////////////////////////////////////////
+
+export const BestWrapper = styled.div`
+  display: flex;
+  padding: 40px 90px;
+  justify-content: space-between;
+  background-color: black;
+`;
+
+export const BestContent = styled.div``;
+
+export const BestTitle = styled.h2`
+  font-size: 60px;
+  font-family: "GmarketSansTTFBold";
+  margin-top: 30px;
+  color: white;
+`;
+
+export const BestLabel = styled.p`
+  font-size: 25px;
+  margin-top: 10px;
+  font-family: "GmarketSansTTFMedium";
+  color: white;
+`;
+
+export const BestImg = styled.img`
+  width: 200px;
+  background-color: white;
+  border-radius: 4px;
 `;

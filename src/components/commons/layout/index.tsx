@@ -2,12 +2,9 @@ import LayoutBanner from "./banner/LayoutBanner.index";
 import LayoutHeader from "./header/LayoutHeader.index";
 import LayoutNavigation from "./navigation/LayoutNavigation.index";
 import MyPageNavigation from "./mypageNavigation/MypageNavigation.index";
-
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-
-const HIDDEN = ["/Login", "/Login/SignUp"];
-const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint", "/MyPage/MyProfile"];
+import LayoutBoardNavigation from "./boardNavigation/LayoutBoardNavigation.index";
 
 const Body = styled.div`
   height: 500px;
@@ -25,8 +22,12 @@ interface ILayoutProps {
 }
 export default function Layout(props: ILayoutProps): JSX.Element {
   const router = useRouter();
+  const HIDDEN = ["/Login", "/Login/SignUp"];
+  const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint", "/MyPage/MyProfile"];
+  const BOARD = [`/Board/${router.query.boardId}`];
   const isHidden = HIDDEN.includes(router.asPath);
   const isMyPage = MYPAGE.includes(router.asPath);
+  const isBoard = BOARD.includes(router.asPath);
   return (
     <>
       {!isHidden && <LayoutHeader />}

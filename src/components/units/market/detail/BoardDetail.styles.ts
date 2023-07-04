@@ -9,33 +9,29 @@ import {
 import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 900px;
   margin: 100px;
 `;
 
 export const CardWrapper = styled.div`
   border: 1px solid #f5f5f5;
-  padding-top: 80px;
-  padding-bottom: 100px;
-  padding-left: 102px;
-  padding-right: 102px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
   border-radius: 4px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px #dbdbdb;
 `;
 
 export const Header = styled.div`
-  width: 100%;
+  width: 900px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #bdbdbd;
   padding-bottom: 20px;
+  border: 1px solid rebeccapurple;
 `;
 
 export const AvatarWrapper = styled.div`
@@ -102,10 +98,8 @@ export const Youtube = styled(ReactPlayer)`
 export const WrapperImage = styled.div``;
 
 export const imImageResult = styled.div`
-  width: 400px;
-  height: 400px;
-  border-radius: 8px;
-  margin: auto;
+  width: 500px;
+  height: 500px;
 `;
 
 export const Footer = styled.div`
@@ -161,32 +155,26 @@ export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 80px;
-  border-bottom: 1px solid #bdbdbd;
-  height: 200px;
 `;
 
 export const Button = styled.button`
-  width: 179px;
+  width: 100%;
   height: 45px;
-  background-color: #f5f5f5;
-  border: 1px solid #f5f5f5;
-  border-radius: 4px;
-  margin: 0px 12px;
+  margin-top: 10px;
+  background-color: white;
+  border: 1px solid #d4d4d4;
   cursor: pointer;
-  font-family: "SCDream4";
-
-  :hover {
-    background-color: gold;
-    border-color: white;
+  font-family: "GmarketSansTTFMedium";
+  &.List {
+    color: white;
+    background-color: black;
+    border: none;
   }
 `;
 
 export const Image = styled.img`
-  width: 100%;
-  height: 296px;
-  margin: auto;
-  border-radius: 8px;
+  width: 500px;
+  height: 500px;
 `;
 
 // 중고마켓
@@ -197,39 +185,63 @@ export const WidthWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const WrapperRemarksNamePrice = styled.div``;
+export const WrapperRemarksNamePrice = styled.div`
+  border-top: 2px solid black;
+  height: 100%;
+`;
 
-export const Remarks = styled.div`
-  color: #bdbdbd;
+export const Remarks = styled.p`
   font-size: 18px;
   font-weight: 500;
-  margin: 20px 0px 0px 0px;
+  margin-top: 30px;
+  font-family: "GmarketSansTTFLight";
 `;
 
-export const Name = styled.div`
+export const Name = styled.p`
   font-weight: 700;
   font-size: 24px;
-  margin: 10px 0px 0px 0px;
+  margin-top: 30px;
+  font-family: "GmarketSansTTFMedium";
 `;
 
-export const Price = styled.div`
+export const Price = styled.p`
   font-weight: 700;
-  font-size: 36px;
-  margin: 5px 0px 0px 0px;
+  font-size: 24px;
+  margin: 20px 0px 0px 0px;
+  font-family: "GmarketSansTTFMedium";
+`;
+
+export const AreaWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+export const AreaInformation = styled.p`
+  font-weight: 700;
+  margin-right: 10px;
+  font-family: "GmarketSansTTFLight";
+`;
+
+export const Area = styled.p`
+  font-family: "GmarketSansTTFLight";
+`;
+
+export const AreaTie = styled.div`
+  display: flex;
 `;
 
 export const Tags = styled.div`
   font-size: 16px;
-  color: white;
   font-weight: 500;
-  margin-top: 60px;
+  margin-top: 10px;
   width: 100%;
   display: flex;
 `;
 
 export const Tag = styled.div`
   margin-right: 10px;
-  background-color: #bdbdbd;
+  background-color: gold;
   height: 27px;
   font-size: 13px;
   font-family: "SCDream4";
@@ -242,13 +254,9 @@ export const Tag = styled.div`
 
 export const Map = styled.div`
   width: 100%;
-  height: 500px;
-  border-top: 1px solid #bdbdbd;
-  border-bottom: 1px solid #bdbdbd;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 export const Heart = styled(HeartFilled)<{ Active: any }>`

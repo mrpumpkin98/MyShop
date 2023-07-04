@@ -236,44 +236,30 @@ export default function StaticRoutingPage() {
         </B.AddressModal>
       )}
       <B.Wrapper>
-        <B.Title>베스트 상품</B.Title>
-        <B.BestPostsTie>
-          {dataUseditemsOfTheBest?.fetchUseditemsOfTheBest.map((i: any) => (
-            <B.BestPosts key={i._id} onClick={onClickToday(i)}>
-              <B.BestPostBody>
-                <B.BestPostImg
-                  src={`https://storage.googleapis.com/${i.images[0]}`}
-                  onError={onErrorImg}
-                  id={i._id}
-                />
-                <B.BestPostTitle id={i._id}>{i.name}</B.BestPostTitle>
-                <B.BestPostContent>
-                  <B.BestPostInfo>
-                    <B.CreatedAt id={i._id}>{i.remarks}</B.CreatedAt>
-                    <B.AvatarWriterTie id={i._id}>
-                      <B.Writer id={i._id}> {Money(i.price)}</B.Writer>
-                    </B.AvatarWriterTie>
-                  </B.BestPostInfo>
-                  <B.LikeTie>
-                    <B.Like src="/images/avatar.png" id={i._id}></B.Like>
-                    <B.LikeNum id={i._id}>{i.pickedCount}</B.LikeNum>
-                  </B.LikeTie>
-                </B.BestPostContent>
-              </B.BestPostBody>
-            </B.BestPosts>
-          ))}
-        </B.BestPostsTie>
+        <B.BestWrapper>
+          <B.BestContent>
+            <B.BestTitle>리액트 책 팜</B.BestTitle>
+            <B.BestLabel>LG 32인치 모니터</B.BestLabel>
+            <B.BestLabel>단돈 30,000원</B.BestLabel>
+          </B.BestContent>
+          <B.BestImg src="/images/icons/all-icon-after-hover.png"></B.BestImg>
+        </B.BestWrapper>
+        {/* <B.Title>베스트 상품</B.Title> */}
         <B.WidthWrapper>
           {" "}
-          <Searchbars01
-            refetch={refetch}
-            refetchBoardsCount={refetchBoardsCount}
-            onChangeKeyword={onChangeKeyword}
-          />
-          <B.Shopping2
+          {/* <B.Shopping2
             onClick={onClickBasketModal}
             Active={basketItems.length > 0}
-          />
+          /> */}
+          <B.ButtonTie>
+            <Searchbars01
+              refetch={refetch}
+              refetchBoardsCount={refetchBoardsCount}
+              onChangeKeyword={onChangeKeyword}
+            />
+            <B.Button onClick={onClickWrite}>상품 등록하기</B.Button>
+            <B.Button onClick={onClickBasketModal}>장바구니</B.Button>
+          </B.ButtonTie>
         </B.WidthWrapper>
         <B.List>
           <Scrollbars thumbSize={80} autoHide>
@@ -325,9 +311,6 @@ export default function StaticRoutingPage() {
             </InfiniteScroll>
           </Scrollbars>
         </B.List>
-        <B.ButtonTie>
-          <B.Button onClick={onClickWrite}>상품 등록하기</B.Button>
-        </B.ButtonTie>
       </B.Wrapper>
       <B.TodayList>
         <B.TodayTitle>오늘 본 상품</B.TodayTitle>

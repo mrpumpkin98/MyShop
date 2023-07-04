@@ -156,11 +156,7 @@ export default function LayoutHeader(): JSX.Element {
         ></script>
       </Head>
       <B.InnerWrapper>
-        <B.InnerLogo onClick={onClickLogo}>
-          {" "}
-          <B.FireFilledIcon />
-          MyShop
-        </B.InnerLogo>
+        <B.Logo src="/images/icons/로고.png" onClick={onClickLogo} />
         {userName ? (
           <B.WrapperSmile>
             <B.WrapperTimer>

@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 
 export const Wrapper = styled.div`
-  width: 1200px;
+  width: 900px;
   /* height: 1847px; */
   border: 1px solid black;
   margin: 100px;
@@ -34,7 +34,7 @@ export const WriterWrapper = styled.div`
 `;
 
 export const Writer = styled.input`
-  width: 486px;
+  width: 95%;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -46,7 +46,7 @@ export const Writer = styled.input`
 `;
 
 export const Password = styled.input`
-  width: 486px;
+  width: 100%;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -65,26 +65,14 @@ export const Label = styled.div`
 `;
 
 export const InputWrapper = styled.div`
+  width: 100%;
   padding-top: 40px;
 `;
 
 export const Subject = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   padding-left: 16px;
-  border: 1px solid #bdbdbd;
-  font-family: "SCDream4";
-  :focus {
-    outline: none;
-    border: 1px solid gold;
-  }
-`;
-
-export const Contents = styled.textarea`
-  width: 996px;
-  height: 480px;
-  padding-left: 16px;
-  padding: 14px;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
   :focus {
@@ -99,9 +87,9 @@ export const ZipcodeWrapper = styled.div`
 `;
 
 export const Zipcode = styled.input`
-  width: 77px;
+  width: 20%;
   height: 52px;
-  padding-left: 16px;
+  text-align: center;
   border: 1px solid #bdbdbd;
   font-family: "SCDream4";
   :focus {
@@ -111,7 +99,7 @@ export const Zipcode = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  width: 124px;
+  width: 110px;
   height: 52px;
   margin-left: 16px;
   background-color: black;
@@ -121,7 +109,7 @@ export const SearchButton = styled.button`
 `;
 
 export const Address = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   margin-top: 16px;
   padding-left: 16px;
@@ -134,7 +122,7 @@ export const Address = styled.input`
 `;
 
 export const Youtube = styled.input`
-  width: 996px;
+  width: 100%;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -146,7 +134,7 @@ export const Youtube = styled.input`
 `;
 
 export const ImageWrapper = styled.div`
-  width: 996px;
+  width: 100%;
   padding-top: 40px;
 `;
 
@@ -155,7 +143,7 @@ export const UploadButton = styled.div`
 `;
 
 export const OptionWrapper = styled.div`
-  width: 996px;
+  width: 100%;
   padding-top: 40px;
 `;
 

@@ -10,8 +10,7 @@ import {
 import { Rate, Modal } from "antd";
 
 export const ItemWrapper = styled.div`
-  width: 1200px;
-  margin: 0px 100px;
+  width: 900px;
   padding-top: 20px;
   height: 128px;
   border-bottom: 1px solid lightgray;
@@ -61,15 +60,29 @@ export const DeleteIcon = styled.img`
 export const Edit = styled(EditOutlined)`
   font-size: 20px;
   cursor: pointer;
-  margin-left: 10px;
-  color: #bdbdbd;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #858e96;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const Delete = styled(DeleteOutlined)`
   font-size: 20px;
   cursor: pointer;
-  margin-left: 10px;
-  color: #bdbdbd;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #858e96;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const DateString = styled.div`

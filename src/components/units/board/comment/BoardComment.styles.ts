@@ -8,9 +8,7 @@ import {
 } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
-  width: 1200px;
-  border-top: 1px solid #bdbdbd;
-  margin: 0px 100px;
+  width: 900px;
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -21,7 +19,7 @@ export const Wrapper = styled.div`
 `;
 
 export const CardWrapper = styled.div`
-  width: 1200px;
+  width: 900px;
 `;
 
 export const Header = styled.div`
@@ -73,10 +71,18 @@ export const Rate = styled.input``;
 
 export const Export = styled(ExportOutlined)`
   font-size: 20px;
+  height: 50px;
   cursor: pointer;
-  margin-left: 10px;
-  color: #bdbdbd;
-  margin-left: 630px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #858e96;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
+  margin-left: 300px;
 `;
 
 export const Scope = styled.img`
@@ -87,7 +93,6 @@ export const Scope = styled.img`
 `;
 
 export const Body = styled.div`
-  width: 1200px;
   height: 161px;
   display: flex;
   flex-direction: column;

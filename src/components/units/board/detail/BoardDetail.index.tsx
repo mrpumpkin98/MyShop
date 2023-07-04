@@ -1,13 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import * as B from "./BoardDetail.styles";
 import { getDate } from "../../../../commons/libraries/utils";
-import { Tooltip } from "antd";
+import { Tooltip, Spin } from "antd";
 import { DELETE_BOARD } from "../../../../commons/hooks/mutations/useMutationDeleteBoard";
 import { LIKE_BOARD } from "../../../../commons/hooks/mutations/useMutationLikeBoard";
 import { DIS_LIKE_BOARD } from "../../../../commons/hooks/mutations/useMutationDisLikeBoard";
 import { FETCH_BOARD } from "../../../../commons/hooks/queries/UseQueryFetchBoard";
+import dynamic from "next/dynamic";
+
+const Viewer = dynamic(
+  async () => await import("@toast-ui/react-editor").then((mod) => mod.Viewer),
+  {
+    ssr: false,
+  }
+);
 
 export default function BoardDetailPage() {
   ///////////////////////////////////////////////////////////////
@@ -19,7 +27,6 @@ export default function BoardDetailPage() {
   ///////////////////////////////////////////////////////////////
   // queries
   //////////////////////////////////////////////////////////////
-
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
@@ -109,47 +116,52 @@ export default function BoardDetailPage() {
       <B.Wrapper>
         <B.CardWrapper>
           <B.Header>
+            <B.Title>{data?.fetchBoard?.title}</B.Title>
             <B.AvatarWrapper>
-              <B.Avatar src="/images/avatar.png" />
-              <B.Info>
-                <B.Writer>{data?.fetchBoard?.writer}</B.Writer>
-                <B.CreatedAt>
-                  {getDate(data?.fetchBoard?.createdAt)}
-                </B.CreatedAt>
-              </B.Info>
-              <Tooltip
-                placement="top"
-                title={`${data?.fetchBoard.boardAddress?.address ?? ""}
+              <B.AvatarTie>
+                <B.Avatar src="/images/avatar.png" />
+                <B.Info>
+                  <B.Writer>{data?.fetchBoard?.writer}</B.Writer>
+                  <B.CreatedAt>
+                    {getDate(data?.fetchBoard?.createdAt)}
+                  </B.CreatedAt>
+                </B.Info>
+              </B.AvatarTie>
+              <B.IconTie>
+                <Tooltip
+                  placement="top"
+                  title={`${data?.fetchBoard.boardAddress?.address ?? ""}
                 ${data?.fetchBoard.boardAddress?.addressDetail ?? ""}`}
-              >
-                <B.Environment />
-              </Tooltip>
-              <B.PaperClip />
+                >
+                  <B.Environment />
+                </Tooltip>
+                <B.PaperClip />
+              </B.IconTie>
             </B.AvatarWrapper>
           </B.Header>
           <B.Body>
-            <B.Title>{data?.fetchBoard?.title}</B.Title>
-            <B.Contents>
-              <div>{data?.fetchBoard?.contents}</div>
+            <B.imImageResult>
+              {data?.fetchBoard.images[0] && (
+                <B.Image
+                  key={data?.fetchBoard.images[0]}
+                  src={`https://storage.googleapis.com/${data?.fetchBoard.images[0]}`}
+                />
+              )}
+            </B.imImageResult>
+            <B.YoutubeBox>
               {data?.fetchBoard.youtubeUrl ? (
                 <B.Youtube
                   url={data?.fetchBoard.youtubeUrl}
-                  width="911px"
-                  height="480px"
+                  width="694px"
+                  height="390px"
                 />
               ) : (
                 <div></div>
               )}
-              <B.imImageResult>
-                {data?.fetchBoard.images
-                  ?.filter((el: any) => el)
-                  .map((el: any) => (
-                    <B.Image
-                      key={el}
-                      src={`https://storage.googleapis.com/${el}`}
-                    />
-                  ))}
-              </B.imImageResult>
+            </B.YoutubeBox>
+            <B.Contents>
+              {/* <div>{data?.fetchBoard?.contents}</div> */}
+              <Viewer initialValue={data?.fetchBoard?.contents || ""} />
             </B.Contents>
           </B.Body>
           <B.Footer>

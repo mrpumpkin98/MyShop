@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   border: 1px solid black;
   margin: auto;
   margin: 100px;
-  padding-top: 80px;
+  padding-top: 30px;
   padding-bottom: 100px;
   padding-left: 102px;
   padding-right: 102px;
@@ -106,4 +106,9 @@ export const SingUp = styled.div`
   font-family: "SCDream4";
   margin-top: 20px;
   text-align: center;
+`;
+
+export const Logo = styled.img`
+  width: 250px;
+  cursor: pointer;
 `;

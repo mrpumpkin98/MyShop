@@ -4,12 +4,14 @@ import {
   DislikeOutlined,
   EnvironmentOutlined,
   PaperClipOutlined,
+  HeartFilled,
+  FrownFilled,
 } from "@ant-design/icons";
 import ReactPlayer from "react-player";
 
 export const Wrapper = styled.div`
-  width: 1200px;
-  margin: 100px;
+  width: 900px;
+  margin-top: 100px;
 `;
 
 export const CardWrapper = styled.div`
@@ -29,17 +31,31 @@ export const CardWrapper = styled.div`
 export const Header = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #bdbdbd;
+  flex-direction: column;
   padding-bottom: 20px;
+`;
+
+export const Image = styled.img`
+  width: 900px;
+  height: 400px;
+  margin-bottom: 10px;
+  margin-top: 30px;
 `;
 
 export const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-top: 30px;
+`;
+
+export const AvatarTie = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const IconTie = styled.div`
+  display: flex;
 `;
 
 export const Avatar = styled.img`
@@ -49,22 +65,35 @@ export const Avatar = styled.img`
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 830px;
+  justify-content: center;
   margin-right: 30px;
 `;
 
 export const Environment = styled(EnvironmentOutlined)`
-  font-size: 20px;
-  color: gold;
+  font-size: 25px;
   cursor: pointer;
   margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #858e96;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const PaperClip = styled(PaperClipOutlined)`
-  font-size: 20px;
-  color: gold;
+  font-size: 25px;
+  color: #858e96;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const Writer = styled.div`
@@ -80,19 +109,23 @@ export const CreatedAt = styled.div`
 
 export const Body = styled.div`
   width: 100%;
-  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const Youtube = styled(ReactPlayer)`
+export const Youtube = styled(ReactPlayer)``;
+
+export const YoutubeBox = styled.div`
   margin-top: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 `;
 
 export const imImageResult = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 200px;
 `;
 
 export const Footer = styled.div`
@@ -107,28 +140,44 @@ export const LikeTie = styled.div`
   margin-right: 30px;
 `;
 
-export const Like = styled(LikeOutlined)`
+export const Like = styled(HeartFilled)`
   font-size: 25px;
   color: gold;
+  height: 50px;
   cursor: pointer;
-  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
-export const DisLike = styled(DislikeOutlined)`
+export const DisLike = styled(FrownFilled)`
   font-size: 25px;
   color: #bdbdbd;
+  height: 50px;
   cursor: pointer;
-  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  border-radius: 100px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const LikeNumber = styled.div`
   color: gold;
-  font-family: "SCDream4";
+  margin-top: 10px;
+  font-weight: 700;
 `;
 
 export const DisLikeNumber = styled.div`
   color: #bdbdbd;
-  font-family: "SCDream4";
+  margin-top: 10px;
+  font-weight: 700;
 `;
 
 export const DisLikeTie = styled.div`
@@ -140,18 +189,17 @@ export const DisLikeTie = styled.div`
 
 export const Title = styled.h1`
   padding-top: 50px;
-  margin-left: 10px;
-  font-family: "Jalnan";
+  font-family: "GmarketSansTTFBold";
+  font-size: 50px;
 `;
 
 export const Contents = styled.div`
   color: #424242;
-  padding: 40px;
-  background-color: #f7f8fa;
   margin-top: 50px;
   border: none;
   border-radius: 4px;
   font-family: "SCDream4";
+  width: 100%;
 `;
 
 export const BottomWrapper = styled.div`
@@ -175,11 +223,4 @@ export const Button = styled.button`
     background-color: gold;
     border-color: white;
   }
-`;
-
-export const Image = styled.img`
-  width: 911px;
-  height: 480px;
-  margin-bottom: 10px;
-  margin-top: 30px;
 `;

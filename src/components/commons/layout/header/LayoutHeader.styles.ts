@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
-  height: 80px;
+  height: 90px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -137,4 +137,9 @@ export const Charge = styled.div`
   :hover {
     background-color: #e7e7e7;
   }
+`;
+
+export const Logo = styled.img`
+  width: 130px;
+  margin-top: 10px;
 `;

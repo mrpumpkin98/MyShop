@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  height: 400px;
+  height: 250px;
   width: 1770px;
   margin: auto;
 `;
 
 export const SliderItem = styled.img`
   width: 1200px;
-  height: 350px;
+  height: 200px;
   margin: auto;
   cursor: pointer;
 `;

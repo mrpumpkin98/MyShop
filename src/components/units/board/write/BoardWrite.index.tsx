@@ -10,6 +10,20 @@ import { CREATE_BOARD } from "../../../../commons/hooks/mutations/UseMutationCre
 import { UPDATE_BOARD } from "../../../../commons/hooks/mutations/UseMutationUpdateBoard";
 import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
 import { FETCH_BOARD } from "../../../../commons/hooks/queries/UseQueryFetchBoard";
+import dynamic from "next/dynamic";
+
+const ToastEditor = dynamic(
+  async () => await import("../../../../commons/toastUI/index"),
+  {
+    ssr: false,
+  }
+);
+
+interface ProductInput {}
+
+type EditorInstance = {
+  getInstance: () => { getHTML: () => string };
+};
 
 export default function BoardsNewPage(props: any) {
   ///////////////////////////////////////////////////////////////
@@ -24,17 +38,16 @@ export default function BoardsNewPage(props: any) {
 
   const [Active, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [contents, setContent] = useState("");
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
   const [zipcode, setZipcode] = useState("");
   const [address, setAddress] = useState("");
   const [addressDetail, setAddressDetail] = useState("");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
-
+  const contentsRef = useRef<EditorInstance | null>(null);
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -102,17 +115,23 @@ export default function BoardsNewPage(props: any) {
     }
   };
 
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setContents(event.target.value);
-    if (event.target.value !== "") {
-      setContentsError("");
-    }
+  // const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  //   setContents(event.target.value);
+  //   if (event.target.value !== "") {
+  //     setContentsError("");
+  //   }
 
-    if (writer && password && title && event.target.value) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
+  //   if (writer && password && title && event.target.value) {
+  //     setIsActive(true);
+  //   } else {
+  //     setIsActive(false);
+  //   }
+  // };
+
+  const onChangeContents = (text: any) => {
+    const editorInstance: string =
+      contentsRef.current?.getInstance()?.getHTML() ?? "";
+    setContent(text === "<p><br><p>" ? "" : editorInstance);
   };
 
   const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -255,7 +274,7 @@ export default function BoardsNewPage(props: any) {
         alert("요청에 문제가 있습니다.");
         return;
       }
-      void router.push(`/Board/${result.data?.updateBoard._id}`);
+      // void router.push(`/Board/${result.data?.updateBoard._id}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -328,11 +347,11 @@ export default function BoardsNewPage(props: any) {
         </B.InputWrapper>
         <B.InputWrapper>
           <B.Label>내용</B.Label>
-          <B.Contents
-            placeholder="내용을 작성해주세요."
-            onChange={onChangeContents}
-            defaultValue={data?.fetchBoard.contents}
-          ></B.Contents>
+          <ToastEditor
+            contentsRef={contentsRef}
+            onChangeContents={onChangeContents}
+            initialValue={data?.fetchBoard?.content}
+          />
           <B.Error>{contentsError}</B.Error>
         </B.InputWrapper>
         <B.InputWrapper>

@@ -83,10 +83,7 @@ export default function LoginNewPage(): JSX.Element {
   return (
     <>
       <B.Wrapper>
-        <B.Title onClick={onClickLogo}>
-          <B.FireFilledIcon />
-          Header
-        </B.Title>
+        <B.Logo src="/images/icons/로고.png" onClick={onClickLogo} />
         <form onSubmit={wrapFormAsync(handleSubmit(onClickLogin))}>
           <B.LoginWrapper>
             <B.LoginTie>
