@@ -2,19 +2,19 @@ import styled from "@emotion/styled";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
 export const UploadImage = styled.img`
-  width: 78px;
-  height: 78px;
+  width: 170px;
+  height: 170px;
   margin-right: 24px;
   cursor: pointer;
 `;
 
 export const UploadButton = styled.button`
-  width: 78px;
-  height: 78px;
-  background-color: #bdbdbd;
+  width: 170px;
+  height: 170px;
+  background-color: #fafafd;
+  border: 1px solid #e6e5ef;
   margin-right: 24px;
   outline: none;
-  border: none;
   cursor: pointer;
 `;
 
@@ -24,5 +24,5 @@ export const UploadFileHidden = styled.input`
 
 export const Picture = styled(PlusCircleOutlined)`
   font-size: 30px;
-  color: gray;
+  color: #dcdbe4;
 `;

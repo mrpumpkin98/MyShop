@@ -96,7 +96,7 @@ export default function StaticRoutingPage() {
   // 대체 이미지
   //////////////////////////////////////////////////////////////
   const onErrorImg = (e: any) => {
-    e.target.src = "/images/none.png";
+    e.target.src = "/images/icons/best-icon.png";
   };
 
   ///////////////////////////////////////////////////////////////
@@ -108,11 +108,12 @@ export default function StaticRoutingPage() {
   };
   const onClickProduct = () => {
     setSelect("MyProduct");
-    console.log(dataIPicked);
+    console.log(dataISold);
   };
 
   return (
     <B.Wapper>
+      <B.Title>상품내역</B.Title>
       <B.WapperNavi>
         <B.MyProduct onClick={onClickProduct}>나의상품</B.MyProduct>
         {/* <B.Selected onClick={onClickSelected}>마이찜</B.Selected> */}
@@ -120,36 +121,27 @@ export default function StaticRoutingPage() {
       {select === "MyProduct" ? (
         <>
           <B.Table>
-            <B.Tr>
-              <B.Th>번호</B.Th>
-              <B.Th>상품명</B.Th>
-              <B.Th>판매가격</B.Th>
-              <B.Th>날짜</B.Th>
-            </B.Tr>
             {dataISold?.fetchUseditemsISold.map((el: any, index: any) => (
               <B.Tr key={el._id}>
-                <B.Td>{index + 1}</B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
+                <B.Imges
+                  src={`https://storage.googleapis.com/${el.images[0]}`}
+                  onError={onErrorImg}
                   id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {el.name}
+                />
+                <B.Td id={el._id} onClick={onClickSubmit} className="Name">
+                  {el.name.length > 17 ? `${el.name.slice(0, 17)}...` : el.name}
                 </B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
+                <B.Td id={el._id} onClick={onClickSubmit} className="Price">
                   {Money(el.price)}
                 </B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {getDate(el.createdAt)}
-                </B.Td>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <B.Environment />
+                  <B.Td id={el._id} onClick={onClickSubmit} className="Addr">
+                    {el.useditemAddress.address.length > 10
+                      ? `${el.useditemAddress.address.slice(0, 10)}...`
+                      : el.useditemAddress.address}
+                  </B.Td>
+                </div>
               </B.Tr>
             ))}
           </B.Table>

@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { getDate } from "../../../../commons/libraries/utils";
 import BoardCommentWrite from "../comment/BoardComment.container";
 import { FETCH_USED_ITEM_QUESTION_ANSWERS } from "./BoardCommentList.queries";
+import { Avatar, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function BoardCommentListUIItem(
   props: IBoardCommentListUIItemProps
@@ -120,10 +122,20 @@ export default function BoardCommentListUIItem(
         <S.Wrapper>
           <S.ItemWrapper key={props.el._id}>
             <S.FlexWrapper>
-              <S.Avatar src="/images/avatar.png" />
+              <Space>
+                <Avatar
+                  size={30}
+                  style={{
+                    cursor: "pointer",
+                    margin: "0px 0px 30px 0px",
+                  }}
+                  icon={<UserOutlined />}
+                  src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
+                />
+              </Space>
               <S.MainWrapper>
                 <S.WriterWrapper>
-                  <S.Writer>{props.el.user.name}</S.Writer>
+                  <S.Writer>{props?.el?.user?.name}</S.Writer>
                 </S.WriterWrapper>
                 <S.Contents>{props.el.contents}</S.Contents>
               </S.MainWrapper>
@@ -139,7 +151,16 @@ export default function BoardCommentListUIItem(
               <S.AnswerItemWrapper key={i._id}>
                 <S.RightSquare />
                 <S.FlexWrapper>
-                  <S.Avatar src="/images/avatar.png" />
+                  <Space>
+                    <Avatar
+                      size={30}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      icon={<UserOutlined />}
+                      src={`https://storage.googleapis.com/${i.user?.picture}`}
+                    />
+                  </Space>
                   <S.MainWrapper>
                     <S.WriterWrapper>
                       <S.Writer>{i.user.name}</S.Writer>
@@ -147,7 +168,7 @@ export default function BoardCommentListUIItem(
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>
                   <S.OptionWrapper>
-                    <S.FormOut />
+                    {/* <S.FormOut /> */}
                     {/* <S.Edit onClick={onClickAnswer} /> */}
                     {/* <S.Delete onClick={onClickOpenDeleteModal} /> */}
                   </S.OptionWrapper>
@@ -161,10 +182,19 @@ export default function BoardCommentListUIItem(
         <S.Wrapper>
           <S.ItemWrapper key={props.el._id}>
             <S.FlexWrapper>
-              <S.Avatar src="/images/avatar.png" />
+              <Space>
+                <Avatar
+                  size={30}
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  icon={<UserOutlined />}
+                  src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
+                />
+              </Space>
               <S.MainWrapper>
                 <S.WriterWrapper>
-                  <S.Writer>{props.el.user.name}</S.Writer>
+                  <S.Writer>{props.el?.user?.name}</S.Writer>
                 </S.WriterWrapper>
                 <S.Contents>{props.el.contents}</S.Contents>
               </S.MainWrapper>
@@ -187,7 +217,16 @@ export default function BoardCommentListUIItem(
             {data?.fetchUseditemQuestionAnswers?.map((i: any) => (
               <S.AnswerItemWrapper key={i._id}>
                 <S.FlexWrapper>
-                  <S.Avatar src="/images/avatar.png" />
+                  <Space>
+                    <Avatar
+                      size={30}
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      icon={<UserOutlined />}
+                      src={`https://storage.googleapis.com/${i.user?.picture}`}
+                    />
+                  </Space>
                   <S.MainWrapper>
                     <S.WriterWrapper>
                       <S.Writer>{i.user.name}</S.Writer>
@@ -195,7 +234,7 @@ export default function BoardCommentListUIItem(
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>
                   <S.OptionWrapper>
-                    <S.FormOut />
+                    {/* <S.FormOut /> */}
                     {/* <S.Edit onClick={onClickAnswer} />
                     <S.Delete onClick={onClickOpenDeleteModal} /> */}
                   </S.OptionWrapper>

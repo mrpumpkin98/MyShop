@@ -12,7 +12,8 @@ export default function LayoutNavigation(): JSX.Element {
 
   const NAVIGATION_MENUS = [
     { name: "취미일상", page: "/Board" },
-    { name: "Reused마켓", page: "/Market" },
+    { name: "리유즈마켓", page: "/Market" },
+    { name: "리유즈맵", page: "/Map" },
     { name: "마이페이지", page: "/MyPage/MyShop" },
   ];
 

@@ -16,9 +16,9 @@ export default function LayoutNavigation(): JSX.Element {
   };
 
   const NAVIGATION_MENUS = [
-    { name: "내 장터", page: "/MyPage/MyShop" },
-    { name: "내 포인트", page: "/MyPage/MyPoint" },
-    { name: "내 프로필", page: "/MyPage/MyProfile" },
+    { name: "상품내역", page: "/MyPage/MyShop" },
+    { name: "포인트내역", page: "/MyPage/MyPoint" },
+    { name: "회원정보수정", page: "/MyPage/MyProfile" },
   ];
 
   return (

@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
   width: 650px;
-  margin: 140px 0px 0px 50px;
+  margin: 0px 0px 0px 50px;
   border: 1px solid black;
   padding-top: 80px;
   border-radius: 8px;
@@ -12,10 +12,12 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border: none;
-  box-shadow: 0px 0px 10px gray;
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  border-bottom: 2px solid black;
+  height: 60px;
+`;
 
 export const InputWrapper = styled.div`
   padding-top: 40px;
@@ -47,7 +49,8 @@ export const UploadButton = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 250px;
+  width: 210px;
+  margin: auto;
   height: 45px;
   background-color: #f5f5f5;
   border: 1px solid #f5f5f5;
@@ -60,4 +63,10 @@ export const Button = styled.button`
     background-color: gold;
     border-color: white;
   }
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #e4e4e4;
+  margin: 50px 0px 10px 0px;
 `;

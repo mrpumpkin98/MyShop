@@ -232,7 +232,7 @@ export const DeleteButton = styled.button`
 `;
 
 export const Button = styled.button`
-  width: 179px;
+  width: 200px;
   height: 45px;
   background-color: #f5f5f5;
   border: 1px solid #f5f5f5;
@@ -254,6 +254,7 @@ export const BasketListImg = styled.img`
   width: 250px;
   height: 250px;
   border-radius: 4px;
+  background: rgb(250, 250, 252);
   &:hover {
     background: rgb(250, 250, 252);
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);

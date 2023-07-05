@@ -14,6 +14,10 @@ export const FETCH_USED_ITEMS = gql`
         name
         picture
       }
+      useditemAddress {
+        lat
+        lng
+      }
     }
   }
 `;

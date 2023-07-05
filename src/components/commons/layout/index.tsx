@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import LayoutBoardNavigation from "./boardNavigation/LayoutBoardNavigation.index";
 
 const Body = styled.div`
-  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,17 +21,19 @@ interface ILayoutProps {
 }
 export default function Layout(props: ILayoutProps): JSX.Element {
   const router = useRouter();
-  const HIDDEN = ["/Login", "/Login/SignUp"];
+  const HIDDEN_HEADER = ["/Login", "/Login/SignUp"];
+  const HIDDEN_BANNER = ["/Login", "/Login/SignUp", "/Map"];
+  const HIDDEN_NAVIGATION = ["/Login", "/Login/SignUp"];
   const MYPAGE = ["/MyPage/MyShop", "/MyPage/MyPoint", "/MyPage/MyProfile"];
-  const BOARD = [`/Board/${router.query.boardId}`];
-  const isHidden = HIDDEN.includes(router.asPath);
+  const isHiddenHeader = HIDDEN_HEADER.includes(router.asPath);
+  const isHiddenBanner = HIDDEN_BANNER.includes(router.asPath);
+  const isHiddenNavigation = HIDDEN_NAVIGATION.includes(router.asPath);
   const isMyPage = MYPAGE.includes(router.asPath);
-  const isBoard = BOARD.includes(router.asPath);
   return (
     <>
-      {!isHidden && <LayoutHeader />}
-      {!isHidden && <LayoutBanner />}
-      {!isHidden && <LayoutNavigation />}
+      {!isHiddenHeader && <LayoutHeader />}
+      {!isHiddenBanner && <LayoutBanner />}
+      {!isHiddenNavigation && <LayoutNavigation />}
       {isMyPage ? (
         <Wrapper>
           <MyPageNavigation />

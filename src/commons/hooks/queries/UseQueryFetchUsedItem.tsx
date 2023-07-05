@@ -15,6 +15,7 @@ export const FETCH_USED_ITEM = gql`
         _id
         name
         email
+        picture
       }
       pickedCount
       useditemAddress {

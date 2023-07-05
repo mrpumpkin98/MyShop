@@ -78,6 +78,7 @@ export default function MyPage() {
             value={data?.fetchUserLoggedIn.email}
           />
         </B.InputWrapper>
+        <B.Line></B.Line>
         <B.InputWrapper>
           <B.Label>닉네임</B.Label>
           <B.Subject
@@ -87,7 +88,7 @@ export default function MyPage() {
             defaultValue={data?.fetchUserLoggedIn.name}
           />
         </B.InputWrapper>
-
+        <B.Line></B.Line>
         <B.InputWrapper>
           <B.Label>프로필 이미지</B.Label>
           <B.UploadButton>
@@ -101,6 +102,7 @@ export default function MyPage() {
             ))}
           </B.UploadButton>
         </B.InputWrapper>
+        <B.Line></B.Line>
         <B.Button onClick={onClickUpdate}>회원 정보 수정</B.Button>
       </B.Wrapper>
     </div>

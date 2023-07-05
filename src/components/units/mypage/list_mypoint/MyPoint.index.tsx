@@ -132,6 +132,7 @@ export default function StaticRoutingPage() {
 
   return (
     <B.Wapper>
+      <B.Title>포인트내역</B.Title>
       <B.WapperNavi>
         <B.MyProduct onClick={onClickEntireHistory}>전체내역</B.MyProduct>
         <B.MyProduct onClick={onClickRechargeHistory}>충전내역</B.MyProduct>
@@ -185,6 +186,7 @@ export default function StaticRoutingPage() {
               <B.Th>충전내역</B.Th>
               <B.Th>충전 후 잔액</B.Th>
             </B.Tr>
+
             {pointData?.fetchPointTransactionsOfLoading.map(
               (el: any, index: any) => (
                 <B.Tr key={el._id}>

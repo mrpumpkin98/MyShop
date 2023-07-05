@@ -10,12 +10,11 @@ export const Wapper = styled.div`
   margin: 124px 0px 0px 40px;
 `;
 
-export const Title = styled.div`
-  width: 100%;
-  text-align: center;
-  margin-top: 70px;
-  font-size: 36px;
-  font-family: "Jalnan";
+export const Title = styled.h2`
+  border-bottom: 2px solid black;
+  height: 60px;
+  margin-bottom: 30px;
+  width: 50%;
 `;
 
 export const BestPostsTie = styled.div`

@@ -68,11 +68,19 @@ export const InForPassword = styled.input`
 export const Rate = styled.input``;
 
 export const Export = styled(ExportOutlined)`
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   margin-left: 10px;
-  color: #bdbdbd;
-  margin-left: 630px;
+  color: #858e96;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  border-radius: 200px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecee;
 `;
 
 export const Scope = styled.img`
@@ -90,7 +98,6 @@ export const Body = styled.div`
   margin-bottom: 30px;
   background: rgb(255, 255, 255);
   border-radius: 4px;
-  box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
 `;
 
 export const BodyInput = styled.textarea`
@@ -98,11 +105,9 @@ export const BodyInput = styled.textarea`
   height: 108px;
   padding: 20px 10px 20px 20px;
   border: none;
-  background: rgb(255, 255, 255);
+  background: rgb(247, 248, 250);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
-  border-bottom: 1px solid gold;
   font-family: "SCDream4";
   border-bottom: ${(props) => props.Active && "solid 1px #D1D1D3"};
 `;
@@ -117,28 +122,22 @@ export const BodyNumber = styled.div`
   padding-left: 20px;
   display: flex;
   align-items: center;
-  background: rgb(247, 248, 250);
   border-bottom-left-radius: 4px;
-  box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
   font-size: 14px;
   font-family: "SCDream4";
 `;
 
 export const BodyButton = styled.button`
-  width: 100px;
-  height: 55px;
+  width: 300px;
+  height: 40px;
   border: none;
-  background-color: gold;
-  border-bottom-right-radius: 4px;
-  box-shadow: rgb(63 71 77 / 15%) 0px 2px 6px;
-  font-family: "SCDream4";
+  background-color: white;
+  font-family: "GmarketSansTTFMedium";
+  font-size: 12px;
+  border: 1px solid #d4d4d4;
+  margin-top: 10px;
   cursor: pointer;
-  :hover {
-    background-color: #ebc600;
-    border-color: #ebc600;
-    background-color: ${(props) => props.Active && " #C6C6C8"};
-  }
-  background-color: ${(props) => props.Active && "#D1D1D3"};
+  background-color: ${(props) => props.Active && "white"};
 `;
 
 export const Footer = styled.div`

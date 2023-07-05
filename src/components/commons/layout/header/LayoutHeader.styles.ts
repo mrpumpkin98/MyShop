@@ -66,11 +66,9 @@ export const Rocket = styled.img`
   height: 20px;
 `;
 
-export const UserName = styled.div`
-  font-size: 18px;
-  font-weight: bold;
-  font-family: "Jalnan";
-  color: gold;
+export const UserName = styled.p`
+  font-size: 15px;
+  font-family: "GmarketSansTTFMedium";
   cursor: pointer;
   display: flex;
 `;
@@ -86,8 +84,7 @@ export const TieSmile = styled.div`
   display: flex;
   align-items: center;
   padding: 10px;
-  border-radius: 8px;
-  border: 2px solid gold;
+  border-bottom: 2px solid gold;
   margin-right: 8px;
 `;
 
@@ -142,4 +139,21 @@ export const Charge = styled.div`
 export const Logo = styled.img`
   width: 130px;
   margin-top: 10px;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+`;
+
+export const Button = styled.button`
+  width: 200px;
+  height: 50px;
+  margin-top: 30px;
+  cursor: pointer;
 `;

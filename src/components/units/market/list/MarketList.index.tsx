@@ -238,11 +238,20 @@ export default function StaticRoutingPage() {
       <B.Wrapper>
         <B.BestWrapper>
           <B.BestContent>
-            <B.BestTitle>리액트 책 팜</B.BestTitle>
-            <B.BestLabel>LG 32인치 모니터</B.BestLabel>
-            <B.BestLabel>단돈 30,000원</B.BestLabel>
+            <B.BestTitle>
+              {dataUseditemsOfTheBest?.fetchUseditemsOfTheBest[1]?.name}
+            </B.BestTitle>
+            <B.BestLabel>
+              {dataUseditemsOfTheBest?.fetchUseditemsOfTheBest[1]?.remarks}
+            </B.BestLabel>
+            <B.BestLabel>
+              단돈{" "}
+              {Money(dataUseditemsOfTheBest?.fetchUseditemsOfTheBest[1]?.price)}
+            </B.BestLabel>
           </B.BestContent>
-          <B.BestImg src="/images/icons/all-icon-after-hover.png"></B.BestImg>
+          <B.BestImg
+            src={`https://storage.googleapis.com/${dataUseditemsOfTheBest?.fetchUseditemsOfTheBest[1]?.images[0]}`}
+          ></B.BestImg>
         </B.BestWrapper>
         {/* <B.Title>베스트 상품</B.Title> */}
         <B.WidthWrapper>
@@ -326,7 +335,9 @@ export default function StaticRoutingPage() {
                   {j.name}{" "}
                 </B.BasketListName>
                 <B.BasketListContents id={j._id} onClick={onClickSubmit}>
-                  {j.remarks}
+                  {j.remarks.length > 10
+                    ? `${j.remarks.slice(0, 10)}...`
+                    : j.remarks}
                 </B.BasketListContents>
                 <B.BasketListPrice id={j._id} onClick={onClickSubmit}>
                   {Money(j.price)}

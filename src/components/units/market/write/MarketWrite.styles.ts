@@ -5,6 +5,7 @@ import { AimOutlined, GitlabFilled } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   /* height: 1847px; */
+  width: 900px;
   border: 1px solid black;
   margin: auto;
   margin: 50px 100px;
@@ -14,16 +15,15 @@ export const Wrapper = styled.div`
   padding-right: 102px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   border: none;
-  box-shadow: 0px 0px 10px gray;
 `;
 
 export const Title = styled.div`
-  font-size: 34px;
-  font-weight: bold;
-  font-family: "Jalnan";
-  margin-bottom: 70px;
+  font-size: 25px;
+  font-family: "GmarketSansTTFMedium";
+  border-bottom: 2px solid black;
+  height: 60px;
+  margin-bottom: 20px;
 `;
 
 export const FireFilledIcon = styled(GitlabFilled)`
@@ -37,7 +37,7 @@ export const FireFilledIcon = styled(GitlabFilled)`
 `;
 
 export const LoginWrapper = styled.div`
-  width: 996px;
+  width: 100%;
 `;
 
 export const LoginTie = styled.div`
@@ -51,9 +51,21 @@ export const LoginTie = styled.div`
 export const Label = styled.div`
   padding: 16px 0px;
   width: 100%;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
   font-family: "SCDream4";
+`;
+
+export const TagsText = styled.div`
+  font-size: 12px;
+  color: gray;
+`;
+
+export const InputPrice = styled.div`
+  width: 250px;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
 `;
 
 export const Error = styled.div`
@@ -113,13 +125,13 @@ export const LoginButton = styled.button`
 export const UploadButton = styled.div`
   width: 100%;
   display: flex;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 `;
 
 export const ButtonForm = styled.form``;
 
 export const WrapperReactQuill = styled.div`
-  height: 500px;
+  height: 300px;
 `;
 
 export const Map = styled.div`
@@ -128,6 +140,7 @@ export const Map = styled.div`
 
 export const WrapperMapLatLng = styled.div`
   display: flex;
+  flex-direction: column;
 `;
 
 export const WrapperMap = styled.div`
@@ -138,8 +151,7 @@ export const WrapperMap = styled.div`
 export const WrapperGPSAddress = styled.div`
   display: flex;
   flex-direction: column;
-  width: 588px;
-  margin-left: 23px;
+  width: 100%;
   justify-content: space-between;
 `;
 
@@ -201,6 +213,7 @@ export const MapWrap = styled.div`
 `;
 
 export const AddrTitle = styled.span`
+  width: 100%;
   font-weight: bold;
   display: block;
 `;
@@ -230,10 +243,16 @@ export const Button = styled.button`
   border-radius: 4px;
   font-size: 17px;
   cursor: pointer;
+  margin-left: 10px;
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  width: 400px;
-  justify-content: space-between;
+  justify-content: center;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #e4e4e4;
+  margin: 50px 0px;
 `;

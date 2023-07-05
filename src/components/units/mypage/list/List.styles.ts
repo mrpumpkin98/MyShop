@@ -8,14 +8,14 @@ import {
 
 export const Wapper = styled.div`
   margin: 124px 0px 0px 40px;
+  width: 1100px;
 `;
 
-export const Title = styled.div`
-  width: 100%;
-  text-align: center;
-  margin-top: 70px;
-  font-size: 36px;
-  font-family: "Jalnan";
+export const Title = styled.h2`
+  border-bottom: 2px solid black;
+  height: 60px;
+  margin-bottom: 50px;
+  width: 50%;
 `;
 
 export const BestPostsTie = styled.div`
@@ -125,34 +125,51 @@ export const SearchTime = styled.input`
   border-radius: 10px;
 `;
 
-export const Table = styled.table`
+export const Table = styled.main`
+  display: flex;
   width: 100%;
-  border-top: 1px solid #444444;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
   border-collapse: collapse;
-  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 100px;
 `;
 
-export const Tr = styled.tr`
-  font-family: "SCDream4";
-  &:hover {
-    background: rgb(250, 250, 252);
-    color: black;
-  }
+export const Imges = styled.img`
+  width: 200px;
+  height: 200px;
+  background: rgb(250, 250, 252);
+`;
+
+export const Tr = styled.div`
+  border: 1px solid #eeeeee;
+  margin-top: 20px;
 `;
 
 export const Th = styled.th`
-  border-bottom: 1px solid #444444;
   padding: 10px;
   background-color: white;
 `;
 
-export const Td = styled.td`
-  border-bottom: 1px solid #bdbdbd;
-  padding: 10px;
-  text-align: center;
-  color: #4f4f4f;
+export const Td = styled.div`
+  font-size: 13px;
+  font-family: "GmarketSansTTFLight";
+  font-weight: bold;
   cursor: pointer;
-  width: 200px;
+  &.Name {
+    padding: 10px 10px 20px 10px;
+  }
+
+  &.Price {
+    font-family: "GmarketSansTTFMedium";
+    padding: 0px 10px 10px 10px;
+  }
+
+  &.Addr {
+    border-top: 1px solid #eeeeee;
+    padding: 10px 10px 10px 10px;
+  }
 `;
 
 export const Pagination = styled.div`
@@ -201,7 +218,7 @@ export const TextToken = styled.span<{ isMatched: any }>`
 
 export const WapperNavi = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 export const MyProduct = styled.div`
@@ -223,4 +240,17 @@ export const Selected = styled.div`
   &:hover {
     color: orange;
   }
+`;
+
+export const Environment = styled(EnvironmentOutlined)`
+  font-size: 20px;
+  cursor: pointer;
+  color: #858e96;
+  padding-left: 10px;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #e4e4e4;
+  margin: 10px 0px 30px 0px;
 `;

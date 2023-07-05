@@ -28,34 +28,43 @@ export const Header = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #bdbdbd;
   padding-bottom: 20px;
-  border: 1px solid rebeccapurple;
 `;
 
 export const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
   width: 100%;
-  justify-content: space-between;
+  margin-bottom: 100px;
 `;
 
 export const AvatarInfoWrapper = styled.div`
   display: flex;
+  width: 100%;
+  align-items: center;
+  padding: 20px 15px;
 `;
 
 export const Avatar = styled.img`
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 630px;
-  margin-right: 30px;
+  margin-left: 10px;
+`;
+
+export const Seller = styled.p`
+  font-size: 13px;
+  display: flex;
+  font-family: "GmarketSansTTFLight";
+`;
+
+export const SellerText = styled.p`
+  font-weight: 700;
+  font-family: "GmarketSansTTFLight";
+  margin-right: 10px;
 `;
 
 export const Environment = styled(EnvironmentOutlined)`
@@ -74,58 +83,33 @@ export const PaperClip = styled(PaperClipOutlined)`
 
 export const TooltipWrapper = styled.div``;
 
-export const Writer = styled.div`
-  font-weight: 600;
-  font-family: "SCDream4";
-`;
-
-export const CreatedAt = styled.div`
-  margin-left: 2px;
-  color: #bdbdbd;
-  font-family: "SCDream4";
+export const Prices = styled.p`
+  font-family: "GmarketSansTTFLight";
+  font-size: 12px;
 `;
 
 export const Body = styled.div`
   width: 100%;
-  min-height: 800px;
-`;
-
-export const Youtube = styled(ReactPlayer)`
   margin-top: 50px;
-  margin-bottom: 30px;
+  border-top: 2px solid black;
 `;
 
-export const WrapperImage = styled.div``;
+export const BodyTitle = styled.p`
+  font-family: "GmarketSansTTFLight";
+  border-bottom: 1px solid #e4e4e4;
+  font-weight: 700;
+  padding-bottom: 20px;
+`;
 
 export const imImageResult = styled.div`
-  width: 500px;
+  width: 450px;
   height: 500px;
+  background-color: #d4d4d4;
 `;
 
 export const Footer = styled.div`
   display: flex;
   margin-top: 50px;
-`;
-
-export const LikeTie = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 30px;
-`;
-
-export const Like = styled(LikeOutlined)`
-  font-size: 25px;
-  color: gold;
-  cursor: pointer;
-  margin-bottom: 8px;
-`;
-
-export const DisLike = styled(DislikeOutlined)`
-  font-size: 25px;
-  color: #bdbdbd;
-  cursor: pointer;
-  margin-bottom: 8px;
 `;
 
 export const LikeNumber = styled.div`
@@ -143,12 +127,6 @@ export const DisLikeTie = styled.div`
   flex-direction: column;
   align-items: center;
   margin-left: 30px;
-`;
-
-export const Title = styled.h1`
-  padding-top: 50px;
-  margin-left: 10px;
-  font-family: "Jalnan";
 `;
 
 export const BottomWrapper = styled.div`
@@ -181,13 +159,18 @@ export const Image = styled.img`
 
 export const WidthWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const WrapperRemarksNamePrice = styled.div`
   border-top: 2px solid black;
+  width: 450px;
   height: 100%;
+  margin-left: 10px;
+`;
+
+export const RemarksNamePriceTie = styled.div`
+  padding: 0px 20px;
 `;
 
 export const Remarks = styled.p`
@@ -257,6 +240,7 @@ export const Map = styled.div`
   display: flex;
   align-items: center;
   margin-top: 30px;
+  border: 1px solid #bdbdbd;
 `;
 
 export const Heart = styled(HeartFilled)<{ Active: any }>`
@@ -278,11 +262,72 @@ export const PickedCount = styled.div``;
 export const WrapperContents = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
+  width: 550px;
+  border-right: 1px solid #e4e4e4;
+  padding: 20px 20px 20px 0px;
+`;
+
+export const CommentWrapper = styled.div`
+  width: 350px;
+  padding: 20px;
 `;
 
 export const Contents = styled.div`
-  margin-top: 60px;
   width: 100%;
+  margin-top: 30px;
+`;
+
+export const BestNav = styled.nav`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+export const Title = styled.h3`
+  width: 100%;
+  font-size: 16px;
+  font-family: "GmarketSansTTFLight";
+  justify-content: space-between;
+`;
+
+export const BestPostsTie = styled.div`
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  justify-content: space-between;
+`;
+
+export const BestPosts = styled.div`
+  width: 200px;
+  margin-top: 20px;
+`;
+
+export const BestPostBody = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const BestPostImgBox = styled.div`
+  overflow: hidden;
+  height: 160px;
+  width: 200px;
+`;
+
+export const BestPostImg = styled.img`
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+`;
+
+export const BestPostTitle = styled.div`
+  font-weight: 600;
+  font-size: 12px;
+  font-family: "GmarketSansTTFLight";
+  margin-top: 10px;
+`;
+
+export const LikeNum = styled.div`
+  font-size: 12px;
 `;

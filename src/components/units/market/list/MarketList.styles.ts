@@ -231,7 +231,7 @@ export const ListPickedCount = styled.div`
   margin-left: 5px;
 `;
 export const ListPrice = styled.div`
-  width: 150px;
+  width: 200px;
   text-align: end;
   margin-right: 20px;
   font-weight: 500;
@@ -450,6 +450,7 @@ export const BestLabel = styled.p`
 
 export const BestImg = styled.img`
   width: 200px;
+  height: 200px;
   background-color: white;
   border-radius: 4px;
 `;

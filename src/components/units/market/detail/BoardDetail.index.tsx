@@ -16,6 +16,9 @@ import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetch
 import { TOGGLE_USED_ITEM_PICK } from "../../../../commons/hooks/mutations/UseMutationToggleUsedItemPick";
 import { CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfBuyingAndSelling";
 import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
+import { FETCH_USED_ITEMS_OF_THE_BEST } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemOfTheBest";
+import { Avatar, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -39,6 +42,8 @@ export default function BoardDetailPage() {
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
+  const { data: dataUseditemsOfTheBest, refetch: refetchUseditemsOfTheBest } =
+    useQuery(FETCH_USED_ITEMS_OF_THE_BEST);
 
   ///////////////////////////////////////////////////////////////
   // 마켓 좋아요
@@ -46,9 +51,7 @@ export default function BoardDetailPage() {
 
   const [Like, setLike] = useState(false);
 
-  const onClickLike = async (
-    event: React.MouseEvent<HTMLTableDataCellElement>
-  ) => {
+  const onClickLike = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const result = await toggleUseditemPick({
       variables: { useditemId: router.query.useditemId },
       refetchQueries: [
@@ -59,6 +62,7 @@ export default function BoardDetailPage() {
       ],
     });
     setLike((prevLike) => !prevLike); // 하트v누르면 true 아니면 false
+    console.log(data?.fetchUseditem?.useditemAddress?.lng);
   };
 
   ///////////////////////////////////////////////////////////////
@@ -199,7 +203,7 @@ export default function BoardDetailPage() {
   // 대체 이미지
   //////////////////////////////////////////////////////////////
   const onErrorImg = (e: any) => {
-    e.target.src = "/images/icons/all-icon-after-hover.png";
+    e.target.src = "/images/icons/all-icon.png";
   };
 
   /////////////////////////////return/////////////////////////////////
@@ -223,87 +227,113 @@ export default function BoardDetailPage() {
               </Slider>
             </B.imImageResult>
             <B.WrapperRemarksNamePrice>
-              <B.Name>{data?.fetchUseditem?.name}</B.Name>
-              <B.Remarks>{data?.fetchUseditem?.remarks}</B.Remarks>
-              <B.Tags>
-                {Tag?.map((el: any, index: any) => (
-                  <B.Tag>#{Tag[index]}</B.Tag>
-                ))}
-              </B.Tags>
-              <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
-              <B.AreaWrapper>
-                <B.AreaTie>
-                  <B.AreaInformation>거래지역</B.AreaInformation>
-                  <B.Area>
-                    {data?.fetchUseditem?.useditemAddress?.address}
-                  </B.Area>
-                </B.AreaTie>
-                <B.Map>
-                  <div
-                    id="map"
-                    style={{ width: "100%", height: "180px" }}
-                  ></div>
-                </B.Map>
-              </B.AreaWrapper>
-              <B.BottomWrapper>
-                <B.Button onClick={onClickBuyingAndSelling}>구매하기</B.Button>
-                <B.Button onClick={onClickBoard} className="List">
-                  목록으로
-                </B.Button>
-                {data?.fetchUseditem?.seller?.email ===
-                  fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
-                  <B.Button onClick={onClickUpdate}>수정하기</B.Button>
-                )}
-              </B.BottomWrapper>
+              <B.RemarksNamePriceTie>
+                <B.Name>{data?.fetchUseditem?.name}</B.Name>
+                <B.Remarks>{data?.fetchUseditem?.remarks}</B.Remarks>
+                <B.Tags>
+                  {Tag?.map((el: any, index: any) => (
+                    <B.Tag>#{Tag[index]}</B.Tag>
+                  ))}
+                </B.Tags>
+                <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
+                <B.AreaWrapper>
+                  <B.AreaTie>
+                    <B.AreaInformation>거래지역</B.AreaInformation>
+                    <B.Area>
+                      {data?.fetchUseditem?.useditemAddress?.address}
+                    </B.Area>
+                  </B.AreaTie>
+                  <B.Map>
+                    <div
+                      id="map"
+                      style={{ width: "100%", height: "180px" }}
+                    ></div>
+                  </B.Map>
+                </B.AreaWrapper>
+                <B.BottomWrapper>
+                  <B.Button onClick={onClickBuyingAndSelling}>
+                    구매하기
+                  </B.Button>
+                  <B.Button onClick={onClickLike} className="List">
+                    ♥ 찜하기 {data?.fetchUseditem?.pickedCount}
+                  </B.Button>
+                  {data?.fetchUseditem?.seller?.email ===
+                    fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
+                    <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+                  )}
+                </B.BottomWrapper>
+              </B.RemarksNamePriceTie>
             </B.WrapperRemarksNamePrice>
           </B.Header>
-
-          <B.AvatarWrapper>
-            <B.AvatarInfoWrapper>
-              <B.Avatar src="/images/avatar.png" />
-              <B.Info>
-                <B.Writer>{data?.fetchUseditem?.seller?.name}</B.Writer>
-                {/* <B.Writer>{props.data?.fetchUseditem?.seller}</B.Writer> */}
-                <B.CreatedAt>
-                  {getDate(data?.fetchUseditem?.createdAt)}
-                </B.CreatedAt>
-              </B.Info>
-            </B.AvatarInfoWrapper>
-            <B.TooltipWrapper>
-              <Tooltip
-                placement="top"
-                title={`${data?.fetchUseditem.useditemAddress?.address ?? ""}
-              ${data?.fetchUseditem.useditemAddress?.addressDetail ?? ""}`}
-              ></Tooltip>
-              <B.PaperClip />
-              <B.Environment />
-            </B.TooltipWrapper>
-          </B.AvatarWrapper>
+          <B.BestNav>
+            <B.Title>추천 상품</B.Title>
+            <B.BestPostsTie>
+              {dataUseditemsOfTheBest?.fetchUseditemsOfTheBest.map((i: any) => (
+                <B.BestPosts key={i._id}>
+                  <B.BestPostBody>
+                    <B.BestPostImgBox>
+                      <B.BestPostImg
+                        src={`https://storage.googleapis.com/${i.images[0]}`}
+                        onError={onErrorImg}
+                        id={i._id}
+                      />
+                    </B.BestPostImgBox>
+                    <B.BestPostTitle id={i._id}>{i.name}</B.BestPostTitle>
+                    <B.Prices id={i._id}> {Money(i.price)}</B.Prices>
+                  </B.BestPostBody>
+                </B.BestPosts>
+              ))}
+            </B.BestPostsTie>
+          </B.BestNav>
           <B.Body>
             <B.WidthWrapper>
-              <B.WrapperPickedCount>
-                <B.Heart onClick={onClickLike} Active={Like} />
-                <B.PickedCount>
-                  {data?.fetchUseditem?.pickedCount}
-                </B.PickedCount>
-              </B.WrapperPickedCount>
+              <B.WrapperContents>
+                <B.BodyTitle>상품정보</B.BodyTitle>
+                <B.Contents
+                  dangerouslySetInnerHTML={
+                    data?.fetchUseditem?.contents
+                      ? {
+                          __html: DOMPurify.sanitize(
+                            data.fetchUseditem.contents
+                          ),
+                        }
+                      : undefined
+                  }
+                />
+              </B.WrapperContents>
+              <B.CommentWrapper>
+                <B.BodyTitle>상점정보</B.BodyTitle>
+                <B.AvatarWrapper>
+                  <B.AvatarInfoWrapper>
+                    <Space>
+                      <Avatar
+                        size={50}
+                        style={{
+                          cursor: "pointer",
+                        }}
+                        icon={<UserOutlined />}
+                        src={`https://storage.googleapis.com/${data?.fetchUseditem?.seller?.picture}`}
+                      />
+                    </Space>
+                    <B.Info>
+                      <B.Seller>
+                        <B.SellerText>판매자</B.SellerText>{" "}
+                        {data?.fetchUseditem?.seller?.name}
+                      </B.Seller>
+                      <B.Seller>
+                        <B.SellerText>이메일 </B.SellerText>{" "}
+                        {data?.fetchUseditem?.seller?.email}
+                      </B.Seller>
+                    </B.Info>
+                  </B.AvatarInfoWrapper>
+                </B.AvatarWrapper>
+                <B.BodyTitle>상점후기</B.BodyTitle>
+                <BoardComment />
+                <BoardCommentList />
+              </B.CommentWrapper>
             </B.WidthWrapper>
-            <B.WrapperContents>
-              <B.WrapperImage></B.WrapperImage>
-              <B.Contents
-                dangerouslySetInnerHTML={
-                  data?.fetchUseditem?.contents
-                    ? {
-                        __html: DOMPurify.sanitize(data.fetchUseditem.contents),
-                      }
-                    : undefined
-                }
-              />
-            </B.WrapperContents>
           </B.Body>
         </B.CardWrapper>
-        <BoardComment />
-        <BoardCommentList />
       </B.Wrapper>
     </div>
   );

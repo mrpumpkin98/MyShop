@@ -16,6 +16,9 @@ import { CREATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutatio
 import { UPDATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationUpdateUsedItem";
 import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
 import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
+import Toolbar from "../../../../commons/Quill/Toolbar";
+import { fontSize } from "../../../../commons/Quill/default";
+import { Quill } from "react-quill";
 
 export const schema = yup.object({
   name: yup.string().required("상품명을 입력하세요!"),
@@ -99,10 +102,10 @@ export default function LoginNewPage(props: any): JSX.Element {
         },
       },
     });
-
     const { Modal } = await import("antd"); // code-splitting(코드스플릿팅)
     Modal.success({ content: "게시글 등록에 성공하였습니다!" });
     const useditemId: string = result.data.createUseditem._id;
+    console.log(result);
     void router.push(`/Market/${useditemId}`);
   };
 
@@ -164,7 +167,6 @@ export default function LoginNewPage(props: any): JSX.Element {
       }
       void router.push(`/Market/${result.data?.updateUseditem._id}`);
       alert("상품이 수정되었습니다!!");
-      // console.log(result.data?.updateUseditem._id);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -262,7 +264,6 @@ export default function LoginNewPage(props: any): JSX.Element {
                 // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                 infowindow.setContent(content);
                 infowindow.open(map, marker);
-                console.log(result[0].address.address_name);
                 setAddress(result[0].address.address_name);
               }
             }
@@ -311,6 +312,8 @@ export default function LoginNewPage(props: any): JSX.Element {
           function (mouseEvent: any) {
             // 클릭한 위도, 경도 정보를 가져옵니다
             const latlng = mouseEvent.latLng;
+            setGetLat(latlng.Ma);
+            setGetLng(latlng.La);
 
             // 마커 위치를 클릭한 위치로 옮깁니다
             marker.setPosition(latlng);
@@ -322,12 +325,12 @@ export default function LoginNewPage(props: any): JSX.Element {
 
             if (resultDiv1 !== null) {
               resultDiv1.innerHTML = latlng.getLat();
-              setGetLat(latlng.getLat());
+              // setGetLat(latlng.La);
             }
             const resultDiv2 = document.getElementById("clickLatlng2");
             if (resultDiv2 !== null) {
               resultDiv2.innerHTML = latlng.getLng();
-              setGetLng(latlng.getLng());
+              // setGetLng(latlng.Ma);
             }
             if (input1Ref.current) {
               input1Ref.current.value = gLat;
@@ -348,18 +351,47 @@ export default function LoginNewPage(props: any): JSX.Element {
     <>
       <B.Wrapper>
         <B.Title>{props.isEdit ? "상품 수정" : "상품 등록"} 하기</B.Title>
+        <B.Label>상품이미지</B.Label>
+        <B.UploadButton>
+          {fileUrls.map((el: any, index: any) => (
+            <Uploads01
+              key={uuidv4()}
+              index={index}
+              fileUrl={el}
+              onChangeFileUrls={onChangeFileUrls}
+            />
+          ))}
+        </B.UploadButton>
+        <p style={{ fontSize: "12px", color: "gray" }}>
+          * 상품 이미지는 640x640에 최적화 되어 있습니다.
+          <br />
+          - 상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로 보여집니다.
+          <br />
+          - 이미지는 상품 등록 시 정사각형으로 잘려서 등록됩니다.
+          <br />
+          - 이미지를 클릭할 경우 원본 이미지를 확인할 수 있습니다.
+          <br />
+          - 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.
+          <br />
+          - 큰 이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다.
+          <br />
+          최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당 이미지
+          최대 10M)
+        </p>
+        <B.Line></B.Line>
         <form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
           <B.LoginWrapper>
             <B.LoginTie>
-              <B.Label>상품명</B.Label>
+              <B.Label>제목</B.Label>
               <Input04
-                title="상품명을 작성해주세요."
+                title="상품 제목을 입력해주세요."
                 register={register("name")}
                 defaultValue={data?.fetchUseditem.name}
               ></Input04>
               <B.Error style={{ color: "red" }}>
                 {formState.errors.name?.message}
               </B.Error>
+              <B.Line></B.Line>
               <B.Label>한줄요약 </B.Label>
               <Input04
                 title="상품명을 작성해주세요."
@@ -369,32 +401,47 @@ export default function LoginNewPage(props: any): JSX.Element {
               <B.Error style={{ color: "red" }}>
                 {formState.errors.remarks?.message}
               </B.Error>
-              <B.WrapperReactQuill>
-                <B.Label>상품설명 </B.Label>
-                <ReactQuill
-                  onChange={onChangeContents}
-                  defaultValue={data?.fetchUseditem.contents}
-                  style={{ height: "400px" }}
-                />
-              </B.WrapperReactQuill>
+              <B.Line></B.Line>
+              <B.Label>상품설명 </B.Label>
+              <ReactQuill
+                onChange={onChangeContents}
+                defaultValue={data?.fetchUseditem.contents}
+              />
               <B.Error style={{ color: "red" }}>
                 {formState.errors.contents?.message}
               </B.Error>
+              <B.Line></B.Line>
               <B.Label>판매 가격</B.Label>
-              <Input04
-                title="판매 가격을 입력해주세요."
-                register={register("price")}
-                defaultValue={data?.fetchUseditem.price}
-              ></Input04>
+              <B.InputPrice>
+                <Input04
+                  title="숫자만 입력해주세요."
+                  register={register("price")}
+                  defaultValue={data?.fetchUseditem.price}
+                ></Input04>
+                <p style={{ marginLeft: "15px", marginBottom: "15px" }}>원</p>
+              </B.InputPrice>
               <B.Error style={{ color: "red" }}>
                 {formState.errors.price?.message}
               </B.Error>
+              <B.Line></B.Line>
               <B.Label>태그입력</B.Label>
               <Input04
-                title="#태그  #태그  #태그  "
+                title="연관태그를 입력해주세요."
                 register={register("tags")}
                 defaultValue={data?.fetchUseditem.tags}
               ></Input04>
+              <B.TagsText>
+                - 태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있습니다.
+                <br />
+                - 태그는 검색의 부가정보로 사용 되지만, 검색 결과 노출을
+                <br />
+                - 보장하지는 않습니다. 검색 광고는 태그정보를 기준으로
+                노출됩니다.
+                <br />- 상품과 직접 관련이 없는 다른 상품명, 브랜드, 스팸성
+                키워드 등을 입력하면 노출이 중단되거나 상품이 삭제될 수
+                있습니다.
+              </B.TagsText>
+              <B.Line></B.Line>
               <B.WrapperMapLatLng>
                 <B.WrapperMap>
                   <B.Label>거래위치</B.Label>
@@ -402,8 +449,8 @@ export default function LoginNewPage(props: any): JSX.Element {
                     <div
                       id="map"
                       style={{
-                        width: "384px",
-                        height: "252px",
+                        width: "100%",
+                        height: "300px",
                         position: "relative",
                         overflow: "hidden",
                       }}
@@ -427,7 +474,7 @@ export default function LoginNewPage(props: any): JSX.Element {
                       defaultValue={data?.fetchUseditem.useditemAddress.address}
                     ></Input05>
                     <Input04
-                      title=""
+                      title="상세주소를 입력해주세요."
                       register={register("addressDetail")}
                       defaultValue={
                         data?.fetchUseditem.useditemAddress.addressDetail
@@ -436,20 +483,10 @@ export default function LoginNewPage(props: any): JSX.Element {
                   </B.WrapperAddressAddressDetail>
                 </B.WrapperGPSAddress>
               </B.WrapperMapLatLng>
+              <B.Line></B.Line>
             </B.LoginTie>
           </B.LoginWrapper>
         </form>
-        <B.Label>사진첨부</B.Label>
-        <B.UploadButton>
-          {fileUrls.map((el: any, index: any) => (
-            <Uploads01
-              key={uuidv4()}
-              index={index}
-              fileUrl={el}
-              onChangeFileUrls={onChangeFileUrls}
-            />
-          ))}
-        </B.UploadButton>
         <B.ButtonWrapper>
           <B.ButtonForm
             onSubmit={

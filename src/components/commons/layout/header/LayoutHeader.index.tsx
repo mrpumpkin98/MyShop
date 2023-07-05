@@ -16,6 +16,7 @@ import { FETCH_POINT_TRANSACTION } from "../../../../commons/hooks/queries/UseQu
 import { CREATE_POINT_TRANSACTION_OF_LOADING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfLoading";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { Modal, Button } from "antd";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -23,6 +24,8 @@ declare const window: typeof globalThis & {
 
 export default function LayoutHeader(): JSX.Element {
   const router = useRouter();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [paymentAmount, setPaymentAmount] = useState(0);
 
   const { data } = useQuery(FETCH_USER_LOGGED_IN);
   const userName = data?.fetchUserLoggedIn.name;
@@ -80,19 +83,30 @@ export default function LayoutHeader(): JSX.Element {
     CREATE_POINT_TRANSACTION_OF_LOADING
   );
 
-  const onclickPayment = async () => {
-    const IMP = window.IMP; // 생략 가능
-    console.log(IMP);
-    IMP.init("imp49910675"); // 예: imp00000000a
+  const showModal = () => {
+    setModalVisible(true);
+  };
+
+  const handlePayment = (amount: any) => {
+    setModalVisible(false);
+    setPaymentAmount(amount);
+    onclickPayment(amount); // 선택한 가격에 해당하는 Payment 결제 창 열기
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
+  const onclickPayment = async (amount: any) => {
+    const IMP = window.IMP;
+    IMP.init("imp49910675");
 
     IMP.request_pay(
       {
-        // param
         pg: "kakaopay",
         pay_method: "card",
-        // merchant_uid: "ORD20180131-0000011",
-        name: "노르웨이 회전 의자",
-        amount: 1000000,
+        name: "충전",
+        amount: amount,
         buyer_email: "gildong@gmail.com",
         buyer_name: "홍길동",
         buyer_tel: "010-4242-4242",
@@ -101,9 +115,8 @@ export default function LayoutHeader(): JSX.Element {
         m_redirect_url: "http://localhost:3000/section28/28-01-payment",
       },
       (rsp: any) => {
-        // callback
         if (rsp.success === true) {
-          // 결제 성공 시 로직,
+          // 결제 성공 시 로직
           const result = createPointTransactionOfLoading({
             variables: {
               impUid: String(rsp.imp_uid),
@@ -124,7 +137,7 @@ export default function LayoutHeader(): JSX.Element {
           // 백엔드에 결제관련 데이터 넘겨주기 => 즉 뮤테이션 실행하기
           // createPointTransactionOfLoading
         } else {
-          // 결제 실패 시 로직,
+          // 결제 실패 시 로직
         }
       }
     );
@@ -145,6 +158,21 @@ export default function LayoutHeader(): JSX.Element {
 
   return (
     <B.Wrapper>
+      <Modal
+        title="충전 금액 선택"
+        visible={modalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <B.ButtonWrapper>
+          <B.Button onClick={() => handlePayment(1000)}>1000원</B.Button>
+          <B.Button onClick={() => handlePayment(5000)}>5000원</B.Button>
+          <B.Button onClick={() => handlePayment(10000)}>10000원</B.Button>
+          <B.Button onClick={() => handlePayment(30000)}>30000원</B.Button>
+          <B.Button onClick={() => handlePayment(50000)}>50000원</B.Button>
+          <B.Button onClick={() => handlePayment(100000)}>100000원</B.Button>
+        </B.ButtonWrapper>
+      </Modal>
       <Head>
         <script
           type="text/javascript"
@@ -182,7 +210,7 @@ export default function LayoutHeader(): JSX.Element {
                 </B.UserAnswer>
               </B.UserName>
             </B.TieSmile>
-            <B.Charge onClick={onclickPayment}>충전</B.Charge>
+            <B.Charge onClick={showModal}>충전</B.Charge>
             <B.OutButton onClick={onClickMoveToLogOut}>로그아웃</B.OutButton>
           </B.WrapperSmile>
         ) : (
