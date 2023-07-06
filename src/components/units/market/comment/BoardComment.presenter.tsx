@@ -15,41 +15,26 @@ export default function BoardCommentUI(props: any) {
               <B.HeaderTitle>댓글</B.HeaderTitle>
             </B.Header>
           )}
-          <B.InFor>
-            {props.isEdit === true && (
-              <B.Export onClick={props.onClickExport} />
-            )}
-          </B.InFor>
           <B.Body>
             <B.BodyInput
-              type="text"
-              placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
               onChange={props.onChangeContents}
-              // value={
-              //   props.contents !== ""
-              //     ? props.contents
-              //     : props.el?.contents ?? ""
-              // }
-              maxLength={100}
+              maxLength={15}
+              value={props.contents}
               Active={props.isEdit === true}
             />
-            <B.BodyNumberTie>
-              <B.BodyNumber>
-                {" "}
-                {props.contents.length}
-                /100
-              </B.BodyNumber>
-              <B.BodyButton
-                onClick={
-                  props.isEdit === true
-                    ? props.onClickAnswer
-                    : props.onClickWrite
-                }
-                Active={props.isEdit === true}
-              >
-                {props.isEdit ? "답글등록" : "등록하기"}
+            <B.BodyButton
+              onClick={
+                props.isEdit === true ? props.onClickAnswer : props.onClickWrite
+              }
+              Active={props.isEdit === true}
+            >
+              {props.isEdit ? "답글" : "등록"}
+            </B.BodyButton>
+            {props.isEdit && (
+              <B.BodyButton onClick={props.onClickExport} className="No">
+                취소
               </B.BodyButton>
-            </B.BodyNumberTie>
+            )}
           </B.Body>
         </B.CardWrapper>
       </B.Wrapper>

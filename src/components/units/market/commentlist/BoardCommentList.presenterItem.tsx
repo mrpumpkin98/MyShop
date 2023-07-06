@@ -19,6 +19,8 @@ import BoardCommentWrite from "../comment/BoardComment.container";
 import { FETCH_USED_ITEM_QUESTION_ANSWERS } from "./BoardCommentList.queries";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { editComment } from "../../../../commons/stores";
 
 export default function BoardCommentListUIItem(
   props: IBoardCommentListUIItemProps
@@ -27,7 +29,8 @@ export default function BoardCommentListUIItem(
   // router
   //////////////////////////////////////////////////////////////
   const router = useRouter();
-
+  const setCommentEdit = useSetRecoilState(editComment);
+  const editCommentValue = useRecoilValue(editComment);
   ///////////////////////////////////////////////////////////////
   // useState
   //////////////////////////////////////////////////////////////
@@ -67,7 +70,7 @@ export default function BoardCommentListUIItem(
   };
 
   const onClickOpenDeleteModal = (
-    event: MouseEvent<HTMLImageElement>
+    event: MouseEvent<HTMLButtonElement>
   ): void => {
     setIsOpenDeleteModal(true);
   };
@@ -102,7 +105,14 @@ export default function BoardCommentListUIItem(
 
   const onClickAnswer = (): void => {
     setIsEdit(true);
-    // console.log(data.fetchUseditemQuestions);
+  };
+
+  ////////////////////////////////////////
+  // 댓글 수정 이벤트
+  ////////////////////////////////////////
+
+  const onClickEditComment = (): void => {
+    setCommentEdit(true);
   };
 
   /////////////////////////////return/////////////////////////////////
@@ -119,92 +129,121 @@ export default function BoardCommentListUIItem(
         </S.PasswordModal>
       )}
       {!isEdit ? (
-        <S.Wrapper>
-          <S.ItemWrapper key={props.el._id}>
-            <S.FlexWrapper>
-              <Space>
-                <Avatar
-                  size={30}
-                  style={{
-                    cursor: "pointer",
-                    margin: "0px 0px 30px 0px",
-                  }}
-                  icon={<UserOutlined />}
-                  src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
-                />
-              </Space>
-              <S.MainWrapper>
-                <S.WriterWrapper>
-                  <S.Writer>{props?.el?.user?.name}</S.Writer>
-                </S.WriterWrapper>
-                <S.Contents>{props.el.contents}</S.Contents>
-              </S.MainWrapper>
-              <S.OptionWrapper>
-                <S.Edit onClick={onClickAnswer} />
-                <S.Delete onClick={onClickOpenDeleteModal} />
-              </S.OptionWrapper>
-            </S.FlexWrapper>
-            <S.DateString>{getDate(props.el.createdAt)}</S.DateString>
-          </S.ItemWrapper>
-          <div>
-            {data?.fetchUseditemQuestionAnswers?.map((i: any) => (
-              <S.AnswerItemWrapper key={i._id}>
-                <S.RightSquare />
+        <>
+          <S.Wrapper>
+            <S.ItemWrapper key={props.el._id}>
+              {editCommentValue === false ? (
                 <S.FlexWrapper>
-                  <Space>
-                    <Avatar
-                      size={30}
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      icon={<UserOutlined />}
-                      src={`https://storage.googleapis.com/${i.user?.picture}`}
-                    />
-                  </Space>
                   <S.MainWrapper>
-                    <S.WriterWrapper>
-                      <S.Writer>{i.user.name}</S.Writer>
+                    <S.WriterWrapper className="Blue">
+                      <Space>
+                        <Avatar
+                          size={26}
+                          icon={<UserOutlined />}
+                          src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
+                        />
+                      </Space>
+                      <S.Writer>{props?.el?.user?.name}</S.Writer>
+                      <S.OptionWrapper>
+                        <S.AnswerButton onClick={onClickAnswer} className="Go">
+                          답글
+                        </S.AnswerButton>
+                        <S.AnswerButton
+                          onClick={onClickEditComment}
+                          className="Edit"
+                        >
+                          수정
+                        </S.AnswerButton>
+                        <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                          삭제
+                        </S.AnswerButton>
+                      </S.OptionWrapper>
                     </S.WriterWrapper>
-                    <S.Contents>{i.contents}</S.Contents>
+                    <S.Contents>{props.el.contents}</S.Contents>
                   </S.MainWrapper>
-                  <S.OptionWrapper>
-                    {/* <S.FormOut /> */}
-                    {/* <S.Edit onClick={onClickAnswer} /> */}
-                    {/* <S.Delete onClick={onClickOpenDeleteModal} /> */}
-                  </S.OptionWrapper>
                 </S.FlexWrapper>
-                <S.DateString></S.DateString>
-              </S.AnswerItemWrapper>
-            ))}
-          </div>
-        </S.Wrapper>
+              ) : (
+                <BoardCommentWrite
+                  isEdit={true}
+                  // setIsEdit={setIsEdit}
+                  el={props.el}
+                />
+              )}
+            </S.ItemWrapper>
+            <div>
+              {data?.fetchUseditemQuestionAnswers?.map((i: any) => (
+                <S.AnswerItemWrapper key={i._id}>
+                  <S.Arrow src="/images/icons/arrow-829.png" />
+                  <S.FlexWrapper>
+                    <S.MainWrapper>
+                      <S.WriterWrapper>
+                        <Space>
+                          <Avatar
+                            size={26}
+                            icon={<UserOutlined />}
+                            src={`https://storage.googleapis.com/${i?.user?.picture}`}
+                          />
+                        </Space>
+                        <S.Writer>{i?.user?.name}</S.Writer>
+                        <S.OptionWrapper>
+                          <S.AnswerButton
+                            onClick={onClickAnswer}
+                            className="Go"
+                          >
+                            답글
+                          </S.AnswerButton>
+                          <S.AnswerButton
+                            onClick={onClickOpenDeleteModal}
+                            className="Edit"
+                          >
+                            수정
+                          </S.AnswerButton>
+                          <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                            삭제
+                          </S.AnswerButton>
+                        </S.OptionWrapper>
+                      </S.WriterWrapper>
+                      <S.Contents>{i.contents}</S.Contents>
+                    </S.MainWrapper>
+                  </S.FlexWrapper>
+                  <S.DateString></S.DateString>
+                </S.AnswerItemWrapper>
+              ))}
+            </div>
+          </S.Wrapper>
+        </>
       ) : (
         <S.Wrapper>
           <S.ItemWrapper key={props.el._id}>
             <S.FlexWrapper>
-              <Space>
-                <Avatar
-                  size={30}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                  icon={<UserOutlined />}
-                  src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
-                />
-              </Space>
               <S.MainWrapper>
-                <S.WriterWrapper>
-                  <S.Writer>{props.el?.user?.name}</S.Writer>
+                <S.WriterWrapper className="Blue">
+                  <Space>
+                    <Avatar
+                      size={26}
+                      icon={<UserOutlined />}
+                      src={`https://storage.googleapis.com/${props.el?.user?.picture}`}
+                    />
+                  </Space>
+                  <S.Writer>{props?.el?.user?.name}</S.Writer>
+                  <S.OptionWrapper>
+                    <S.AnswerButton onClick={onClickAnswer} className="Go">
+                      답글
+                    </S.AnswerButton>
+                    <S.AnswerButton
+                      onClick={onClickOpenDeleteModal}
+                      className="Edit"
+                    >
+                      수정
+                    </S.AnswerButton>
+                    <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                      삭제
+                    </S.AnswerButton>
+                  </S.OptionWrapper>
                 </S.WriterWrapper>
                 <S.Contents>{props.el.contents}</S.Contents>
               </S.MainWrapper>
-              <S.OptionWrapper>
-                {/* <S.FormOut /> */}
-                <S.Edit onClick={onClickAnswer} />
-                <S.Delete onClick={onClickOpenDeleteModal} />
-              </S.OptionWrapper>
             </S.FlexWrapper>
-            <S.DateString>{getDate(props.el.createdAt)}</S.DateString>
           </S.ItemWrapper>
           <S.WapperBoardCommentWrite>
             <BoardCommentWrite
@@ -216,34 +255,40 @@ export default function BoardCommentListUIItem(
           <div>
             {data?.fetchUseditemQuestionAnswers?.map((i: any) => (
               <S.AnswerItemWrapper key={i._id}>
+                <S.Arrow src="/images/icons/arrow-829.png" />
                 <S.FlexWrapper>
-                  <Space>
-                    <Avatar
-                      size={30}
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      icon={<UserOutlined />}
-                      src={`https://storage.googleapis.com/${i.user?.picture}`}
-                    />
-                  </Space>
                   <S.MainWrapper>
                     <S.WriterWrapper>
-                      <S.Writer>{i.user.name}</S.Writer>
+                      <Space>
+                        <Avatar
+                          size={26}
+                          icon={<UserOutlined />}
+                          src={`https://storage.googleapis.com/${i?.user?.picture}`}
+                        />
+                      </Space>
+                      <S.Writer>{i?.user?.name}</S.Writer>
+                      <S.OptionWrapper>
+                        <S.AnswerButton onClick={onClickAnswer} className="Go">
+                          답글
+                        </S.AnswerButton>
+                        <S.AnswerButton
+                          onClick={onClickOpenDeleteModal}
+                          className="Edit"
+                        >
+                          수정
+                        </S.AnswerButton>
+                        <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                          삭제
+                        </S.AnswerButton>
+                      </S.OptionWrapper>
                     </S.WriterWrapper>
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>
-                  <S.OptionWrapper>
-                    {/* <S.FormOut /> */}
-                    {/* <S.Edit onClick={onClickAnswer} />
-                    <S.Delete onClick={onClickOpenDeleteModal} /> */}
-                  </S.OptionWrapper>
                 </S.FlexWrapper>
                 <S.DateString></S.DateString>
               </S.AnswerItemWrapper>
             ))}
           </div>
-          {/* <S.BoardCommentCancel>수정 취소</S.BoardCommentCancel> */}
         </S.Wrapper>
       )}
     </>

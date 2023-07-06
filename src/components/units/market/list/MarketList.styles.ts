@@ -16,7 +16,6 @@ import { Modal } from "antd";
 export const ListMain = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 210px;
 `;
 
 export const Wrapper = styled.div`
@@ -35,19 +34,10 @@ export const Title = styled.div`
 // 중고 상품 베스트
 ////////////////////////////////////////////
 
-export const BestPostsTie = styled.div`
-  width: 100%;
-  display: flex;
-  cursor: pointer;
-  font-family: "SCDream4";
-  margin-bottom: 20px;
-`;
-
 export const WidthWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 15px;
 `;
 
 export const Shopping = styled(ShoppingFilled)`
@@ -58,104 +48,11 @@ export const Shopping = styled(ShoppingFilled)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
+  width: 40px;
   border-radius: 200px;
   background-color: #f8f9fa;
   border: 1px solid #e9ecee;
   margin-left: 15px;
-  &:hover {
-    color: #aaaaaa;
-  }
-`;
-
-export const Shopping2 = styled(ShoppingCartOutlined)<{ Active: any }>`
-  color: #bdbdbd;
-  color: ${(props) => props.Active && "gold"};
-  font-size: 30px;
-  cursor: pointer;
-  margin-left: 10px;
-`;
-
-export const BestPosts = styled.div`
-  width: 100%;
-  margin-top: 30px;
-`;
-
-export const BestPostBody = styled.div`
-  height: 307px;
-  margin: 14px;
-  background: #f5f5f5;
-  overflow: hidden;
-  border-radius: 20px;
-  &:hover {
-    background: rgb(250, 250, 252);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-export const BestPostImg = styled.img`
-  width: 100%;
-  height: 50%;
-  object-fit: cover;
-`;
-
-export const BestPostContent = styled.div`
-  display: flex;
-`;
-
-export const BestPostTitle = styled.div`
-  height: 50px;
-  margin: 5px 10px 5px 15px;
-  font-weight: 600;
-  font-size: 19px;
-`;
-
-export const BestPostInfo = styled.div`
-  width: 85%;
-  padding-left: 15px;
-`;
-
-export const AvatarWriterTie = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const Avatar = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 7px;
-`;
-
-export const Writer = styled.div`
-  font-weight: 400;
-  font-size: 18px;
-  margin-bottom: 2px;
-`;
-
-export const CreatedAt = styled.div`
-  font-weight: 400;
-  font-size: 12px;
-  color: #828282;
-  margin-bottom: 30px;
-`;
-
-export const LikeTie = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const Like = styled(HeartFilled)`
-  font-size: 18px;
-  color: gold;
-  cursor: pointer;
-  margin-bottom: 8px;
-`;
-
-export const LikeNum = styled.div`
-  font-size: 12px;
-  margin-top: 10px;
 `;
 
 ////////////////////////////////////////////
@@ -179,12 +76,13 @@ export const Table = styled.div`
 
 export const Tr = styled.div`
   background: #f5f5f5;
+  border: 2px solid black;
   width: 100%;
-  font-family: "SCDream4";
+  font-family: "Arita-SemiBold";
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 8px;
+  border-radius: 4px;
   margin: 15px 0px;
   cursor: pointer;
   :hover {
@@ -192,17 +90,25 @@ export const Tr = styled.div`
   }
 `;
 
-export const ListImg = styled.img`
+export const ListImgWrapper = styled.div`
   width: 160px;
   height: 160px;
   margin: 10px 7px;
-  border-radius: 8px;
+  margin-left: 15px;
+  border-radius: 4px;
+  background-color: white;
+`;
+
+export const ListImg = styled.img`
+  width: 160px;
+  height: 160px;
+  border-radius: 4px;
   background-color: white;
 `;
 
 export const ListName = styled.p`
   font-size: 30px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
 `;
 
 export const TieTable = styled.div`
@@ -215,10 +121,10 @@ export const TieTable = styled.div`
 `;
 export const ListContents = styled.p`
   font-weight: 400;
-  font-size: 17px;
+  font-size: 18px;
   color: #828282;
-  margin: 5px 0px 0px 4px;
-  font-family: "GmarketSansTTFLight";
+  margin: 10px 0px 0px 4px;
+  font-family: "Arita-SemiBold";
 `;
 export const ListTags = styled.div`
   height: 20px;
@@ -227,7 +133,7 @@ export const ListPickedCount = styled.div`
   width: 18px;
   height: 24px;
   padding-top: 6px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
   margin-left: 5px;
 `;
 export const ListPrice = styled.div`
@@ -236,13 +142,13 @@ export const ListPrice = styled.div`
   margin-right: 20px;
   font-weight: 500;
   font-size: 20px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
   padding-right: 10px;
 `;
 export const ListSeller = styled.p`
   width: 100px;
   margin-top: 5px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
 `;
 
 export const TitleListSellerListPickedCount = styled.div`
@@ -258,7 +164,7 @@ export const Heart = styled(HeartFilled)`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
+  width: 40px;
   border-radius: 200px;
   background-color: #f8f9fa;
   border: 1px solid #e9ecee;
@@ -276,7 +182,7 @@ export const Smile = styled(SmileOutlined)`
 
 export const ButtonTie = styled.div`
   display: flex;
-  justify-content: end;
+  justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 30px;

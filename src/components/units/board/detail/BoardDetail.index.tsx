@@ -18,15 +18,7 @@ const Viewer = dynamic(
 );
 
 export default function BoardDetailPage() {
-  ///////////////////////////////////////////////////////////////
-  // router
-  //////////////////////////////////////////////////////////////
-
   const router = useRouter();
-
-  ///////////////////////////////////////////////////////////////
-  // queries
-  //////////////////////////////////////////////////////////////
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DIS_LIKE_BOARD);
@@ -34,9 +26,7 @@ export default function BoardDetailPage() {
     variables: { boardId: router.query.boardId },
   });
 
-  ///////////////////////////////////////////////////////////////
   // 게시물 삭제
-  //////////////////////////////////////////////////////////////
 
   const onClickDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const result = await deleteBoard({
@@ -45,14 +35,11 @@ export default function BoardDetailPage() {
     router.push(`/Board`);
   };
 
-  ///////////////////////////////////////////////////////////////
   // 좋아요
-  //////////////////////////////////////////////////////////////
 
   const onClickLike = async (
     event: React.MouseEvent<HTMLTableDataCellElement>
   ) => {
-    console.log(data);
     const result = await likeBoard({
       variables: { boardId: router.query.boardId },
       refetchQueries: [
@@ -64,14 +51,11 @@ export default function BoardDetailPage() {
     });
   };
 
-  ///////////////////////////////////////////////////////////////
   // 싫어요
-  //////////////////////////////////////////////////////////////
 
   const onClickDisLike = async (
     event: React.MouseEvent<HTMLTableDataCellElement>
   ) => {
-    console.log(event.currentTarget.id);
     const result = await dislikeBoard({
       variables: { boardId: router.query.boardId },
       refetchQueries: [
@@ -83,29 +67,17 @@ export default function BoardDetailPage() {
     });
   };
 
-  ///////////////////////////////////////////////////////////////
   // 게시판 리스트 이동
-  //////////////////////////////////////////////////////////////
 
   const onClickBoard = () => {
     router.push(`/Board`);
   };
 
-  ///////////////////////////////////////////////////////////////
   // 게시물 수정하기 이동
-  //////////////////////////////////////////////////////////////
 
   const onClickUpdate = () => {
     router.push(`/Board/${router.query.boardId}/edit`);
   };
-
-  ///////////////////////////////////////////////////////////////
-  // 페이지 새로고침
-  //////////////////////////////////////////////////////////////
-
-  // useEffect(() => {
-  //   refetch({ page: 1 });
-  // }, []);
 
   useEffect(() => {
     refetch({ boardId: router.query.boardId });

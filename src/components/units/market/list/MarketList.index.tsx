@@ -13,6 +13,8 @@ import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQuery
 import { FETCH_BOARDS_COUNT } from "../../../../commons/hooks/queries/UseQueryFetchBoardsCount";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { todayOpenState } from "../../../../commons/stores";
 
 const SECRET = "@#$%";
 interface Props {
@@ -53,6 +55,8 @@ export default function StaticRoutingPage() {
   const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS);
   const { data: loginData } = useQuery(FETCH_USER_LOGGED_IN);
   const userName = loginData?.fetchUserLoggedIn.name;
+  const setTodayOpen = useSetRecoilState(todayOpenState);
+  const todayOpen = useRecoilValue(todayOpenState);
 
   ///////////////////////////////////////////////////////////////
   //  게시물 이동
@@ -189,7 +193,7 @@ export default function StaticRoutingPage() {
       todays.unshift(today);
 
       localStorage.setItem("todays", JSON.stringify(todays));
-
+      setTodayOpen(true);
       router.push(`/Market/${today._id}`);
     };
 
@@ -253,21 +257,13 @@ export default function StaticRoutingPage() {
             src={`https://storage.googleapis.com/${dataUseditemsOfTheBest?.fetchUseditemsOfTheBest[1]?.images[0]}`}
           ></B.BestImg>
         </B.BestWrapper>
-        {/* <B.Title>베스트 상품</B.Title> */}
         <B.WidthWrapper>
-          {" "}
-          {/* <B.Shopping2
-            onClick={onClickBasketModal}
-            Active={basketItems.length > 0}
-          /> */}
           <B.ButtonTie>
             <Searchbars01
               refetch={refetch}
               refetchBoardsCount={refetchBoardsCount}
               onChangeKeyword={onChangeKeyword}
             />
-            <B.Button onClick={onClickWrite}>상품 등록하기</B.Button>
-            <B.Button onClick={onClickBasketModal}>장바구니</B.Button>
           </B.ButtonTie>
         </B.WidthWrapper>
         <B.List>
@@ -281,10 +277,12 @@ export default function StaticRoutingPage() {
               <B.Table>
                 {data?.fetchUseditems.map((el: any) => (
                   <B.Tr key={el._id} onClick={onClickToday(el)}>
-                    <B.ListImg
-                      src={`https://storage.googleapis.com/${el.images[0]}`}
-                      onError={onErrorImg}
-                    />
+                    <B.ListImgWrapper>
+                      <B.ListImg
+                        src={`https://storage.googleapis.com/${el.images[0]}`}
+                        onError={onErrorImg}
+                      />
+                    </B.ListImgWrapper>
                     <B.TieTable>
                       <B.ListName id={el._id}>{el.name} </B.ListName>
                       <B.ListContents id={el._id} onClick={onClickSubmit}>
@@ -294,10 +292,10 @@ export default function StaticRoutingPage() {
                       <B.TitleListSellerListPickedCount>
                         <Space>
                           <Avatar
-                            size={27}
+                            size={30}
                             style={{
                               cursor: "pointer",
-                              margin: "0px 10px 0px 5px",
+                              margin: "0px 10px 0px 2px",
                             }}
                             icon={<UserOutlined />}
                             src={`https://storage.googleapis.com/${el?.seller?.picture}`}
@@ -321,48 +319,6 @@ export default function StaticRoutingPage() {
           </Scrollbars>
         </B.List>
       </B.Wrapper>
-      <B.TodayList>
-        <B.TodayTitle>오늘 본 상품</B.TodayTitle>
-        <B.TodayTable>
-          {todayItems.slice(offset, offset + ITEMS_PER_PAGE).map((j: any) => (
-            <B.BasketTr key={j._id}>
-              <B.BasketListImg
-                src={`https://storage.googleapis.com/${j.images[0]}`}
-                onError={onErrorImg}
-              />
-              <B.BasketTieTable>
-                <B.BasketListName id={j._id} onClick={onClickSubmit}>
-                  {j.name}{" "}
-                </B.BasketListName>
-                <B.BasketListContents id={j._id} onClick={onClickSubmit}>
-                  {j.remarks.length > 10
-                    ? `${j.remarks.slice(0, 10)}...`
-                    : j.remarks}
-                </B.BasketListContents>
-                <B.BasketListPrice id={j._id} onClick={onClickSubmit}>
-                  {Money(j.price)}
-                </B.BasketListPrice>
-                <B.BasketListTags id={j._id}>{j.tags}</B.BasketListTags>
-              </B.BasketTieTable>
-            </B.BasketTr>
-          ))}
-        </B.TodayTable>
-        <B.PaginationContainer>
-          <B.Pagination
-            previousLabel={"<"}
-            nextLabel={">"}
-            pageCount={pageCount}
-            onPageChange={handlePageClick}
-            containerClassName={"pagination"}
-            previousLinkClassName={"pagination__link"}
-            nextLinkClassName={"pagination__link"}
-            disabledClassName={"pagination__link--disabled"}
-            activeClassName={"pagination__link--active"}
-            pageRangeDisplayed={0}
-            marginPagesDisplayed={0}
-          />
-        </B.PaginationContainer>
-      </B.TodayList>
     </B.ListMain>
   );
 }

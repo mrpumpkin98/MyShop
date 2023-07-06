@@ -9,8 +9,9 @@ export const Input02 = styled.input`
   border: none;
   border-top: 1px solid #dbdbdb;
   border: 1px solid #dbdbdb;
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  font-family: "Arita-SemiBold";
   :focus {
     outline: none;
     border: 1px solid gold;

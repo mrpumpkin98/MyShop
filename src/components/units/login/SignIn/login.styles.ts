@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   /* height: 1847px; */
   border: 1px solid black;
   margin: auto;
-  margin: 100px;
+  margin: 200px;
   padding-top: 30px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -18,15 +18,6 @@ export const Wrapper = styled.div`
   border: none;
   box-shadow: 0px 0px 10px #bdbdbd;
   border-radius: 8px;
-`;
-
-export const Title = styled.div`
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 40px;
-  color: gold;
-  font-family: "Jalnan";
-  margin-bottom: 30px;
-  cursor: pointer;
 `;
 
 export const FireFilledIcon = styled(GitlabFilled)`
@@ -90,9 +81,8 @@ export const LoginButton = styled.button`
   background-color: gold;
   font-size: 17px;
   font-weight: 600;
-  color: white;
   cursor: pointer;
-  font-family: "SCDream4";
+  font-family: "Arita-SemiBold";
   :hover {
     background-color: #ebc600;
     font-weight: 700;
@@ -103,7 +93,7 @@ export const SingUp = styled.div`
   font-size: 15px;
   color: #4f4f4f;
   cursor: pointer;
-  font-family: "SCDream4";
+  font-family: "Arita-SemiBold";
   margin-top: 20px;
   text-align: center;
 `;

@@ -56,14 +56,15 @@ export const Info = styled.div`
 `;
 
 export const Seller = styled.p`
-  font-size: 13px;
+  font-size: 16px;
   display: flex;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
 `;
 
 export const SellerText = styled.p`
-  font-weight: 700;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
+  color: gray;
+  font-size: 16px;
   margin-right: 10px;
 `;
 
@@ -84,7 +85,7 @@ export const PaperClip = styled(PaperClipOutlined)`
 export const TooltipWrapper = styled.div``;
 
 export const Prices = styled.p`
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
   font-size: 12px;
 `;
 
@@ -95,9 +96,8 @@ export const Body = styled.div`
 `;
 
 export const BodyTitle = styled.p`
-  font-family: "GmarketSansTTFLight";
-  border-bottom: 1px solid #e4e4e4;
-  font-weight: 700;
+  font-family: "Arita-SemiBold";
+  border-bottom: 1px solid black;
   padding-bottom: 20px;
 `;
 
@@ -105,6 +105,8 @@ export const imImageResult = styled.div`
   width: 450px;
   height: 500px;
   background-color: #d4d4d4;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
 `;
 
 export const Footer = styled.div`
@@ -137,22 +139,28 @@ export const BottomWrapper = styled.div`
 
 export const Button = styled.button`
   width: 100%;
-  height: 45px;
+  height: 55px;
   margin-top: 10px;
   background-color: white;
-  border: 1px solid #d4d4d4;
+  border: 2px solid black;
   cursor: pointer;
-  font-family: "GmarketSansTTFMedium";
+  font-family: "Arita-SemiBold";
+  font-size: 17px;
   &.List {
     color: white;
     background-color: black;
     border: none;
+  }
+  &.Buy {
+    background-color: gold;
   }
 `;
 
 export const Image = styled.img`
   width: 500px;
   height: 500px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
 `;
 
 // 중고마켓
@@ -165,7 +173,7 @@ export const WidthWrapper = styled.div`
 export const WrapperRemarksNamePrice = styled.div`
   border-top: 2px solid black;
   width: 450px;
-  height: 100%;
+  height: 500px;
   margin-left: 10px;
 `;
 
@@ -176,12 +184,11 @@ export const RemarksNamePriceTie = styled.div`
 export const Remarks = styled.p`
   font-size: 18px;
   font-weight: 500;
-  margin-top: 30px;
-  font-family: "GmarketSansTTFLight";
+  margin-top: 15px;
+  font-family: "Arita-SemiBold";
 `;
 
-export const Name = styled.p`
-  font-weight: 700;
+export const Name = styled.h2`
   font-size: 24px;
   margin-top: 30px;
   font-family: "GmarketSansTTFMedium";
@@ -203,11 +210,11 @@ export const AreaWrapper = styled.div`
 export const AreaInformation = styled.p`
   font-weight: 700;
   margin-right: 10px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
 `;
 
 export const Area = styled.p`
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
 `;
 
 export const AreaTie = styled.div`
@@ -227,12 +234,13 @@ export const Tag = styled.div`
   background-color: gold;
   height: 27px;
   font-size: 13px;
-  font-family: "SCDream4";
+  font-family: "Arita-SemiBold";
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: 4px;
   padding: 0px 10px;
+  border: 2px solid black;
 `;
 
 export const Map = styled.div`
@@ -240,7 +248,7 @@ export const Map = styled.div`
   display: flex;
   align-items: center;
   margin-top: 30px;
-  border: 1px solid #bdbdbd;
+  border: 2px solid black;
 `;
 
 export const Heart = styled(HeartFilled)<{ Active: any }>`
@@ -263,11 +271,12 @@ export const WrapperContents = styled.div`
   display: flex;
   flex-direction: column;
   width: 550px;
-  border-right: 1px solid #e4e4e4;
   padding: 20px 20px 20px 0px;
 `;
 
 export const CommentWrapper = styled.div`
+  border-left: 1px solid black;
+  height: auto;
   width: 350px;
   padding: 20px;
 `;
@@ -286,7 +295,7 @@ export const BestNav = styled.nav`
 export const Title = styled.h3`
   width: 100%;
   font-size: 16px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
   justify-content: space-between;
 `;
 
@@ -306,6 +315,7 @@ export const BestPostBody = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 export const BestPostImgBox = styled.div`
@@ -318,13 +328,12 @@ export const BestPostImg = styled.img`
   width: 100%;
   height: 160px;
   object-fit: cover;
-  border-radius: 4px;
 `;
 
 export const BestPostTitle = styled.div`
   font-weight: 600;
   font-size: 12px;
-  font-family: "GmarketSansTTFLight";
+  font-family: "Arita-SemiBold";
   margin-top: 10px;
 `;
 

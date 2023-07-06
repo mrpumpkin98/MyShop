@@ -2,9 +2,10 @@ import { GitlabFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Searchbar = styled.div`
-  width: 776px;
+  width: 100%;
+  border: 2px solid black;
   height: 52px;
-  border-radius: 15px;
+  border-radius: 4px;
   background-color: #f2f2f2;
   padding: 0px 20px;
   display: flex;
@@ -28,5 +29,6 @@ export const SearchbarInput = styled.input`
   border: none;
   outline: none;
   background: none;
-  margin: 0px 20px;
+  font-family: "Arita-SemiBold";
+  font-size: 17px;
 `;

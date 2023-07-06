@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Countdown from "react-countdown";
 import styled from "@emotion/styled";
+import * as B from "./styles";
 
 // 60분(1시간)을 밀리초로 변환하여 상수로 지정
 const TIMER_DURATION = 60 * 60 * 1000;
@@ -15,10 +16,14 @@ const Time = styled.span`
 export default function Timer() {
   // 로컬스토리지에서 만료 타임스탬프 정보를 가져오거나
   // 새로운 만료 타임스탬프를 현재 시간 + TIMER_DURATION 값으로 초기화
-  const [expiryTimestamp, setExpiryTimestamp] = useState(
-    parseInt(localStorage.getItem("expiryTimestamp")) ||
-      Date.now() + TIMER_DURATION
-  );
+  const [expiryTimestamp, setExpiryTimestamp] = useState(() => {
+    const storedTimestamp = localStorage.getItem("expiryTimestamp");
+    if (storedTimestamp) {
+      return parseInt(storedTimestamp);
+    } else {
+      return Date.now() + TIMER_DURATION;
+    }
+  });
 
   // 만료 타임스탬프 정보가 변경될 때마다 로컬스토리지에 저장
   useEffect(() => {
@@ -36,9 +41,9 @@ export default function Timer() {
         date={expiryTimestamp} // 카운트다운이 끝날 시각 지정
         onComplete={handleComplete} // 카운트다운이 완료되었을 때 호출될 콜백 함수 지정
         renderer={({ minutes, seconds }) => (
-          <Time>
+          <B.Time>
             {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </Time>
+          </B.Time>
         )}
       />
     </div>

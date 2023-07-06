@@ -45,6 +45,9 @@ export default function BoardDetailPage() {
   const { data: dataUseditemsOfTheBest, refetch: refetchUseditemsOfTheBest } =
     useQuery(FETCH_USED_ITEMS_OF_THE_BEST);
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [basketItems, setBasketItems] = useState([]);
+
   ///////////////////////////////////////////////////////////////
   // 마켓 좋아요
   //////////////////////////////////////////////////////////////
@@ -206,6 +209,45 @@ export default function BoardDetailPage() {
     e.target.src = "/images/icons/all-icon.png";
   };
 
+  ///////////////////////////////////////////////////////////////
+  // 장바구니
+  //////////////////////////////////////////////////////////////
+  const onClickBasket = (basket: any) => () => {
+    // 1. 기존 장바구니 가져오기
+    const baskets = JSON.parse(localStorage.getItem("baskets") ?? "[]");
+
+    const temp = baskets.filter((el: any) => el._id === basket._id);
+    if (temp.length >= 1) {
+      alert("이미 담으신 상품입니다!!!");
+      return;
+    } else {
+      alert("장바구니에 상품이 담겼습니다.");
+    }
+
+    // 2. 내가 클릭한거 장바구니에 추가하기
+    baskets.push(basket);
+    localStorage.setItem("baskets", JSON.stringify(baskets));
+  };
+
+  const onClickBasketModal = (): void => {
+    setIsOpen((prev) => !prev);
+  };
+
+  //주소 모달 확인 / 취소 입력
+
+  const Ok = (): void => {
+    setIsOpen(false);
+  };
+
+  const Cancel = (): void => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const baskets = JSON.parse(localStorage.getItem("baskets") || "[]");
+    setBasketItems(baskets);
+  }, [isOpen]);
+
   /////////////////////////////return/////////////////////////////////
 
   return (
@@ -238,7 +280,7 @@ export default function BoardDetailPage() {
                 <B.Price>{Money(data?.fetchUseditem?.price)}</B.Price>
                 <B.AreaWrapper>
                   <B.AreaTie>
-                    <B.AreaInformation>거래지역</B.AreaInformation>
+                    <B.AreaInformation>거래지역 |</B.AreaInformation>
                     <B.Area>
                       {data?.fetchUseditem?.useditemAddress?.address}
                     </B.Area>
@@ -251,15 +293,19 @@ export default function BoardDetailPage() {
                   </B.Map>
                 </B.AreaWrapper>
                 <B.BottomWrapper>
-                  <B.Button onClick={onClickBuyingAndSelling}>
+                  <B.Button onClick={onClickBuyingAndSelling} className="Buy">
                     구매하기
                   </B.Button>
                   <B.Button onClick={onClickLike} className="List">
                     ♥ 찜하기 {data?.fetchUseditem?.pickedCount}
                   </B.Button>
                   {data?.fetchUseditem?.seller?.email ===
-                    fetchUserLoggedInData?.fetchUserLoggedIn?.email && (
+                  fetchUserLoggedInData?.fetchUserLoggedIn?.email ? (
                     <B.Button onClick={onClickUpdate}>수정하기</B.Button>
+                  ) : (
+                    <B.Button onClick={onClickBasket(data?.fetchUseditem)}>
+                      장바구니
+                    </B.Button>
                   )}
                 </B.BottomWrapper>
               </B.RemarksNamePriceTie>

@@ -4,20 +4,20 @@ import {
   GitlabFilled,
   SmileOutlined,
 } from "@ant-design/icons";
+import { Modal } from "antd";
 
 export const Wrapper = styled.div`
-  height: 90px;
+  width: 25%;
+  height: auto;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 1px solid #e0e0e0;
+  flex-direction: column;
+  border-right: 2px solid black;
 `;
 
 export const InnerWrapper = styled.div`
-  width: 1200px;
+  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
@@ -31,33 +31,11 @@ export const InnerLogo = styled.div`
   cursor: pointer;
 `;
 
-export const InnerButton = styled.span`
-  margin: 10px;
-  font-family: "Arita-SemiBold";
-  font-size: 15px;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  :hover {
-    background-color: #e7e7e7;
-  }
-  &.SignUp {
-    background-color: gold;
-    border-radius: 4px;
-    padding: 10px 20px;
-    :hover {
-      background-color: #efc900;
-    }
-  }
-`;
-
 export const FireFilledIcon = styled(GitlabFilled)`
-  color: gold;
-  font-size: 30px;
-  cursor: pointer;
   margin-right: 5px;
+  font-size: 30px;
+  color: gold;
+  cursor: pointer;
 `;
 
 export const Rocket = styled.img`
@@ -67,35 +45,35 @@ export const Rocket = styled.img`
 `;
 
 export const UserName = styled.p`
-  font-size: 15px;
-  font-family: "GmarketSansTTFMedium";
+  font-size: 18px;
+  font-family: "Arita-SemiBold";
   cursor: pointer;
   display: flex;
+  margin-left: 10px;
 `;
 
 export const Smile = styled(SmileOutlined)`
-  color: gold;
   font-size: 30px;
+  color: gold;
   cursor: pointer;
-  margin-right: 10px;
 `;
 
 export const TieSmile = styled.div`
-  display: flex;
-  align-items: center;
   padding: 10px;
   border-bottom: 2px solid gold;
-  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 `;
 
 export const WrapperSmile = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 export const WrapperTimer = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 20px;
 `;
 
 export const Clock = styled(ClockCircleOutlined)`
@@ -105,55 +83,205 @@ export const Clock = styled(ClockCircleOutlined)`
   color: #ffd600;
 `;
 
-export const OutButton = styled.span`
-  margin: 10px;
-  cursor: pointer;
-  font-family: "Arita-SemiBold";
-  font-size: 15px;
-  transition: background-color 0.3s;
+export const OutButton = styled.button`
+  width: 150px;
+  margin-top: 10px;
+  font-size: 18px;
   padding: 10px 20px;
   border-radius: 4px;
+  transition: background-color 0.3s;
+  font-family: "Arita-SemiBold";
+  cursor: pointer;
   :hover {
     background-color: #e7e7e7;
   }
 `;
 
 export const UserAnswer = styled.div`
-  color: #555555;
-  margin-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: "Arita-SemiBold";
 `;
 
-export const Charge = styled.div`
-  font-family: "Arita-SemiBold";
-  font-size: 15px;
-  cursor: pointer;
-  margin: 0px 5px;
-  transition: background-color 0.3s;
+export const Charge = styled.button`
+  width: 150px;
+  margin-top: 10px;
+  font-size: 18px;
   padding: 10px 20px;
   border-radius: 4px;
+  transition: background-color 0.3s;
+  font-family: "Arita-SemiBold";
+  cursor: pointer;
+  background-color: gold;
+  :hover {
+    background-color: #efc900;
+  }
+`;
+
+export const Logo = styled.img`
+  width: 300px;
+  margin-top: 30px;
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  border-collapse: collapse;
+`;
+
+export const Button = styled.button`
+  margin: 10px;
+  width: 200px;
+  font-size: 20px;
+  padding: 15px 10px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-family: "Arita-SemiBold";
+  cursor: pointer;
   :hover {
     background-color: #e7e7e7;
   }
 `;
 
-export const Logo = styled.img`
-  width: 130px;
-  margin-top: 10px;
+export const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-export const ButtonWrapper = styled.div`
+export const InnerButton = styled.button`
+  margin: 10px;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-family: "Arita-SemiBold";
+  cursor: pointer;
+  :hover {
+    background-color: #e7e7e7;
+  }
+  &.SignIn {
+    background-color: gold;
+    :hover {
+      background-color: #efc900;
+    }
+  }
+`;
+
+export const ShoppingBasket = styled.div`
+  width: 500px;
   display: flex;
-  width: 100%;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin: auto;
+`;
+export const BasketTitle = styled.div`
+  margin: 20px 20px 0px 20px;
+  font-weight: 700;
+  font-size: 18px;
+`;
+export const BasketList = styled.div``;
+export const BasketTable = styled.div`
+  margin-top: 30px;
+  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border-collapse: collapse;
-  margin-bottom: 30px;
+  margin-left: 6px;
+  margin-bottom: 10px;
+`;
+export const BasketTr = styled.div`
+  border: 1px solid #bdbdbd;
+  width: 156px;
+  height: 199px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3px;
+  margin-bottom: 10px;
+`;
+export const BasketListImg = styled.img`
+  width: 60px;
+  height: 60px;
+`;
+export const BasketTieTable = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 120px;
+`;
+export const BasketListName = styled.div`
+  font-size: 12px;
+  cursor: pointer;
 `;
 
-export const Button = styled.button`
-  width: 200px;
-  height: 50px;
-  margin-top: 30px;
+export const BasketListContents = styled.div`
+  font-size: 12px;
+  color: #4f4f4f;
   cursor: pointer;
+`;
+export const BasketListPrice = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+`;
+
+export const BasketListTags = styled.div``;
+
+export const AddressModal = styled(Modal)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TodayTitle = styled.div`
+  font-family: "SCDream4";
+  text-align: center;
+  font-size: 14px;
+  margin: 20px 0px;
+`;
+
+export const TodayList = styled.div`
+  border: 1px solid #bdbdbd;
+  height: 100%;
+  width: 184px;
+  margin-top: 305px;
+  margin-left: 20px;
+  border-radius: 8px;
+`;
+
+export const TodayTable = styled.div`
+  margin: 0px 10px;
+`;
+
+export const ReactPaginate = styled.div`
+  margin: 0px 10px;
+`;
+
+export const PaginationContainer = styled.div`
+  /* margin-top: 20px; */
+`;
+
+export const Pagination = styled(ReactPaginate)<{
+  previousLabel: string;
+  nextLabel: string;
+  pageCount: any;
+  onPageChange: any;
+  containerClassName: any;
+  previousLinkClassName: any;
+  nextLinkClassName: any;
+  disabledClassName: any;
+  activeClassName: any;
+  pageRangeDisplayed: any;
+  marginPagesDisplayed: any;
+}>`
+  /* margin-top: 20px; */
+  display: none;
 `;

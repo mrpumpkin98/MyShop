@@ -31,8 +31,8 @@ export default function BoardCommentWrite(props: any): JSX.Element {
     CREATE_USED_ITEM_QUESTION_ANSWER
   );
 
-  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setContents(event.target.value);
+  const onChangeContents = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    setContents(e.target.value);
   };
 
   const onClickWrite = async (): Promise<void> => {
@@ -57,11 +57,10 @@ export default function BoardCommentWrite(props: any): JSX.Element {
         ],
       });
       alert("댓글등록");
+      setContents("");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
-
-    setContents("");
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////

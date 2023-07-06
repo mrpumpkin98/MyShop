@@ -6,7 +6,6 @@ import { AimOutlined, GitlabFilled } from "@ant-design/icons";
 export const Wrapper = styled.div`
   /* height: 1847px; */
   width: 900px;
-  border: 1px solid black;
   margin: auto;
   margin: 50px 100px;
   padding-top: 80px;
@@ -15,7 +14,6 @@ export const Wrapper = styled.div`
   padding-right: 102px;
   display: flex;
   flex-direction: column;
-  border: none;
 `;
 
 export const Title = styled.div`

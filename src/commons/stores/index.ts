@@ -16,3 +16,13 @@ export const onErrorImg = atom({
     e.target.src = "/images/avatar.png";
   },
 });
+
+export const todayOpenState = atom({
+  key: "todayOpenState",
+  default: false,
+});
+
+export const editComment = atom({
+  key: "editComment",
+  default: false,
+});

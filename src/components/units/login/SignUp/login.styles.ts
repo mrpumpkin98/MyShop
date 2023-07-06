@@ -5,6 +5,7 @@ import { GitlabFilled } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   /* height: 1847px; */
+
   border: 1px solid black;
   margin: auto;
   margin: 50px 100px;
@@ -57,6 +58,7 @@ export const Label = styled.div`
   margin-top: 8px;
   margin-left: 3px;
   font-weight: 600;
+  font-family: "Arita-SemiBold";
 `;
 
 export const Error = styled.div`

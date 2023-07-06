@@ -11,9 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Rate, Modal } from "antd";
 
-export const Wrapper = styled.div`
-  border-bottom: 1px solid #bdbdbd;
-`;
+export const Wrapper = styled.div``;
 
 export const ItemWrapper = styled.div`
   width: 100%;
@@ -23,18 +21,17 @@ export const ItemWrapper = styled.div`
 
 export const AnswerItemWrapper = styled.div`
   width: 100%;
-  height: 128px;
   display: flex;
+  align-items: center;
+  margin-top: 10px;
 `;
 
 export const FlexWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 20px;
   width: 100%;
-  padding-right: 30px;
-  margin-top: 10px;
   align-items: start;
+  border: 2px solid black;
 `;
 
 export const Avatar = styled.img`
@@ -44,26 +41,36 @@ export const Avatar = styled.img`
 
 export const MainWrapper = styled.div`
   width: 100%;
-  padding-left: 10px;
 `;
 export const WriterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 5px 3px 5px 3px;
+  border-bottom: 2px solid black;
+  background-color: #e5e5e5;
+  background-color: #80cef8;
+  &.Blue {
+    background-color: #e5e5e5;
+  }
 `;
 export const Writer = styled.p`
   font-size: 16px;
   font-weight: bold;
+  margin-left: 5px;
+  font-family: "Arita-SemiBold";
 `;
 export const Contents = styled.p`
   font-size: 14px;
-  margin-top: 10px;
+  padding: 10px 10px;
   width: 100%;
 `;
 
 export const OptionWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 10px;
+  border: 2px solid black;
 `;
 export const UpdateIcon = styled.img`
   width: 16px;
@@ -84,43 +91,28 @@ export const FormOut = styled(FormOutlined)`
   color: #bdbdbd;
 `;
 
-export const Edit = styled(EditOutlined)`
-  font-size: 15px;
+export const AnswerButton = styled.button`
+  font-family: "Arita-SemiBold";
+  font-size: 13px;
+  padding: 5px;
+  border: none;
+  background-color: white;
   cursor: pointer;
-  margin-left: 10px;
-  color: #858e96;
-  height: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  border-radius: 200px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecee;
-`;
-
-export const Delete = styled(DeleteOutlined)`
-  font-size: 15px;
-  cursor: pointer;
-  margin-left: 10px;
-  color: #858e96;
-  height: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  border-radius: 200px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecee;
+  &.Edit {
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    background-color: black;
+    color: white;
+  }
+  &.Go {
+    background-color: gold;
+  }
 `;
 
 export const DateString = styled.p`
-  color: lightgray;
+  color: gray;
   font-size: 12px;
-  padding-top: 5px;
-  padding-left: 60px;
+  margin-left: 5px;
 `;
 
 export const Star = styled(Rate)`
@@ -134,15 +126,14 @@ export const PasswordInput = styled.input`
   margin-top: 10px;
 `;
 
-// export const BoardCommentCancel = styled.button`
-//   margin-bottom: 50px;
-// `;
+export const BoardCommentCancel = styled.button`
+  margin-bottom: 50px;
+`;
 
 export const WapperBoardCommentWrite = styled.div``;
 
-export const RightSquare = styled(RightSquareOutlined)`
-  font-size: 20px;
-  cursor: pointer;
-  color: white;
-  padding-top: 25px;
+export const Arrow = styled.img`
+  width: 20px;
+  height: 19px;
+  margin-right: 10px;
 `;

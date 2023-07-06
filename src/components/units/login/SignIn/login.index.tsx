@@ -98,7 +98,6 @@ export default function LoginNewPage(): JSX.Element {
               ></Input02>
             </B.LoginTie>
             <Button01 title="로그인" />
-            <B.SingUp onClick={onClickSingUp}>회원가입</B.SingUp>
           </B.LoginWrapper>
         </form>
       </B.Wrapper>

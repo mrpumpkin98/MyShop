@@ -44,14 +44,7 @@ declare const window: typeof globalThis & {
 };
 
 export default function LoginNewPage(props: any): JSX.Element {
-  ///////////////////////////////////////////////////////////////
-  // router
-  //////////////////////////////////////////////////////////////
   const router = useRouter();
-
-  ///////////////////////////////////////////////////////////////
-  // queries
-  //////////////////////////////////////////////////////////////
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const [uploadFile] = useMutation(UPLOAD_FILE);
@@ -60,18 +53,14 @@ export default function LoginNewPage(props: any): JSX.Element {
     variables: { useditemId: router.query.useditemId },
   });
 
-  ///////////////////////////////////////////////////////////////
   // useForm
-  //////////////////////////////////////////////////////////////
 
   const { register, setValue, trigger, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
 
-  /////////////////////////////////////////////////////////////////////////////////
   // onChangeContents  컨텐츠는 라이브러리를 사용중이라 register가 적용이 안됨
-  ////////////////////////////////////////////////////////////////////////////////
 
   const onChangeContents = (value: string): void => {
     setValue("contents", value === "<p><br></p>" ? "" : value);
@@ -79,9 +68,7 @@ export default function LoginNewPage(props: any): JSX.Element {
     void trigger("contents");
   };
 
-  /////////////////////////////////////////////////////////////////////////////////
   // 상품 등록
-  ////////////////////////////////////////////////////////////////////////////////
 
   const onClickSubmit = async (data: any): Promise<void> => {
     const result = await createUseditem({
@@ -109,9 +96,8 @@ export default function LoginNewPage(props: any): JSX.Element {
     void router.push(`/Market/${useditemId}`);
   };
 
-  /////////////////////////////////////////////////////////////////////////////////
   // 상품 업데이트
-  ////////////////////////////////////////////////////////////////////////////////
+
   const onClickUpdate = async (data: any) => {
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
@@ -121,14 +107,6 @@ export default function LoginNewPage(props: any): JSX.Element {
       alert("수정한 내용이 없습니다.");
       return;
     }
-
-    // const updateUseditemInput = {};
-    // if (address !== "") {
-    //   updateUseditemInput.useditemAddress = {};
-    //   if (address !== "") updateUseditemInput.useditemAddress.address = address;
-    //   updateUseditemInput.useditemAddress.addressDetail = addressDetail;
-    // }
-    // if (isChangedFiles) updateUseditemInput.images = fileUrls;
 
     try {
       if (typeof router.query.useditemId !== "string") {
@@ -141,7 +119,7 @@ export default function LoginNewPage(props: any): JSX.Element {
             name: data.name,
             remarks: data.remarks,
             price: Number(data.price),
-            tags: data.tags, //여기서도 split(" ")가능
+            tags: data.tags,
             images: [...fileUrls],
             contents: data.contents,
             useditemAddress: {
@@ -172,9 +150,7 @@ export default function LoginNewPage(props: any): JSX.Element {
     }
   };
 
-  ///////////////////////////////////////////////////////////////
   //  취소하기
-  //////////////////////////////////////////////////////////////
 
   const onClickCancel = async () => {
     router.push(`/Market`);
@@ -197,9 +173,8 @@ export default function LoginNewPage(props: any): JSX.Element {
     // console.log(data.fetchUseditem.useditemAddress.address);
   }, [data]);
 
-  ///////////////////////////////////////////////////////////////
   // 카카오 MAP
-  //////////////////////////////////////////////////////////////
+
   const input1Ref = useRef<HTMLInputElement>(null);
   const input2Ref = useRef<HTMLInputElement>(null);
   const [gLat, setGetLat] = useState("");
@@ -344,8 +319,6 @@ export default function LoginNewPage(props: any): JSX.Element {
       });
     };
   }, []);
-
-  /////////////////////////////return/////////////////////////////////
 
   return (
     <>

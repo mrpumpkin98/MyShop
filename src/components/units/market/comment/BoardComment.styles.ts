@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  padding-top: 30px;
 `;
 
 export const CardWrapper = styled.div`
@@ -67,21 +67,7 @@ export const InForPassword = styled.input`
 
 export const Rate = styled.input``;
 
-export const Export = styled(ExportOutlined)`
-  font-size: 15px;
-  cursor: pointer;
-  margin-left: 10px;
-  color: #858e96;
-  height: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  border-radius: 200px;
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecee;
-`;
+export const Export = styled.button``;
 
 export const Scope = styled.img`
   margin-left: 3px;
@@ -92,24 +78,23 @@ export const Scope = styled.img`
 
 export const Body = styled.div`
   width: 100%;
-  height: 161px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 30px;
   background: rgb(255, 255, 255);
-  border-radius: 4px;
+  border: 2px solid black;
 `;
 
-export const BodyInput = styled.textarea`
+export const BodyInput = styled.input`
   width: 100%;
-  height: 108px;
-  padding: 20px 10px 20px 20px;
-  border: none;
+  height: 50px;
   background: rgb(247, 248, 250);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  font-family: "SCDream4";
+  border: none;
+  border-right: 2px solid black;
+  font-family: "Arita-SemiBold";
   border-bottom: ${(props) => props.Active && "solid 1px #D1D1D3"};
+  padding: 10px;
+  outline: none;
 `;
 
 export const BodyNumberTie = styled.div`
@@ -128,16 +113,19 @@ export const BodyNumber = styled.div`
 `;
 
 export const BodyButton = styled.button`
-  width: 300px;
-  height: 40px;
+  width: 80px;
   border: none;
   background-color: white;
-  font-family: "GmarketSansTTFMedium";
+  font-family: "Arita-SemiBold";
   font-size: 12px;
-  border: 1px solid #d4d4d4;
-  margin-top: 10px;
+  background-color: gold;
   cursor: pointer;
-  background-color: ${(props) => props.Active && "white"};
+  background-color: ${(props) => props.Active && "gold"};
+
+  &.No {
+    background-color: white;
+    border-left: 2px solid black;
+  }
 `;
 
 export const Footer = styled.div`

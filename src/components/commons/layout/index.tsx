@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import LayoutBoardNavigation from "./boardNavigation/LayoutBoardNavigation.index";
 
 const Body = styled.div`
+  width: 50%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,17 +33,25 @@ export default function Layout(props: ILayoutProps): JSX.Element {
   const isMyPage = MYPAGE.includes(router.asPath);
   return (
     <>
-      {!isHiddenHeader && <LayoutHeader />}
-      {!isHiddenBanner && <LayoutBanner />}
-      {!isHiddenNavigation && <LayoutNavigation />}
-      {isMyPage ? (
-        <Wrapper>
-          <MyPageNavigation />
-          <Body>{props.children}</Body>
-        </Wrapper>
-      ) : (
+      <Wrapper>
+        <LayoutHeader />
         <Body>{props.children}</Body>
-      )}
+        <LayoutNavigation />
+      </Wrapper>
     </>
   );
+}
+
+{
+  /* <>
+<LayoutHeader />
+<LayoutNavigation />
+{isMyPage ? (
+  <Wrapper>
+    <Body>{props.children}</Body>
+  </Wrapper>
+) : (
+  <Body>{props.children}</Body>
+)}
+</> */
 }
