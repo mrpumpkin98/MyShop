@@ -94,10 +94,10 @@ export default function BoardCommentWrite(
       if (contents !== "") updateBoardCommentInput.contents = contents;
       if (star !== props.el?.rating) updateBoardCommentInput.rating = star;
 
-      if (typeof props.el?._id !== "string") {
-        alert("시스템에 문제가 있습니다.");
-        return;
-      }
+      // if (typeof props.el?._id !== "string") {
+      //   alert("시스템에 문제가 있습니다.");
+      //   return;
+      // }
       await updateBoardComment({
         variables: {
           updateBoardCommentInput,

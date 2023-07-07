@@ -6,7 +6,7 @@ export const Input03 = styled.input`
   height: 60px;
   font-size: 15px;
   padding: 13px 15px 14px;
-  border: 1px solid #dbdbdb;
+  border: 2px solid black;
   border-radius: 4px;
   margin-bottom: 10px;
   font-family: "Arita-SemiBold";

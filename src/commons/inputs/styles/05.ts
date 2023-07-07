@@ -6,10 +6,10 @@ export const Input05 = styled.input`
   height: 52px;
   font-size: 15px;
   padding: 13px 15px 14px;
-  border: 1px solid #dbdbdb;
+  border: 2px solid black;
+  font-family: "Arita-SemiBold";
   margin-bottom: 10px;
   :focus {
     outline: none;
-    border: 1px solid gold;
   }
 `;

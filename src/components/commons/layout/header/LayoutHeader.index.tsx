@@ -54,6 +54,10 @@ export default function LayoutHeader(): JSX.Element {
     void router.push("/Login/SignUp");
   };
 
+  const onClickMyPage = (): void => {
+    void router.push("/MyPage/MyShop");
+  };
+
   const onClickMoveToLogOut = (): void => {
     void router.push("/Login");
     localStorage.removeItem("expiryTimestamp");
@@ -240,7 +244,6 @@ export default function LayoutHeader(): JSX.Element {
                       <B.BasketListPrice id={j._id}>
                         {Money(j.price)}
                       </B.BasketListPrice>
-                      <B.BasketListTags id={j._id}>{j.tags}</B.BasketListTags>
                     </B.BasketTieTable>
                   </B.BasketTr>
                 ))}
@@ -281,7 +284,7 @@ export default function LayoutHeader(): JSX.Element {
               포인트 :{" "}
               {answer ? `${data?.fetchUserLoggedIn?.userPoint?.amount} P` : ""}
             </B.UserAnswer>
-            <B.Charge onClick={showModal}>충전</B.Charge>
+            <B.Charge onClick={showModal}>포인트 충전</B.Charge>
             <B.OutButton onClick={onClickBasketModal}>장바구니</B.OutButton>
             <B.OutButton onClick={onClickMoveToLogOut}>로그아웃</B.OutButton>
           </B.WrapperSmile>

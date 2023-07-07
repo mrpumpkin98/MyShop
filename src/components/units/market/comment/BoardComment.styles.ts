@@ -50,7 +50,7 @@ export const InForWriter = styled.input`
   padding-left: 20px;
   border-radius: 4px;
   font-family: "SCDream4";
-  border: ${(props) => props.Active && "solid 1px #D1D1D3"};
+  border: ${(props) => props.IsReply && "solid 1px #D1D1D3"};
 `;
 
 export const InForPassword = styled.input`
@@ -62,7 +62,7 @@ export const InForPassword = styled.input`
   margin-right: 20px;
   border-radius: 4px;
   font-family: "SCDream4";
-  border: ${(props) => props.Active && "solid 1px #D1D1D3"};
+  border: ${(props) => props.IsReply && "solid 1px #D1D1D3"};
 `;
 
 export const Rate = styled.input``;
@@ -92,7 +92,7 @@ export const BodyInput = styled.input`
   border: none;
   border-right: 2px solid black;
   font-family: "Arita-SemiBold";
-  border-bottom: ${(props) => props.Active && "solid 1px #D1D1D3"};
+  border-bottom: ${(props) => props.IsReply && "solid 1px #D1D1D3"};
   padding: 10px;
   outline: none;
 `;
@@ -120,8 +120,7 @@ export const BodyButton = styled.button`
   font-size: 12px;
   background-color: gold;
   cursor: pointer;
-  background-color: ${(props) => props.Active && "gold"};
-
+  background-color: ${(props) => props.IsReply && "#80CEF8"};
   &.No {
     background-color: white;
     border-left: 2px solid black;

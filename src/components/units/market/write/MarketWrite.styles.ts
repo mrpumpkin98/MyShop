@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   /* height: 1847px; */
   width: 900px;
   margin: auto;
-  margin: 50px 100px;
   padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
@@ -18,7 +17,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.div`
   font-size: 25px;
-  font-family: "GmarketSansTTFMedium";
+  font-family: "Arita-SemiBold";
   border-bottom: 2px solid black;
   height: 60px;
   margin-bottom: 20px;
@@ -51,12 +50,13 @@ export const Label = styled.div`
   width: 100%;
   font-size: 18px;
   font-weight: 500;
-  font-family: "SCDream4";
+  font-family: "Arita-SemiBold";
 `;
 
 export const TagsText = styled.div`
   font-size: 12px;
-  color: gray;
+  color: black;
+  margin-top: 10px;
 `;
 
 export const InputPrice = styled.div`
@@ -67,7 +67,8 @@ export const InputPrice = styled.div`
 `;
 
 export const Error = styled.div`
-  font-size: 15px;
+  font-size: 13px;
+  margin-top: 10px;
 `;
 
 export const Email = styled.input`
@@ -235,13 +236,16 @@ export const CenterAddr = styled.span`
 
 export const Button = styled.button`
   width: 179px;
-  height: 52px;
-  font-size: 16px;
-  border: none;
+  font-size: 18px;
+  padding: 10px 20px;
   border-radius: 4px;
-  font-size: 17px;
-  cursor: pointer;
+  transition: background-color 0.3s;
+  font-family: "Arita-SemiBold";
   margin-left: 10px;
+  cursor: pointer;
+  :hover {
+    background-color: #e7e7e7;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -251,6 +255,6 @@ export const ButtonWrapper = styled.div`
 
 export const Line = styled.div`
   width: 100%;
-  border-bottom: 1px solid #e4e4e4;
-  margin: 50px 0px;
+  border-bottom: 1px solid black;
+  margin: 20px 0px;
 `;

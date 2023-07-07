@@ -12,7 +12,7 @@ export const UploadButton = styled.button`
   width: 170px;
   height: 170px;
   background-color: #fafafd;
-  border: 1px solid #e6e5ef;
+  border: 2px solid black;
   margin-right: 24px;
   outline: none;
   cursor: pointer;
@@ -24,5 +24,5 @@ export const UploadFileHidden = styled.input`
 
 export const Picture = styled(PlusCircleOutlined)`
   font-size: 30px;
-  color: #dcdbe4;
+  color: black;
 `;

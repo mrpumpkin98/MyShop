@@ -335,7 +335,7 @@ export default function LoginNewPage(props: any): JSX.Element {
             />
           ))}
         </B.UploadButton>
-        <p style={{ fontSize: "12px", color: "gray" }}>
+        <p style={{ fontSize: "12px", color: "black" }}>
           * 상품 이미지는 640x640에 최적화 되어 있습니다.
           <br />
           - 상품 이미지는 PC에서는 1:1, 모바일에서는 1:1.23 비율로 보여집니다.
@@ -347,9 +347,8 @@ export default function LoginNewPage(props: any): JSX.Element {
           - 이미지를 클릭 후 이동하여 등록순서를 변경할 수 있습니다.
           <br />
           - 큰 이미지일 경우 이미지가 깨지는 경우가 발생할 수 있습니다.
-          <br />
-          최대 지원 사이즈인 640 X 640으로 리사이즈 해서 올려주세요.(개당 이미지
-          최대 10M)
+          <br />- 최대 지원 사이즈인 640 X 640으로 리사이즈 해서
+          올려주세요.(개당 이미지 최대 10M)
         </p>
         <B.Line></B.Line>
         <form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
@@ -379,6 +378,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               <ReactQuill
                 onChange={onChangeContents}
                 defaultValue={data?.fetchUseditem.contents}
+                style={{ border: "2px solid black" }}
               />
               <B.Error style={{ color: "red" }}>
                 {formState.errors.contents?.message}
@@ -407,12 +407,8 @@ export default function LoginNewPage(props: any): JSX.Element {
                 - 태그는 띄어쓰기로 구분되며 최대 9자까지 입력할 수 있습니다.
                 <br />
                 - 태그는 검색의 부가정보로 사용 되지만, 검색 결과 노출을
-                <br />
-                - 보장하지는 않습니다. 검색 광고는 태그정보를 기준으로
+                <br />- 보장하지는 않습니다. 검색 광고는 태그정보를 기준으로
                 노출됩니다.
-                <br />- 상품과 직접 관련이 없는 다른 상품명, 브랜드, 스팸성
-                키워드 등을 입력하면 노출이 중단되거나 상품이 삭제될 수
-                있습니다.
               </B.TagsText>
               <B.Line></B.Line>
               <B.WrapperMapLatLng>
@@ -426,6 +422,7 @@ export default function LoginNewPage(props: any): JSX.Element {
                         height: "300px",
                         position: "relative",
                         overflow: "hidden",
+                        border: "2px solid black",
                       }}
                     ></div>
                     <B.HAddr>
@@ -456,7 +453,6 @@ export default function LoginNewPage(props: any): JSX.Element {
                   </B.WrapperAddressAddressDetail>
                 </B.WrapperGPSAddress>
               </B.WrapperMapLatLng>
-              <B.Line></B.Line>
             </B.LoginTie>
           </B.LoginWrapper>
         </form>

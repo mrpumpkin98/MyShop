@@ -9,28 +9,35 @@ export default function BoardCommentUI(props: any) {
     <div>
       <B.Wrapper>
         <B.CardWrapper>
-          {props.isEdit === false && (
-            <B.Header>
-              <B.HeaderImage src="/images/B.HeaderImage.png"></B.HeaderImage>
-              <B.HeaderTitle>댓글</B.HeaderTitle>
-            </B.Header>
-          )}
           <B.Body>
             <B.BodyInput
               onChange={props.onChangeContents}
               maxLength={15}
               value={props.contents}
-              Active={props.isEdit === true}
+              IsReply={props.isReply === "대댓글ON"}
             />
             <B.BodyButton
               onClick={
-                props.isEdit === true ? props.onClickAnswer : props.onClickWrite
+                props.isReply === "대댓글ON"
+                  ? props.onClickAnswer
+                  : props.isEditComment === "댓글수정ON"
+                  ? props.onClickUpdate
+                  : props.onClickWrite
               }
-              Active={props.isEdit === true}
+              IsReply={props.isReply === "대댓글ON"}
             >
-              {props.isEdit ? "답글" : "등록"}
+              {props.isReply === "대댓글ON"
+                ? "대댓글"
+                : props.isEditComment === "댓글수정ON"
+                ? "수정"
+                : "댓글"}
             </B.BodyButton>
-            {props.isEdit && (
+            {props.isReply && (
+              <B.BodyButton onClick={props.onClickExport} className="No">
+                취소
+              </B.BodyButton>
+            )}
+            {props.isEditComment && (
               <B.BodyButton onClick={props.onClickExport} className="No">
                 취소
               </B.BodyButton>

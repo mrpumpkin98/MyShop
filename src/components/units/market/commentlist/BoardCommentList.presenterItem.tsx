@@ -8,6 +8,7 @@ import type {
 import {
   DELETE_BOARD_COMMENT,
   DELETE_USED_ITEM_QUESTION,
+  DELETE_USED_ITEM_QUESTION_ANSWER,
   FETCH_BOARD_COMMENTS,
   FETCH_USED_ITEM_QUESTIONS,
 } from "./BoardCommentList.queries";
@@ -22,9 +23,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { editComment } from "../../../../commons/stores";
 
-export default function BoardCommentListUIItem(
-  props: IBoardCommentListUIItemProps
-): JSX.Element {
+export default function BoardCommentListUIItem(props: any): JSX.Element {
   ///////////////////////////////////////////////////////////////
   // router
   //////////////////////////////////////////////////////////////
@@ -34,20 +33,23 @@ export default function BoardCommentListUIItem(
   ///////////////////////////////////////////////////////////////
   // useState
   //////////////////////////////////////////////////////////////
-  const [isEdit, setIsEdit] = useState(false);
+  const [isReply, setIsisReply] = useState("대댓글OFF");
+  const [isEditComment, setIsEditComment] = useState("댓글수정OFF");
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [password, setPassword] = useState("");
-
   ///////////////////////////////////////////////////////////////
   // queries
   //////////////////////////////////////////////////////////////
   const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
+  const [deleteUseditemQuestionAnswer] = useMutation(
+    DELETE_USED_ITEM_QUESTION_ANSWER
+  );
 
   ////////////////////////////////////////
-  // 댓글 삭제
+  // 댓글 삭제 (댓글)
   ////////////////////////////////////////
 
-  const onClickDelete = async (
+  const onClickDeleteComment = async (
     event: MouseEvent<HTMLButtonElement>
   ): Promise<void> => {
     // const password = prompt("비밀번호를 입력하세요.");
@@ -64,6 +66,33 @@ export default function BoardCommentListUIItem(
         ],
       });
       setIsOpenDeleteModal(false);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
+  ////////////////////////////////////////
+  // 댓글 삭제 (대댓글)
+  ////////////////////////////////////////
+
+  const onClickDeleteReply = async (
+    event: MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    // const password = prompt("비밀번호를 입력하세요.");
+    try {
+      await deleteUseditemQuestionAnswer({
+        variables: {
+          useditemQuestionAnswerId: props.i.useditemQuestion._id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM_QUESTION_ANSWERS,
+            variables: { useditemId: router.query.useditemId },
+          },
+        ],
+      });
+      setIsOpenDeleteModal(false);
+      console.log(props.i._id);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -104,7 +133,7 @@ export default function BoardCommentListUIItem(
   ////////////////////////////////////////
 
   const onClickAnswer = (): void => {
-    setIsEdit(true);
+    setIsisReply("대댓글ON");
   };
 
   ////////////////////////////////////////
@@ -112,7 +141,8 @@ export default function BoardCommentListUIItem(
   ////////////////////////////////////////
 
   const onClickEditComment = (): void => {
-    setCommentEdit(true);
+    setIsEditComment("댓글수정ON");
+    console.log(props.el._id);
   };
 
   /////////////////////////////return/////////////////////////////////
@@ -122,17 +152,17 @@ export default function BoardCommentListUIItem(
       {isOpenDeleteModal && (
         <S.PasswordModal
           visible={true}
-          onOk={onClickDelete}
+          onOk={onClickDeleteComment}
           onCancel={handleCancel}
         >
           <div>작성한 댓글을 삭제하시겠습니까?</div>
         </S.PasswordModal>
       )}
-      {!isEdit ? (
+      {isReply === "대댓글OFF" ? (
         <>
           <S.Wrapper>
             <S.ItemWrapper key={props.el._id}>
-              {editCommentValue === false ? (
+              {isEditComment === "댓글수정OFF" ? (
                 <S.FlexWrapper>
                   <S.MainWrapper>
                     <S.WriterWrapper className="Blue">
@@ -151,6 +181,7 @@ export default function BoardCommentListUIItem(
                         <S.AnswerButton
                           onClick={onClickEditComment}
                           className="Edit"
+                          id={props.el._id}
                         >
                           수정
                         </S.AnswerButton>
@@ -163,11 +194,13 @@ export default function BoardCommentListUIItem(
                   </S.MainWrapper>
                 </S.FlexWrapper>
               ) : (
-                <BoardCommentWrite
-                  isEdit={true}
-                  // setIsEdit={setIsEdit}
-                  el={props.el}
-                />
+                <>
+                  <BoardCommentWrite
+                    isEditComment={"댓글수정ON"}
+                    setIsEditComment={setIsEditComment}
+                    el={props.el}
+                  />
+                </>
               )}
             </S.ItemWrapper>
             <div>
@@ -198,7 +231,7 @@ export default function BoardCommentListUIItem(
                           >
                             수정
                           </S.AnswerButton>
-                          <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                          <S.AnswerButton onClick={onClickDeleteReply}>
                             삭제
                           </S.AnswerButton>
                         </S.OptionWrapper>
@@ -206,7 +239,6 @@ export default function BoardCommentListUIItem(
                       <S.Contents>{i.contents}</S.Contents>
                     </S.MainWrapper>
                   </S.FlexWrapper>
-                  <S.DateString></S.DateString>
                 </S.AnswerItemWrapper>
               ))}
             </div>
@@ -247,8 +279,8 @@ export default function BoardCommentListUIItem(
           </S.ItemWrapper>
           <S.WapperBoardCommentWrite>
             <BoardCommentWrite
-              isEdit={true}
-              setIsEdit={setIsEdit}
+              isReply={"대댓글ON"}
+              setIsisReply={setIsisReply}
               el={props.el}
             />
           </S.WapperBoardCommentWrite>
@@ -277,7 +309,7 @@ export default function BoardCommentListUIItem(
                         >
                           수정
                         </S.AnswerButton>
-                        <S.AnswerButton onClick={onClickOpenDeleteModal}>
+                        <S.AnswerButton onClick={onClickDeleteReply}>
                           삭제
                         </S.AnswerButton>
                       </S.OptionWrapper>

@@ -21,13 +21,10 @@ export const MenuItemWrapper = styled.div`
 
 export const MenuItem = styled.button`
   width: 184px;
-  font-size: 20px;
+  font-size: 18px;
   padding: 15px 20px;
   margin: 10px 0px;
   border-radius: 4px;
-  background-color: black;
-  color: white;
-  border: none;
   transition: background-color 0.3s;
   transition: color 0.3s;
   font-family: "Arita-SemiBold";
@@ -54,9 +51,9 @@ export const TodayTitle = styled.div`
 export const TodayList = styled.div`
   border: 2px solid black;
   width: 184px;
-  margin-top: 20px;
+  margin-top: 30px;
   border-radius: 4px;
-  background-color: #efefef;
+  box-shadow: 0px 0px 10px gray;
 `;
 
 export const TodayTable = styled.div`

@@ -4,7 +4,7 @@ export const globalStyles = css`
   * {
     margin: 0px;
     box-sizing: border-box;
-    font-family: "Arita-Medium", "NotoSansKR-Regular";
+    font-family: "Arita-SemiBold", "NotoSansKR-Regular";
   }
 
   @font-face {

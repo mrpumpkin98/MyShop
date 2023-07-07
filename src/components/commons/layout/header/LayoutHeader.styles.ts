@@ -60,7 +60,7 @@ export const Smile = styled(SmileOutlined)`
 
 export const TieSmile = styled.div`
   padding: 10px;
-  border-bottom: 2px solid gold;
+  border-bottom: 2px solid black;
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -85,9 +85,9 @@ export const Clock = styled(ClockCircleOutlined)`
 
 export const OutButton = styled.button`
   width: 150px;
-  margin-top: 10px;
-  font-size: 18px;
-  padding: 10px 20px;
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 12px 20px;
   border-radius: 4px;
   transition: background-color 0.3s;
   font-family: "Arita-SemiBold";
@@ -105,16 +105,15 @@ export const UserAnswer = styled.div`
 
 export const Charge = styled.button`
   width: 150px;
-  margin-top: 10px;
-  font-size: 18px;
-  padding: 10px 20px;
+  margin-top: 17px;
+  font-size: 16px;
+  padding: 12px 20px;
   border-radius: 4px;
   transition: background-color 0.3s;
   font-family: "Arita-SemiBold";
   cursor: pointer;
-  background-color: gold;
   :hover {
-    background-color: #efc900;
+    background-color: #e7e7e7;
   }
 `;
 
@@ -141,6 +140,7 @@ export const Button = styled.button`
   border-radius: 4px;
   transition: background-color 0.3s;
   font-family: "Arita-SemiBold";
+
   cursor: pointer;
   :hover {
     background-color: #e7e7e7;
@@ -194,7 +194,7 @@ export const BasketTable = styled.div`
   margin-bottom: 10px;
 `;
 export const BasketTr = styled.div`
-  border: 1px solid #bdbdbd;
+  border: 2px solid black;
   width: 156px;
   height: 199px;
   display: flex;
@@ -203,6 +203,7 @@ export const BasketTr = styled.div`
   justify-content: center;
   margin: 3px;
   margin-bottom: 10px;
+  border-radius: 4px;
 `;
 export const BasketListImg = styled.img`
   width: 60px;
@@ -215,20 +216,23 @@ export const BasketTieTable = styled.div`
   align-items: start;
   width: 120px;
 `;
-export const BasketListName = styled.div`
+export const BasketListName = styled.p`
   font-size: 12px;
   cursor: pointer;
+  font-family: "Arita-SemiBold";
 `;
 
-export const BasketListContents = styled.div`
+export const BasketListContents = styled.p`
   font-size: 12px;
   color: #4f4f4f;
   cursor: pointer;
+  font-family: "Arita-SemiBold";
 `;
-export const BasketListPrice = styled.div`
+export const BasketListPrice = styled.p`
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
+  font-family: "Arita-SemiBold";
 `;
 
 export const BasketListTags = styled.div``;

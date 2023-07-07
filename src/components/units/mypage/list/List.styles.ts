@@ -7,8 +7,8 @@ import {
 } from "@ant-design/icons";
 
 export const Wapper = styled.div`
-  margin: 124px 0px 0px 40px;
-  width: 1100px;
+  width: 100%;
+  padding: 100px 30px;
 `;
 
 export const Title = styled.h2`
@@ -125,7 +125,7 @@ export const SearchTime = styled.input`
   border-radius: 10px;
 `;
 
-export const Table = styled.main`
+export const Table = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -253,4 +253,12 @@ export const Line = styled.div`
   width: 100%;
   border-bottom: 1px solid #e4e4e4;
   margin: 10px 0px 30px 0px;
+`;
+
+export const List = styled.div`
+  overflow-y: auto;
+  width: 100%;
+  height: 780px;
+  margin-top: 40px;
+  margin-bottom: 50px;
 `;

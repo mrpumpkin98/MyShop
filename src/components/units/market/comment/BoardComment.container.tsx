@@ -81,7 +81,7 @@ export default function BoardCommentWrite(props: any): JSX.Element {
         alert("시스템에 문제가 있습니다.");
         return;
       }
-      await updateUseditemQuestion({
+      const result = await updateUseditemQuestion({
         variables: {
           updateUseditemQuestionInput,
           useditemQuestionId: props.el?._id,
@@ -93,14 +93,15 @@ export default function BoardCommentWrite(props: any): JSX.Element {
           },
         ],
       });
-      props.setIsEdit?.(false);
+      console.log(result);
+      props.setIsEditComment?.("댓글수정OFF");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
   };
 
   const onClickExport = (): void => {
-    props.setIsEdit?.(false);
+    props.setIsisReply?.("대댓글OFF"), props.setIsEditComment?.("댓글수정OFF");
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +123,8 @@ export default function BoardCommentWrite(props: any): JSX.Element {
         },
       ],
     });
-    props.setIsEdit?.(false);
+    console.log(result);
+    props.setIsisReply?.("대댓글OFF");
   };
 
   /////////////////////////////return/////////////////////////////////
@@ -134,7 +136,8 @@ export default function BoardCommentWrite(props: any): JSX.Element {
       onClickUpdate={onClickUpdate}
       onClickExport={onClickExport}
       contents={contents}
-      isEdit={props.isEdit}
+      isReply={props.isReply}
+      isEditComment={props.isEditComment}
       el={props.el}
       onClickAnswer={onClickAnswer}
     />

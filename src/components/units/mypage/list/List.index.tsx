@@ -11,6 +11,7 @@ import { FETCH_USED_ITEMS_I_PICKED } from "../../../../commons/hooks/queries/Use
 import { DELETE_BOARD } from "../../../../commons/hooks/mutations/useMutationDeleteBoard";
 import { FETCH_BOARDS_COUNT } from "../../../../commons/hooks/queries/UseQueryFetchBoardsCount";
 import { FETCH_BOARDS_OF_THE_BEST } from "../../../../commons/hooks/queries/UseQueryFetchBoardsOfTheBest";
+import InfiniteScroll from "react-infinite-scroller";
 
 export default function StaticRoutingPage() {
   ///////////////////////////////////////////////////////////////
@@ -30,9 +31,11 @@ export default function StaticRoutingPage() {
   //////////////////////////////////////////////////////////////
 
   const { data, refetch } = useQuery(FETCH_BOARDS);
-  const { data: dataISold, refetch: refetchISold } = useQuery(
-    FETCH_USED_ITEMS_I_SOLD
-  );
+  const {
+    data: dataISold,
+    refetch: refetchISold,
+    fetchMore,
+  } = useQuery(FETCH_USED_ITEMS_I_SOLD);
   const { data: dataIPicked, refetch: refetchIPicked } = useQuery(
     FETCH_USED_ITEMS_I_PICKED
   );
@@ -107,8 +110,34 @@ export default function StaticRoutingPage() {
     setSelect("Selected");
   };
   const onClickProduct = () => {
-    setSelect("MyProduct");
+    // setSelect("MyProduct");
     console.log(dataISold);
+  };
+
+  ///////////////////////////////////////////////////////////////
+  // 무한 스크롤
+  //////////////////////////////////////////////////////////////
+
+  const onLoadMore = (): void => {
+    if (dataISold === undefined) return;
+    void fetchMore({
+      variables: {
+        page: Math.ceil((dataISold?.fetchUseditemsISold.length ?? 10) / 10) + 1,
+      },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (fetchMoreResult.fetchUseditemsISold === undefined) {
+          return {
+            fetchUseditemsISold: [...prev.fetchUseditemsISold],
+          };
+        }
+        return {
+          fetchUseditemsISold: [
+            ...prev.fetchUseditemsISold,
+            ...fetchMoreResult.fetchUseditemsISold,
+          ],
+        };
+      },
+    });
   };
 
   return (
@@ -116,12 +145,16 @@ export default function StaticRoutingPage() {
       <B.Title>상품내역</B.Title>
       <B.WapperNavi>
         <B.MyProduct onClick={onClickProduct}>나의상품</B.MyProduct>
-        {/* <B.Selected onClick={onClickSelected}>마이찜</B.Selected> */}
       </B.WapperNavi>
-      {select === "MyProduct" ? (
-        <>
+      <>
+        <InfiniteScroll
+          pageStart={0}
+          loadMore={onLoadMore}
+          hasMore={true}
+          useWindow={true}
+        >
           <B.Table>
-            {dataISold?.fetchUseditemsISold.map((el: any, index: any) => (
+            {dataISold?.fetchUseditemsISold.map((el: any) => (
               <B.Tr key={el._id}>
                 <B.Imges
                   src={`https://storage.googleapis.com/${el.images[0]}`}
@@ -137,61 +170,16 @@ export default function StaticRoutingPage() {
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <B.Environment />
                   <B.Td id={el._id} onClick={onClickSubmit} className="Addr">
-                    {el.useditemAddress.address.length > 10
-                      ? `${el.useditemAddress.address.slice(0, 10)}...`
-                      : el.useditemAddress.address}
+                    {el.useditemAddress?.address?.length > 10
+                      ? `${el.useditemAddress?.address?.slice(0, 10)}...`
+                      : el.useditemAddress?.address}
                   </B.Td>
                 </div>
               </B.Tr>
             ))}
           </B.Table>
-        </>
-      ) : (
-        <>
-          <B.Table>
-            <B.Tr>
-              <B.Th>번호</B.Th>
-              <B.Th>제목</B.Th>
-              <B.Th>판매가격</B.Th>
-              <B.Th>판매자</B.Th>
-              <B.Th>날짜</B.Th>
-            </B.Tr>
-            {dataIPicked?.fetchUseditemsIPicked.map((el: any, index: any) => (
-              <B.Tr key={el._id}>
-                <B.Td>{index + 1}</B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {el.name}
-                </B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {Money(el.price)}
-                </B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {el.seller.name}
-                </B.Td>
-                <B.Td
-                  style={{ margin: "10px" }}
-                  id={el._id}
-                  onClick={onClickSubmit}
-                >
-                  {getDate(el.createdAt)}
-                </B.Td>
-              </B.Tr>
-            ))}
-          </B.Table>
-        </>
-      )}
+        </InfiniteScroll>
+      </>
     </B.Wapper>
   );
 }
