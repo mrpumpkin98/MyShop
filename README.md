@@ -1,4 +1,4 @@
-💡 SecondHandMarket은 중고 상품을 거래하는 플랫폼입니다.
+💡 ReusedMarket은 중고 상품을 거래하는 플랫폼입니다.
 
 ## 화면 구성
 
