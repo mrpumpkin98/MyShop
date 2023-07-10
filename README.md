@@ -34,7 +34,7 @@
 ![Peek 2023-07-10 11-42](https://github.com/MadHeo/secondHandMarket/assets/114569429/f9344e8e-64fc-465c-80c1-fd04171b21d9)
 
 
-- 장바구니와 오늘 본 상품에 관한 API가 따로 존재하지 않아 Local Storage에 데이터를 담고 불러오는 방식으로 기능을 구현했습니다.
-- Product viewed today와 같은 Recoil 상태에 상태를 저장하고, 상품을 클릭할 때 해당 Recoil 상태를 업데이트하여 useEffect의 상태 값으로 사용하여 실시간으로 확인할 수 있도록 구현했습니다.
+- Local Storage에 데이터를 담고 불러오는 방식으로 기능을 구현했습니다.
+- Recoil 상태에 상태를 저장하고, 상품을 클릭할 때 해당 Recoil 상태를 업데이트하여 useEffect의 상태 값으로 사용하여 실시간으로 확인할 수 있도록 구현했습니다.
 
 
