@@ -15,9 +15,7 @@ import type {
   IUpdateBoardCommentInput,
 } from "../../../../commons/types/generated/types";
 
-export default function BoardCommentWrite(
-  props: IBoardCommentWriteProps
-): JSX.Element {
+export default function BoardCommentWrite(props: any): JSX.Element {
   const router = useRouter();
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");

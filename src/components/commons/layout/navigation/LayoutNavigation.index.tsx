@@ -24,14 +24,21 @@ export default function LayoutNavigation(): JSX.Element {
   };
   const [currentPage, setCurrentPage] = useState(0);
   const [todayItems, setTodayItems] = useState([]);
-  const NAVIGATION_MENUS = [
-    { name: "상품등록", page: "/Market/Write" },
-    { name: "상품목록", page: "/Market" },
-  ];
+
+  const onClickWrite = (): void => {
+    void router.push("/Market/Write");
+    // setShouldReload(true);
+  };
+
+  const onClickMarket = (): void => {
+    void router.push("/Market");
+  };
+
   const { data, refetch, fetchMore } = useQuery(FETCH_USED_ITEMS);
   const offset = currentPage * ITEMS_PER_PAGE;
   const todayOpen = useRecoilValue(todayOpenState);
   const setTodayOpen = useSetRecoilState(todayOpenState);
+  const [shouldReload, setShouldReload] = useState(false);
   ///////////////////////////////////////////////////////////////
   // 대체 이미지
   //////////////////////////////////////////////////////////////
@@ -49,6 +56,13 @@ export default function LayoutNavigation(): JSX.Element {
     setCurrentPage(data.selected);
   };
 
+  useEffect(() => {
+    if (shouldReload) {
+      setShouldReload(false);
+      window.location.reload();
+    }
+  }, [shouldReload]);
+
   ///////////////////////////////////////////////////////////////
   //  게시물 이동
   //////////////////////////////////////////////////////////////
@@ -60,13 +74,12 @@ export default function LayoutNavigation(): JSX.Element {
   return (
     <B.Wrapper>
       <B.MenuItemWrapper>
-        {NAVIGATION_MENUS.map((el) => (
-          <Fragment key={el.page}>
-            <B.MenuItem id={el.page} onClick={onClickMenu}>
-              {el.name}
-            </B.MenuItem>
-          </Fragment>
-        ))}
+        <Fragment>
+          <B.MenuItem onClick={onClickWrite}>상품등록</B.MenuItem>
+        </Fragment>
+        <Fragment>
+          <B.MenuItem onClick={onClickMarket}>상품목록</B.MenuItem>
+        </Fragment>
         <B.TodayList>
           <B.TodayTitle>오늘 본 상품</B.TodayTitle>
           <B.TodayTable>

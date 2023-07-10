@@ -6,6 +6,7 @@ import BoardCommentWriteUI from "./BoardComment.presenter";
 import {
   FETCH_USED_ITEM_QUESTIONS,
   FETCH_USED_ITEM_QUESTION_ANSWERS,
+  UPDATE_USED_ITEM_QUESTION_ANSWERS,
 } from "../comment/BoardComment.queries";
 import {
   CREATE_USED_ITEM_QUESTION,
@@ -29,6 +30,10 @@ export default function BoardCommentWrite(props: any): JSX.Element {
 
   const [createUseditemQuestionAnswer] = useMutation(
     CREATE_USED_ITEM_QUESTION_ANSWER
+  );
+
+  const [updateUseditemQuestionAnswer] = useMutation(
+    UPDATE_USED_ITEM_QUESTION_ANSWERS
   );
 
   const onChangeContents = (e: ChangeEvent<HTMLTextAreaElement>): void => {
@@ -56,7 +61,6 @@ export default function BoardCommentWrite(props: any): JSX.Element {
           },
         ],
       });
-      alert("댓글등록");
       setContents("");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
@@ -101,7 +105,9 @@ export default function BoardCommentWrite(props: any): JSX.Element {
   };
 
   const onClickExport = (): void => {
-    props.setIsisReply?.("대댓글OFF"), props.setIsEditComment?.("댓글수정OFF");
+    props.setIsisReply?.("대댓글OFF"),
+      props.setIsEditComment?.("댓글수정OFF"),
+      props.setIsEditReply?.("대댓글수정OFF");
   };
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +133,44 @@ export default function BoardCommentWrite(props: any): JSX.Element {
     props.setIsisReply?.("대댓글OFF");
   };
 
+  ////////////////////////////////////////////////////////////////////////////////////////
+  // 댓글 업데이트
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+  const onClickUpdateEditReply = async (): Promise<void> => {
+    if (contents === "") {
+      alert("내용이 수정되지 않았습니다.");
+      return;
+    }
+
+    try {
+      const updateUseditemQuestionAnswerInput: IUpdateBoardCommentInput = {};
+      if (contents !== "")
+        updateUseditemQuestionAnswerInput.contents = contents;
+
+      if (typeof props.el?._id !== "string") {
+        alert("시스템에 문제가 있습니다.");
+        return;
+      }
+      const result = await updateUseditemQuestionAnswer({
+        variables: {
+          updateUseditemQuestionAnswerInput,
+          useditemQuestionAnswerId: props.i.currentTarget.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_USED_ITEM_QUESTION_ANSWERS,
+            variables: { useditemQuestionId: props.el._id },
+          },
+        ],
+      });
+      console.log(result);
+      props.setIsEditReply?.("대댓글수정OFF");
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
+  };
+
   /////////////////////////////return/////////////////////////////////
 
   return (
@@ -135,8 +179,10 @@ export default function BoardCommentWrite(props: any): JSX.Element {
       onClickWrite={onClickWrite}
       onClickUpdate={onClickUpdate}
       onClickExport={onClickExport}
+      onClickUpdateEditReply={onClickUpdateEditReply}
       contents={contents}
       isReply={props.isReply}
+      isEditReply={props.isEditReply}
       isEditComment={props.isEditComment}
       el={props.el}
       onClickAnswer={onClickAnswer}

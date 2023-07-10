@@ -22,12 +22,14 @@ export default function BoardCommentUI(props: any) {
                   ? props.onClickAnswer
                   : props.isEditComment === "댓글수정ON"
                   ? props.onClickUpdate
+                  : props.isEditReply === "댓글수정ON"
+                  ? props.onClickUpdateEditReply
                   : props.onClickWrite
               }
               IsReply={props.isReply === "대댓글ON"}
             >
               {props.isReply === "대댓글ON"
-                ? "대댓글"
+                ? "댓글"
                 : props.isEditComment === "댓글수정ON"
                 ? "수정"
                 : "댓글"}
@@ -38,6 +40,11 @@ export default function BoardCommentUI(props: any) {
               </B.BodyButton>
             )}
             {props.isEditComment && (
+              <B.BodyButton onClick={props.onClickExport} className="No">
+                취소
+              </B.BodyButton>
+            )}
+            {props.isEditReply && (
               <B.BodyButton onClick={props.onClickExport} className="No">
                 취소
               </B.BodyButton>

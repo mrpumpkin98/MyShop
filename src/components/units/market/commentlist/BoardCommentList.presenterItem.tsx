@@ -28,13 +28,12 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
   // router
   //////////////////////////////////////////////////////////////
   const router = useRouter();
-  const setCommentEdit = useSetRecoilState(editComment);
-  const editCommentValue = useRecoilValue(editComment);
   ///////////////////////////////////////////////////////////////
   // useState
   //////////////////////////////////////////////////////////////
   const [isReply, setIsisReply] = useState("대댓글OFF");
   const [isEditComment, setIsEditComment] = useState("댓글수정OFF");
+  const [isEditReply, setIsEditReply] = useState("대댓글수정OFF");
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [password, setPassword] = useState("");
   ///////////////////////////////////////////////////////////////
@@ -76,23 +75,22 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
   ////////////////////////////////////////
 
   const onClickDeleteReply = async (
-    event: MouseEvent<HTMLButtonElement>
+    i: MouseEvent<HTMLButtonElement>
   ): Promise<void> => {
     // const password = prompt("비밀번호를 입력하세요.");
     try {
       await deleteUseditemQuestionAnswer({
         variables: {
-          useditemQuestionAnswerId: props.i.useditemQuestion._id,
+          useditemQuestionAnswerId: String(i.currentTarget.id),
         },
         refetchQueries: [
           {
             query: FETCH_USED_ITEM_QUESTION_ANSWERS,
-            variables: { useditemId: router.query.useditemId },
+            variables: { useditemQuestionId: props.el._id },
           },
         ],
       });
       setIsOpenDeleteModal(false);
-      console.log(props.i._id);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
@@ -124,8 +122,9 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
     variables: { useditemQuestionId: props.el._id },
   });
 
-  const onClickAnswer1 = (): void => {
+  const onClickAnswer1 = (i: any): void => {
     console.log(data.fetchUseditemQuestionAnswers);
+    console.log(String(i.currentTarget._id));
   };
 
   ////////////////////////////////////////
@@ -142,7 +141,7 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
 
   const onClickEditComment = (): void => {
     setIsEditComment("댓글수정ON");
-    console.log(props.el._id);
+    console.log(props.el);
   };
 
   /////////////////////////////return/////////////////////////////////
@@ -220,18 +219,9 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
                         <S.Writer>{i?.user?.name}</S.Writer>
                         <S.OptionWrapper>
                           <S.AnswerButton
-                            onClick={onClickAnswer}
-                            className="Go"
+                            onClick={onClickDeleteReply}
+                            id={i._id}
                           >
-                            답글
-                          </S.AnswerButton>
-                          <S.AnswerButton
-                            onClick={onClickOpenDeleteModal}
-                            className="Edit"
-                          >
-                            수정
-                          </S.AnswerButton>
-                          <S.AnswerButton onClick={onClickDeleteReply}>
                             삭제
                           </S.AnswerButton>
                         </S.OptionWrapper>
@@ -300,16 +290,7 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
                       </Space>
                       <S.Writer>{i?.user?.name}</S.Writer>
                       <S.OptionWrapper>
-                        <S.AnswerButton onClick={onClickAnswer} className="Go">
-                          답글
-                        </S.AnswerButton>
-                        <S.AnswerButton
-                          onClick={onClickOpenDeleteModal}
-                          className="Edit"
-                        >
-                          수정
-                        </S.AnswerButton>
-                        <S.AnswerButton onClick={onClickDeleteReply}>
+                        <S.AnswerButton onClick={onClickDeleteReply} id={i._id}>
                           삭제
                         </S.AnswerButton>
                       </S.OptionWrapper>
@@ -317,7 +298,6 @@ export default function BoardCommentListUIItem(props: any): JSX.Element {
                     <S.Contents>{i.contents}</S.Contents>
                   </S.MainWrapper>
                 </S.FlexWrapper>
-                <S.DateString></S.DateString>
               </S.AnswerItemWrapper>
             ))}
           </div>

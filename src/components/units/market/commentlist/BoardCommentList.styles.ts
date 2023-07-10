@@ -46,10 +46,9 @@ export const WriterWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 5px 3px 5px 3px;
+  padding: 5px 3px 5px 8px;
   border-bottom: 2px solid black;
-  background-color: #e5e5e5;
-  background-color: #80cef8;
+  background-color: gold;
   &.Blue {
     background-color: #e5e5e5;
   }
