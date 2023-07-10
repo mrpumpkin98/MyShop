@@ -1,72 +1,40 @@
-# 마이샵 MyShop (개인프로젝트)
+💡 SecondHandMarket은 중고 상품을 거래하는 플랫폼입니다.
 
-#### 배포 사이트 : https://mrpumpkin98.shop (비용문제로 현재는 닫았습니다.)
+## 사용 스킬
 
-## 기능 설명
+- typescript, react, react-hooks, emotion, graphQL
 
-### 1. 게시판
- - 사용자들은 게시판을 통해 다양한 주제에 관해 글을 작성하고 공유할 수 있습니다. 이를 통해 사용자들은 의견을 나누고 정보를 교환할 수 있습니다.
- - 게시물에는 텍스트, 이미지, 링크 등 다양한 형식의 콘텐츠를 포함할 수 있습니다. 이를 통해 사용자들은 자신의 의견이나 관심사를 시각적으로 표현할 수 있습니다.
+## SignUp/Login
 
-### 2. 회원 전용 중고마켓 서비스
-- 회원들은 중고 상품을 판매하거나 구매할 수 있는 서비스를 이용할 수 있습니다. 이를 통해 사용자들은 더 저렴하게 상품을 구매하거나 더 넓은 시장에서 중고 상품을 판매할 수 있습니다.
-- 중고마켓 서비스는 회원 전용으로 제공되며, 사용자는 회원 가입 후 로그인하여 서비스를 이용할 수 있습니다.
-- 회원들은 상품을 등록하고 판매할 수 있으며, 다른 회원들은 등록된 상품을 검색하고 구매할 수 있습니다. 이를 위해 사용자는 상품 정보, 가격, 상태 등의 세부 정보를 입력하고 사진을 첨부할 수 있습니다.
+![Peek 2023-07-10 11-06](https://github.com/MadHeo/secondHandMarket/assets/114569429/e69ccc9f-bbe9-434e-b358-6e2d5b8cf53b)
 
-## 개발 기간
-2023년 3월 22일 ~ 2023년 5월 7일
 
-## 기술
-- HTML, CSS, JavaScript, TypeScript, React, Next.js, GraphQL
-- AWS
-- GIT
+- 로그인은 react-hook-form 라이브러리를 사용하여 input 입력 시 발생하는 리렌더링을 줄였습니다.
+- 전역상태관리 라이브러리 Recoil을 사용해 accessToken을 관리합니다.
+- useAuth 함수에 accessToken을 확인하는 로직을 만들어 권한분기를 구현했습니다.
 
-## 구현 기능
+## Products List / Comment / Purchase
 
-### 1. 회원가입
+![Peek 2023-07-10 11-31](https://github.com/MadHeo/secondHandMarket/assets/114569429/bb3ac8f5-7668-459b-a1a7-ad64db96b570)
 
-![회원가입](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/f2efd227-1d0c-4c74-b801-2419162ab756)
 
-### 2. 로그인
+- 댓글 작성과 수정 시 apolloClient에서 제공하는 기능인 refetchQueries를 사용해서 즉각적으로 반영되도록 구현했습니다.
+- 지도는 카카오 지도 API를 사용했습니다.
 
-![로그인](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/ee47d144-fba2-404c-b799-757226ff95f7)
+## Point Charge
 
-### 3. 자유게시판(리스트)
+![Peek 2023-07-10 11-35](https://github.com/MadHeo/secondHandMarket/assets/114569429/449e3ab7-6bcb-4095-9e79-7ae218b00fb5)
 
-![자유게시판](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/03f32fa2-24ac-4f34-8af0-ffe9430ab6af)
 
-### 4. 자유게시판(게시물 등록)
+- 포인트 충전은 카카오페이 API를 활용해서 구현했습니다.
+- 충전할 경우 충전금액만큼 value로 받아 createPoint API에 요청합니다.
 
-![자유게시판(게시물 등록)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/0d13d8d2-b042-4255-81ae-3c9d9784f35b)
+## Shopping basket / Product viewed today
 
-### 5. 자유게시판(디테일)
+![Peek 2023-07-10 11-42](https://github.com/MadHeo/secondHandMarket/assets/114569429/f9344e8e-64fc-465c-80c1-fd04171b21d9)
 
-![자유게시판(디테일)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/0d0b1608-6d93-4135-9f5d-4ab23d00c57d)
 
-### 6. 자유게시판(게시물 수정)
+- 장바구니와 오늘 본 상품에 관한 API가 따로 존재하지 않아 Local Storage에 데이터를 담고 불러오는 방식으로 기능을 구현했습니다.
+- Product viewed today와 같은 Recoil 상태에 상태를 저장하고, 상품을 클릭할 때 해당 Recoil 상태를 업데이트하여 useEffect의 상태 값으로 사용하여 실시간으로 확인할 수 있도록 구현했습니다.
 
-![자유게시판(게시물 수정)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/f65c9074-954a-483d-80c7-d4e2763b6ee0)
 
-### 7. 중고마켓(리스트)
-
-![중고마켓(리스트)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/2ee6dc9d-2030-4ebb-9b41-6cd8d156309d)
-
-### 8. 중고마켓(상품 등록)
-
-![중고마켓(상품등록)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/ec2a010b-5156-4567-aa94-95576a8862f8)
-
-### 9. 중고마켓(디테일)
-
-![중고마켓(디테일)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/fc347324-bdc7-4ad9-b656-419e3ae8ea39)
-
-### 10. 중고마켓(상품 수정)
-
-![중고마켓(수정)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/3f98d3b9-b7bb-48d7-9c5d-b1b07c8f7783)
-
-### 11. 포인트(충전)
-
-![포인트(충전)](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/b9d85fe3-3fa6-4124-8712-b45d496087b5)
-
-### 12. 마이페이지
-
-![마이페이지](https://github.com/mrpumpkin98/MyShop_client/assets/114569429/aa29eb36-87d4-4945-8a8f-29d6e57a424a)
