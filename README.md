@@ -1,5 +1,10 @@
 💡 SecondHandMarket은 중고 상품을 거래하는 플랫폼입니다.
 
+## 화면 구성
+
+![스크린샷, 2023-07-10 12-42-08](https://github.com/mrpumpkin98/Reused_client/assets/114569429/756084a3-e6a8-493b-ad1f-99e1f8a2cc0b)
+
+
 ## 사용 스킬
 
 - typescript, react, react-hooks, emotion, graphQL
