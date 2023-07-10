@@ -22,6 +22,8 @@
 
 ![Peek 2023-07-10 11-31](https://github.com/MadHeo/secondHandMarket/assets/114569429/bb3ac8f5-7668-459b-a1a7-ad64db96b570)
 
+![Peek 2023-07-10 12-46](https://github.com/MadHeo/secondHandMarket/assets/114569429/eb786a71-4a0d-40bb-afdf-d80326a2f2a7)
+
 
 - 댓글 작성과 수정 시 apolloClient에서 제공하는 기능인 refetchQueries를 사용해서 즉각적으로 반영되도록 구현했습니다.
 - 지도는 카카오 지도 API를 사용했습니다.
