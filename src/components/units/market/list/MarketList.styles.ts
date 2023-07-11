@@ -13,12 +13,12 @@ import {
 } from "@ant-design/icons";
 import { Modal } from "antd";
 
-export const ListMain = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-export const Wrapper = styled.div`
+export const Box = styled.div`
   width: 900px;
 `;
 
@@ -34,7 +34,7 @@ export const Title = styled.div`
 // 중고 상품 베스트
 ////////////////////////////////////////////
 
-export const WidthWrapper = styled.div`
+export const Nav = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -59,7 +59,7 @@ export const Shopping = styled(ShoppingFilled)`
 //  중고 상품 리스트
 ////////////////////////////////////////////
 
-export const List = styled.div`
+export const Main = styled.main`
   overflow-y: auto;
   width: 100%;
   height: 780px;
@@ -67,14 +67,14 @@ export const List = styled.div`
   margin-bottom: 50px;
 `;
 
-export const Table = styled.div`
+export const ListWrapper = styled.div`
   width: 100%;
   border-collapse: collapse;
   border-bottom: 1px solid #bdbdbd;
   padding: 10px;
 `;
 
-export const Tr = styled.div`
+export const ListBox = styled.div`
   background: #f5f5f5;
   border: 2px solid black;
   width: 100%;
@@ -90,7 +90,7 @@ export const Tr = styled.div`
   }
 `;
 
-export const ListImgWrapper = styled.div`
+export const ListImgBox = styled.div`
   width: 160px;
   height: 160px;
   margin: 10px 7px;
@@ -111,7 +111,7 @@ export const ListName = styled.p`
   font-family: "Arita-SemiBold";
 `;
 
-export const TieTable = styled.div`
+export const ListContentsBox = styled.div`
   width: 800px;
   display: flex;
   flex-direction: column;
@@ -119,17 +119,17 @@ export const TieTable = styled.div`
   margin-left: 10px;
   padding: 0px 15px;
 `;
-export const ListContents = styled.p`
+export const ListRemarks = styled.p`
   font-weight: 400;
   font-size: 18px;
   color: #828282;
   margin: 10px 0px 0px 4px;
   font-family: "Arita-SemiBold";
 `;
-export const ListTags = styled.div`
+export const ListTags = styled.p`
   height: 20px;
 `;
-export const ListPickedCount = styled.div`
+export const LikePickedCount = styled.p`
   width: 18px;
   height: 24px;
   padding-top: 6px;
@@ -151,12 +151,12 @@ export const ListSeller = styled.p`
   font-family: "Arita-SemiBold";
 `;
 
-export const TitleListSellerListPickedCount = styled.div`
+export const ListSellerBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-export const Heart = styled(HeartFilled)`
+export const Like = styled(HeartFilled)`
   font-size: 16px;
   color: gold;
   height: 30px;
@@ -180,7 +180,7 @@ export const Smile = styled(SmileOutlined)`
   }
 `;
 
-export const ButtonTie = styled.div`
+export const SearchBarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

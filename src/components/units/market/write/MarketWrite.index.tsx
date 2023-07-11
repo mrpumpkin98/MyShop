@@ -1,5 +1,5 @@
-import { ChangeEvent, useState, useRef, useEffect } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
+import { useState, useRef, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,16 +16,6 @@ import { CREATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutatio
 import { UPDATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationUpdateUsedItem";
 import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
 import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
-import Toolbar from "../../../../commons/Quill/Toolbar";
-import { fontSize } from "../../../../commons/Quill/default";
-import { Quill } from "react-quill";
-
-export const schema = yup.object({
-  name: yup.string().required("상품명을 입력하세요!"),
-  remarks: yup.string().required("한줄요약을 입력하세요!"),
-  price: yup.string().required("판매 가격을 입력하세요!"),
-  contents: yup.string().required("상품설명을 입력하세요!"),
-});
 
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
@@ -43,18 +33,27 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export default function LoginNewPage(props: any): JSX.Element {
+export const schema = yup.object({
+  name: yup.string().required("상품명을 입력하세요!"),
+  remarks: yup.string().required("한줄요약을 입력하세요!"),
+  price: yup.string().required("판매 가격을 입력하세요!"),
+  contents: yup.string().required("상품설명을 입력하세요!"),
+});
+
+export default function MarketWritePage(props: any): JSX.Element {
   const router = useRouter();
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const input1Ref = useRef<HTMLInputElement>(null);
+  const input2Ref = useRef<HTMLInputElement>(null);
+  const [gLat, setGetLat] = useState("");
+  const [gLng, setGetLng] = useState("");
+  const [address, setAddress] = useState("");
   const [createUseditem] = useMutation(CREATE_USED_ITEM);
   const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const [uploadFile] = useMutation(UPLOAD_FILE);
-
   const { data } = useQuery(FETCH_USED_ITEM, {
     variables: { useditemId: router.query.useditemId },
   });
-
-  // useForm
-
   const { register, setValue, trigger, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -68,7 +67,7 @@ export default function LoginNewPage(props: any): JSX.Element {
     void trigger("contents");
   };
 
-  // 상품 등록
+  // < 상품 등록 >
 
   const onClickSubmit = async (data: any): Promise<void> => {
     const result = await createUseditem({
@@ -89,14 +88,14 @@ export default function LoginNewPage(props: any): JSX.Element {
         },
       },
     });
-    const { Modal } = await import("antd"); // code-splitting(코드스플릿팅)
+    const { Modal } = await import("antd");
     Modal.success({ content: "게시글 등록에 성공하였습니다!" });
     const useditemId: string = result.data.createUseditem._id;
     console.log(result);
     void router.push(`/Market/${useditemId}`);
   };
 
-  // 상품 업데이트
+  // < 상품 업데이트 >
 
   const onClickUpdate = async (data: any) => {
     const currentFiles = JSON.stringify(fileUrls);
@@ -150,16 +149,13 @@ export default function LoginNewPage(props: any): JSX.Element {
     }
   };
 
-  //  취소하기
+  //  < 취소하기 >
 
   const onClickCancel = async () => {
     router.push(`/Market`);
   };
 
-  ///////////////////////////////////////////////////////////////
-  //  이미지 등록
-  //////////////////////////////////////////////////////////////
-  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  //  < 이미지 등록 >
 
   const onChangeFileUrls = (fileUrl: string, index: number): void => {
     const newFileUrls = [...fileUrls];
@@ -173,13 +169,7 @@ export default function LoginNewPage(props: any): JSX.Element {
     // console.log(data.fetchUseditem.useditemAddress.address);
   }, [data]);
 
-  // 카카오 MAP
-
-  const input1Ref = useRef<HTMLInputElement>(null);
-  const input2Ref = useRef<HTMLInputElement>(null);
-  const [gLat, setGetLat] = useState("");
-  const [gLng, setGetLng] = useState("");
-  const [address, setAddress] = useState("");
+  // < 카카오 MAP >
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -199,54 +189,58 @@ export default function LoginNewPage(props: any): JSX.Element {
         const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
 
         // 주소-좌표 변환 객체를 생성합니다
-        const geocoder = new kakao.maps.services.Geocoder();
+        const geocoder = new window.kakao.maps.services.Geocoder();
 
         const marker = new window.kakao.maps.Marker({
             // 지도 중심좌표에 마커를 생성합니다
             position: map.getCenter(),
           }),
-          infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+          infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
         // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
         searchAddrFromCoords(map.getCenter(), displayCenterInfo);
 
         // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, "click", function (mouseEvent: any) {
-          searchDetailAddrFromCoords(
-            mouseEvent.latLng,
-            function (result: any, status: any) {
-              if (status === kakao.maps.services.Status.OK) {
-                var detailAddr = !!result[0].road_address
-                  ? '<div style="font-size: 12px;">도로명주소 : ' +
-                    result[0].road_address.address_name +
-                    "</div>"
-                  : "";
-                detailAddr +=
-                  '<div style="font-size: 12px;">지번 주소 : ' +
-                  result[0].address.address_name +
-                  "</div>";
+        window.kakao.maps.event.addListener(
+          map,
+          "click",
+          function (mouseEvent: any) {
+            searchDetailAddrFromCoords(
+              mouseEvent.latLng,
+              function (result: any, status: any) {
+                if (status === window.kakao.maps.services.Status.OK) {
+                  var detailAddr = !!result[0].road_address
+                    ? '<div style="font-size: 12px;">도로명주소 : ' +
+                      result[0].road_address.address_name +
+                      "</div>"
+                    : "";
+                  detailAddr +=
+                    '<div style="font-size: 12px;">지번 주소 : ' +
+                    result[0].address.address_name +
+                    "</div>";
 
-                var content =
-                  '<div class="bAddr" style="padding:8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">' +
-                  '<span class="title" style="font-size: 12px; font-weight: bold;">법정동 주소정보</span>' +
-                  detailAddr +
-                  "</div>";
+                  var content =
+                    '<div class="bAddr" style="padding:8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">' +
+                    '<span class="title" style="font-size: 12px; font-weight: bold;">법정동 주소정보</span>' +
+                    detailAddr +
+                    "</div>";
 
-                // 마커를 클릭한 위치에 표시합니다
-                marker.setPosition(mouseEvent.latLng);
-                marker.setMap(map);
+                  // 마커를 클릭한 위치에 표시합니다
+                  marker.setPosition(mouseEvent.latLng);
+                  marker.setMap(map);
 
-                // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                infowindow.setContent(content);
-                infowindow.open(map, marker);
-                setAddress(result[0].address.address_name);
+                  // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                  infowindow.setContent(content);
+                  infowindow.open(map, marker);
+                  setAddress(result[0].address.address_name);
+                }
               }
-            }
-          );
-        });
+            );
+          }
+        );
 
         // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-        kakao.maps.event.addListener(map, "idle", function () {
+        window.kakao.maps.event.addListener(map, "idle", function () {
           searchAddrFromCoords(map.getCenter(), displayCenterInfo);
         });
 
@@ -262,7 +256,7 @@ export default function LoginNewPage(props: any): JSX.Element {
 
         // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
         function displayCenterInfo(result: any, status: any) {
-          if (status === kakao.maps.services.Status.OK) {
+          if (status === window.kakao.maps.services.Status.OK) {
             var infoDiv = document.getElementById("centerAddr");
 
             if (infoDiv !== null) {
@@ -325,7 +319,7 @@ export default function LoginNewPage(props: any): JSX.Element {
       <B.Wrapper>
         <B.Title>{props.isEdit ? "상품 수정" : "상품 등록"} 하기</B.Title>
         <B.Label>상품이미지</B.Label>
-        <B.UploadButton>
+        <B.UploadBox>
           {fileUrls.map((el: any, index: any) => (
             <Uploads01
               key={uuidv4()}
@@ -334,7 +328,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               onChangeFileUrls={onChangeFileUrls}
             />
           ))}
-        </B.UploadButton>
+        </B.UploadBox>
         <p style={{ fontSize: "12px", color: "black" }}>
           * 상품 이미지는 640x640에 최적화 되어 있습니다.
           <br />
@@ -350,10 +344,10 @@ export default function LoginNewPage(props: any): JSX.Element {
           <br />- 최대 지원 사이즈인 640 X 640으로 리사이즈 해서
           올려주세요.(개당 이미지 최대 10M)
         </p>
-        <B.Line></B.Line>
-        <form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
-          <B.LoginWrapper>
-            <B.LoginTie>
+        <B.Line />
+        <B.Form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
+          <B.Main>
+            <B.InputBox>
               <B.Label>제목</B.Label>
               <Input04
                 title="상품 제목을 입력해주세요."
@@ -363,7 +357,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               <B.Error style={{ color: "red" }}>
                 {formState.errors.name?.message}
               </B.Error>
-              <B.Line></B.Line>
+              <B.Line />
               <B.Label>한줄요약 </B.Label>
               <Input04
                 title="상품명을 작성해주세요."
@@ -373,7 +367,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               <B.Error style={{ color: "red" }}>
                 {formState.errors.remarks?.message}
               </B.Error>
-              <B.Line></B.Line>
+              <B.Line />
               <B.Label>상품설명 </B.Label>
               <ReactQuill
                 onChange={onChangeContents}
@@ -383,7 +377,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               <B.Error style={{ color: "red" }}>
                 {formState.errors.contents?.message}
               </B.Error>
-              <B.Line></B.Line>
+              <B.Line />
               <B.Label>판매 가격</B.Label>
               <B.InputPrice>
                 <Input04
@@ -396,7 +390,7 @@ export default function LoginNewPage(props: any): JSX.Element {
               <B.Error style={{ color: "red" }}>
                 {formState.errors.price?.message}
               </B.Error>
-              <B.Line></B.Line>
+              <B.Line />
               <B.Label>태그입력</B.Label>
               <Input04
                 title="연관태그를 입력해주세요."
@@ -410,11 +404,11 @@ export default function LoginNewPage(props: any): JSX.Element {
                 <br />- 보장하지는 않습니다. 검색 광고는 태그정보를 기준으로
                 노출됩니다.
               </B.TagsText>
-              <B.Line></B.Line>
-              <B.WrapperMapLatLng>
-                <B.WrapperMap>
+              <B.Line />
+              <B.AddressArticle>
+                <B.MapWrapper>
                   <B.Label>거래위치</B.Label>
-                  <B.MapWrap>
+                  <B.MapBox>
                     <div
                       id="map"
                       style={{
@@ -426,16 +420,15 @@ export default function LoginNewPage(props: any): JSX.Element {
                       }}
                     ></div>
                     <B.HAddr>
-                      {/* <B.AddrTitle>지도중심기준 행정동 주소정보</B.AddrTitle> */}
                       <B.CenterAddr
                         id="centerAddr"
                         style={{ display: "none" }}
                       ></B.CenterAddr>
                     </B.HAddr>
-                  </B.MapWrap>
-                </B.WrapperMap>
-                <B.WrapperGPSAddress>
-                  <B.WrapperAddressAddressDetail>
+                  </B.MapBox>
+                </B.MapWrapper>
+                <B.AddressWrapper>
+                  <B.AddressBox>
                     <B.Label>주소</B.Label>
                     <Input05
                       title=""
@@ -450,13 +443,13 @@ export default function LoginNewPage(props: any): JSX.Element {
                         data?.fetchUseditem.useditemAddress.addressDetail
                       }
                     ></Input04>
-                  </B.WrapperAddressAddressDetail>
-                </B.WrapperGPSAddress>
-              </B.WrapperMapLatLng>
-            </B.LoginTie>
-          </B.LoginWrapper>
-        </form>
-        <B.ButtonWrapper>
+                  </B.AddressBox>
+                </B.AddressWrapper>
+              </B.AddressArticle>
+            </B.InputBox>
+          </B.Main>
+        </B.Form>
+        <B.Footer>
           <B.ButtonForm
             onSubmit={
               props.isEdit
@@ -470,7 +463,7 @@ export default function LoginNewPage(props: any): JSX.Element {
             />
           </B.ButtonForm>
           <B.Button onClick={onClickCancel}>취소하기</B.Button>
-        </B.ButtonWrapper>
+        </B.Footer>
       </B.Wrapper>
     </>
   );

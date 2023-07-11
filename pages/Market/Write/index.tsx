@@ -1,9 +1,3 @@
-//####################################################################
-//
-// MARKET_WRITE MAIN
-//
-//####################################################################
-
 import { useAuth } from "../../../src/commons/hooks/customs/useAuth";
 import MarketWrite from "../../../src/components/units/market/write/MarketWrite.index";
 

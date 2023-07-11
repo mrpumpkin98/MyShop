@@ -33,11 +33,13 @@ export const FireFilledIcon = styled(GitlabFilled)`
   }
 `;
 
-export const LoginWrapper = styled.div`
+export const Form = styled.form``;
+
+export const Main = styled.main`
   width: 100%;
 `;
 
-export const LoginTie = styled.div`
+export const InputBox = styled.div`
   width: 100%;
   border-radius: 8px;
   margin-bottom: 30px;
@@ -45,7 +47,7 @@ export const LoginTie = styled.div`
   flex-direction: column;
 `;
 
-export const Label = styled.div`
+export const Label = styled.p`
   padding: 16px 0px;
   width: 100%;
   font-size: 18px;
@@ -53,7 +55,7 @@ export const Label = styled.div`
   font-family: "Arita-SemiBold";
 `;
 
-export const TagsText = styled.div`
+export const TagsText = styled.p`
   font-size: 12px;
   color: black;
   margin-top: 10px;
@@ -121,7 +123,7 @@ export const LoginButton = styled.button`
   }
 `;
 
-export const UploadButton = styled.div`
+export const UploadBox = styled.div`
   width: 100%;
   display: flex;
   margin-bottom: 20px;
@@ -137,17 +139,17 @@ export const Map = styled.div`
   height: 500px;
 `;
 
-export const WrapperMapLatLng = styled.div`
+export const AddressArticle = styled.article`
   display: flex;
   flex-direction: column;
 `;
 
-export const WrapperMap = styled.div`
+export const MapWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const WrapperGPSAddress = styled.div`
+export const AddressWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -189,7 +191,7 @@ export const Lng = styled.input`
   }
 `;
 
-export const WrapperAddressAddressDetail = styled.div`
+export const AddressBox = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -205,7 +207,7 @@ export const KaKaoMap = styled.div`
   display: flex;
 `;
 
-export const MapWrap = styled.div`
+export const MapBox = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
@@ -248,7 +250,7 @@ export const Button = styled.button`
   }
 `;
 
-export const ButtonWrapper = styled.div`
+export const Footer = styled.footer`
   display: flex;
   justify-content: center;
 `;

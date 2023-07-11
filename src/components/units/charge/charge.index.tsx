@@ -11,8 +11,6 @@ declare const window: typeof globalThis & {
 
 export default function ChargeIndex(): JSX.Element {
   const [price, setPrice] = useState(0);
-  const [point, setPoint] = useState(0);
-  const [imp, setImp] = useState("");
   const router = useRouter();
   const [createPoint] = useMutation(CREATE_POINT_TRANSACTION_OF_LOADING);
 
@@ -48,8 +46,6 @@ export default function ChargeIndex(): JSX.Element {
           });
           router.push("/Market");
           setTimeout(() => window.location.reload(), 500);
-          //   setImp(rsp.imp_uid);
-          //   setPoint(rsp.paid_amount);
         } else {
           alert("결제가 실패했습니다.");
         }
@@ -68,7 +64,7 @@ export default function ChargeIndex(): JSX.Element {
         <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
       </Head>
       <B.Wrapper>
-        <B.MainBox>
+        <B.Main>
           <B.Logo src="/images/icons/로고.png" />
           <B.InputBox>
             <B.Select onChange={onChangePrice}>
@@ -80,7 +76,7 @@ export default function ChargeIndex(): JSX.Element {
             </B.Select>
             <B.ChargeButton onClick={onClickPayment}>충전하기</B.ChargeButton>
           </B.InputBox>
-        </B.MainBox>
+        </B.Main>
       </B.Wrapper>
     </>
   );

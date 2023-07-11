@@ -1,10 +1,4 @@
-//####################################################################
-//
-// LOGIN MAIN
-//
-//####################################################################
-
-import Login from "../../src/components/units/login/SignIn/login.index";
+import Login from "../../src/components/units/login/SignIn/signIn.index";
 
 export default function GraphqlMutationPage() {
   return (

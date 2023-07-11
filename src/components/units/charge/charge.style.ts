@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   height: 100vh;
 `;
 
-export const MainBox = styled.div`
+export const Main = styled.main`
   width: 550px;
   height: 500px;
   border: 1px solid black;

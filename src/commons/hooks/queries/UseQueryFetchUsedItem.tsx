@@ -1,4 +1,6 @@
-import { gql } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
+import { IQuery, IQueryFetchUseditemArgs } from "../../types/generated/types";
+import { useRouter } from "next/router";
 
 export const FETCH_USED_ITEM = gql`
   query fetchUseditem($useditemId: ID!) {
@@ -28,3 +30,22 @@ export const FETCH_USED_ITEM = gql`
     }
   }
 `;
+
+interface IuseQueryFetchUsedItem {
+  data?: Pick<IQuery, "fetchUseditem">;
+}
+
+export const useQueryFetchUsedItem = (): IuseQueryFetchUsedItem => {
+  const router = useRouter();
+
+  const { data } = useQuery<
+    Pick<IQuery, "fetchUseditem">,
+    IQueryFetchUseditemArgs
+  >(FETCH_USED_ITEM, {
+    variables: {
+      useditemId: String(router.query.useditemId),
+    },
+  });
+
+  return { data };
+};
