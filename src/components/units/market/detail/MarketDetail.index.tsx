@@ -23,6 +23,8 @@ import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { settings } from "../../../../commons/hooks/customs/useCarousel";
 import { useErrorImg } from "../../../../commons/hooks/customs/useErroImg";
+import { useEffectKakaoMapFetch } from "../../../../commons/hooks/customs/useEffectKakaoMapFetch";
+import { useOnClickBasket } from "../../../../commons/hooks/event/useOnClickBasket";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -64,55 +66,8 @@ export default function DetailPage() {
     router.push(`/Market/${router.query.useditemId}/edit`);
   };
 
-  // < 카카오 MAP >
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f3e19a9d14ef6f578a2ef9d36fa3f9c7&libraries=services";
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      window.kakao.maps.load(function () {
-        const mapContainer = document.getElementById("map");
-        if (mapContainer) {
-          // null 체크
-          const mapOption = {
-            center: new window.kakao.maps.LatLng(
-              data?.fetchUseditem?.useditemAddress?.lat,
-              data?.fetchUseditem?.useditemAddress?.lng
-            ),
-            level: 3,
-          };
-
-          var map = new window.kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-          // 마커가 표시될 위치입니다
-          var markerPosition = new window.kakao.maps.LatLng(
-            data?.fetchUseditem?.useditemAddress?.lat,
-            data?.fetchUseditem?.useditemAddress?.lng
-          );
-
-          // 마커를 생성합니다
-          var marker = new window.kakao.maps.Marker({
-            position: markerPosition,
-          });
-
-          // 마커가 지도 위에 표시되도록 설정합니다
-          marker.setMap(map);
-
-          // 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용합니다
-
-          // 마우스 드래그로 지도 이동 가능여부를 설정합니다
-          map.setDraggable(false);
-          map.setZoomable(false);
-
-          // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-          // marker.setMap(null);
-        }
-      });
-    };
-  });
+  // < 카카오 맵 >
+  useEffectKakaoMapFetch(data);
 
   // < 상품 구매 >
 
@@ -143,28 +98,7 @@ export default function DetailPage() {
   };
 
   // < 장바구니 >
-
-  const onClickBasket = (basket: any) => () => {
-    // 1. 기존 장바구니 가져오기
-    const baskets = JSON.parse(localStorage.getItem("baskets") ?? "[]");
-
-    const temp = baskets.filter((el: any) => el._id === basket._id);
-    if (temp.length >= 1) {
-      alert("이미 담으신 상품입니다!!!");
-      return;
-    } else {
-      alert("장바구니에 상품이 담겼습니다.");
-    }
-
-    // 2. 내가 클릭한거 장바구니에 추가하기
-    baskets.push(basket);
-    localStorage.setItem("baskets", JSON.stringify(baskets));
-  };
-
-  useEffect(() => {
-    const baskets = JSON.parse(localStorage.getItem("baskets") || "[]");
-    setBasketItems(baskets);
-  }, [isOpen]);
+  const { onClickBasket } = useOnClickBasket();
 
   return (
     <>

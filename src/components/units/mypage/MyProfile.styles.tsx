@@ -1,23 +1,29 @@
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
-  width: 650px;
+  width: 500px;
   height: 100vh;
   border: 1px solid black;
-  padding-top: 110px;
-  border-radius: 8px;
-  padding-bottom: 100px;
-  padding-left: 50px;
-  padding-right: 50px;
+  border: none;
+  padding-top: 120px;
+`;
+
+export const Box = styled.div`
+  width: 450px;
   display: flex;
   flex-direction: column;
-  border: none;
+  justify-content: center;
+  border-radius: 8px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
 
 export const Title = styled.h1``;
 
 export const InputBox = styled.div`
-  padding-top: 40px;
+  padding-top: 20px;
 `;
 
 export const Label = styled.p`
@@ -44,13 +50,12 @@ export const UploadBox = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 210px;
+  width: 100%;
   font-size: 20px;
   padding: 15px 10px;
   border-radius: 4px;
   transition: background-color 0.3s;
   font-family: "Arita-SemiBold";
-  margin-top: 30px;
   margin: auto;
   cursor: pointer;
   :hover {
@@ -61,5 +66,5 @@ export const Button = styled.button`
 export const Line = styled.div`
   width: 100%;
   border: 1px solid black;
-  margin: 50px 0px 10px 0px;
+  margin: 30px 0px 30px 0px;
 `;

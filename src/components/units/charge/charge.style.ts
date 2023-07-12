@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 export const Wrapper = styled.div`
-  width: 900px;
   height: 100vh;
+  padding-top: 130px;
 `;
 
 export const Main = styled.main`
-  width: 550px;
+  width: 500px;
   height: 500px;
   border: 1px solid black;
   margin: auto;

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,15 +12,14 @@ import Input04 from "../../../../commons/inputs/04-Market";
 import Input05 from "../../../../commons/inputs/05-Market-value";
 import Button03 from "../../../../commons/buttons/03-Smple";
 import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
-import { CREATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationCreateUsedItem";
-import { UPDATE_USED_ITEM } from "../../../../commons/hooks/mutations/UseMutationUpdateUsedItem";
 import { UPLOAD_FILE } from "../../../../commons/hooks/mutations/UseMutationUpdateFile";
-import { FETCH_USED_ITEM } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
-
+import { useQueryFetchUsedItem } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
+import { useOnClickMarketWrite } from "../../../../commons/hooks/event/useOnClickMarketWrite";
+import { useOnClickMarketUpdate } from "../../../../commons/hooks/event/useOnClickMarketUpdate";
+import { useEffectKakaoMap } from "../../../../commons/hooks/customs/useEffectKakaoMap";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
-
 const Uploads01 = dynamic(
   async () =>
     await import("../../../../commons/uploads/01/Uploads01.container"),
@@ -28,11 +27,9 @@ const Uploads01 = dynamic(
     ssr: false,
   }
 );
-
 declare const window: typeof globalThis & {
   kakao: any;
 };
-
 export const schema = yup.object({
   name: yup.string().required("상품명을 입력하세요!"),
   remarks: yup.string().required("한줄요약을 입력하세요!"),
@@ -48,18 +45,13 @@ export default function MarketWritePage(props: any): JSX.Element {
   const [gLat, setGetLat] = useState("");
   const [gLng, setGetLng] = useState("");
   const [address, setAddress] = useState("");
-  const [createUseditem] = useMutation(CREATE_USED_ITEM);
-  const [updateUseditem] = useMutation(UPDATE_USED_ITEM);
   const [uploadFile] = useMutation(UPLOAD_FILE);
-  const { data } = useQuery(FETCH_USED_ITEM, {
-    variables: { useditemId: router.query.useditemId },
-  });
+  const { data } = useQueryFetchUsedItem();
+
   const { register, setValue, trigger, handleSubmit, formState } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
-
-  // onChangeContents  컨텐츠는 라이브러리를 사용중이라 register가 적용이 안됨
 
   const onChangeContents = (value: string): void => {
     setValue("contents", value === "<p><br></p>" ? "" : value);
@@ -67,252 +59,46 @@ export default function MarketWritePage(props: any): JSX.Element {
     void trigger("contents");
   };
 
-  // < 상품 등록 >
+  useEffect(() => {
+    const images = data?.fetchUseditem.images;
+    if (images !== undefined && images !== null) setFileUrls([...images]);
+  }, [data]);
 
-  const onClickSubmit = async (data: any): Promise<void> => {
-    const result = await createUseditem({
-      variables: {
-        createUseditemInput: {
-          name: data.name,
-          remarks: data.remarks,
-          price: Number(data.price),
-          tags: data.tags, //여기서도 split(" ")가능
-          images: [...fileUrls],
-          contents: data.contents,
-          useditemAddress: {
-            address: address,
-            addressDetail: data.addressDetail,
-            lat: gLat,
-            lng: gLng,
-          },
-        },
-      },
-    });
-    const { Modal } = await import("antd");
-    Modal.success({ content: "게시글 등록에 성공하였습니다!" });
-    const useditemId: string = result.data.createUseditem._id;
-    console.log(result);
-    void router.push(`/Market/${useditemId}`);
-  };
-
-  // < 상품 업데이트 >
-
-  const onClickUpdate = async (data: any) => {
-    const currentFiles = JSON.stringify(fileUrls);
-    const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
-    const isChangedFiles = currentFiles !== defaultFiles;
-
-    if (address === "" && !isChangedFiles) {
-      alert("수정한 내용이 없습니다.");
-      return;
-    }
-
-    try {
-      if (typeof router.query.useditemId !== "string") {
-        alert("시스템에 문제가 있습니다.");
-        return;
-      }
-      const result = await updateUseditem({
-        variables: {
-          updateUseditemInput: {
-            name: data.name,
-            remarks: data.remarks,
-            price: Number(data.price),
-            tags: data.tags,
-            images: [...fileUrls],
-            contents: data.contents,
-            useditemAddress: {
-              address: address,
-              addressDetail: data.addressDetail,
-              lat: gLat,
-              lng: gLng,
-            },
-          },
-          useditemId: router.query.useditemId,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM,
-            variables: { useditemId: router.query.useditemId },
-          },
-        ],
-      });
-
-      if (result.data?.updateUseditem._id === undefined) {
-        alert("요청에 문제가 있습니다.");
-        return;
-      }
-      void router.push(`/Market/${result.data?.updateUseditem._id}`);
-      alert("상품이 수정되었습니다!!");
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
-  };
-
+  // < 상품등록 >
+  const { onClickMarketWrite } = useOnClickMarketWrite(
+    fileUrls,
+    address,
+    gLat,
+    gLng
+  );
+  // < 상품수정 >
+  const { onClickMarketUpdate } = useOnClickMarketUpdate(
+    fileUrls,
+    props,
+    address,
+    gLat,
+    gLng
+  );
+  // < 카카오 맵 >
+  useEffectKakaoMap(
+    setAddress,
+    setGetLat,
+    setGetLng,
+    input1Ref,
+    input2Ref,
+    gLat,
+    gLng
+  );
   //  < 취소하기 >
-
   const onClickCancel = async () => {
     router.push(`/Market`);
   };
-
   //  < 이미지 등록 >
-
   const onChangeFileUrls = (fileUrl: string, index: number): void => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl;
     setFileUrls(newFileUrls);
   };
-
-  useEffect(() => {
-    const images = data?.fetchUseditem.images;
-    if (images !== undefined && images !== null) setFileUrls([...images]);
-    // console.log(data.fetchUseditem.useditemAddress.address);
-  }, [data]);
-
-  // < 카카오 MAP >
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=f3e19a9d14ef6f578a2ef9d36fa3f9c7&libraries=services";
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      window.kakao.maps.load(function () {
-        const container = document.getElementById("map"); // 지도를 담을 영역의 DOM 레퍼런스
-        const options = {
-          // 지도를 생성할 때 필요한 기본 옵션
-          center: new window.kakao.maps.LatLng(37.579251, 126.993174), // 지도의 중심좌표.
-          level: 3, // 지도의 레벨(확대, 축소 정도)
-        };
-
-        const map = new window.kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
-
-        // 주소-좌표 변환 객체를 생성합니다
-        const geocoder = new window.kakao.maps.services.Geocoder();
-
-        const marker = new window.kakao.maps.Marker({
-            // 지도 중심좌표에 마커를 생성합니다
-            position: map.getCenter(),
-          }),
-          infowindow = new window.kakao.maps.InfoWindow({ zIndex: 1 }); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
-
-        // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
-        searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-
-        // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
-        window.kakao.maps.event.addListener(
-          map,
-          "click",
-          function (mouseEvent: any) {
-            searchDetailAddrFromCoords(
-              mouseEvent.latLng,
-              function (result: any, status: any) {
-                if (status === window.kakao.maps.services.Status.OK) {
-                  var detailAddr = !!result[0].road_address
-                    ? '<div style="font-size: 12px;">도로명주소 : ' +
-                      result[0].road_address.address_name +
-                      "</div>"
-                    : "";
-                  detailAddr +=
-                    '<div style="font-size: 12px;">지번 주소 : ' +
-                    result[0].address.address_name +
-                    "</div>";
-
-                  var content =
-                    '<div class="bAddr" style="padding:8px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">' +
-                    '<span class="title" style="font-size: 12px; font-weight: bold;">법정동 주소정보</span>' +
-                    detailAddr +
-                    "</div>";
-
-                  // 마커를 클릭한 위치에 표시합니다
-                  marker.setPosition(mouseEvent.latLng);
-                  marker.setMap(map);
-
-                  // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
-                  infowindow.setContent(content);
-                  infowindow.open(map, marker);
-                  setAddress(result[0].address.address_name);
-                }
-              }
-            );
-          }
-        );
-
-        // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
-        window.kakao.maps.event.addListener(map, "idle", function () {
-          searchAddrFromCoords(map.getCenter(), displayCenterInfo);
-        });
-
-        function searchAddrFromCoords(coords: any, callback: any) {
-          // 좌표로 행정동 주소 정보를 요청합니다
-          geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-        }
-
-        function searchDetailAddrFromCoords(coords: any, callback: any) {
-          // 좌표로 법정동 상세 주소 정보를 요청합니다
-          geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-        }
-
-        // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
-        function displayCenterInfo(result: any, status: any) {
-          if (status === window.kakao.maps.services.Status.OK) {
-            var infoDiv = document.getElementById("centerAddr");
-
-            if (infoDiv !== null) {
-              for (var i = 0; i < result.length; i++) {
-                // 행정동의 region_type 값은 'H' 이므로
-                if (result[i].region_type === "H") {
-                  infoDiv.innerHTML = result[i].address_name;
-                  break;
-                }
-              }
-            }
-          }
-        }
-
-        marker.setMap(map);
-
-        // 지도에 클릭 이벤트를 등록합니다
-        // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-        window.kakao.maps.event.addListener(
-          map,
-          "click",
-          function (mouseEvent: any) {
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            const latlng = mouseEvent.latLng;
-            setGetLat(latlng.Ma);
-            setGetLng(latlng.La);
-
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-            // 마커를 클릭한 위치에 표시합니다
-            marker.setPosition(mouseEvent.latLng);
-            marker.setMap(map);
-
-            const resultDiv1 = document.getElementById("clickLatlng1");
-
-            if (resultDiv1 !== null) {
-              resultDiv1.innerHTML = latlng.getLat();
-              // setGetLat(latlng.La);
-            }
-            const resultDiv2 = document.getElementById("clickLatlng2");
-            if (resultDiv2 !== null) {
-              resultDiv2.innerHTML = latlng.getLng();
-              // setGetLng(latlng.Ma);
-            }
-            if (input1Ref.current) {
-              input1Ref.current.value = gLat;
-            }
-
-            if (input2Ref.current) {
-              input2Ref.current.value = gLng;
-            }
-          }
-        );
-      });
-    };
-  }, []);
 
   return (
     <>
@@ -345,7 +131,7 @@ export default function MarketWritePage(props: any): JSX.Element {
           올려주세요.(개당 이미지 최대 10M)
         </p>
         <B.Line />
-        <B.Form onSubmit={wrapFormAsync(handleSubmit(onClickSubmit))}>
+        <B.Form onSubmit={wrapFormAsync(handleSubmit(onClickMarketWrite))}>
           <B.Main>
             <B.InputBox>
               <B.Label>제목</B.Label>
@@ -434,13 +220,15 @@ export default function MarketWritePage(props: any): JSX.Element {
                       title=""
                       answer={address}
                       register={register("address")}
-                      defaultValue={data?.fetchUseditem.useditemAddress.address}
+                      defaultValue={
+                        data?.fetchUseditem?.useditemAddress?.address
+                      }
                     ></Input05>
                     <Input04
                       title="상세주소를 입력해주세요."
                       register={register("addressDetail")}
                       defaultValue={
-                        data?.fetchUseditem.useditemAddress.addressDetail
+                        data?.fetchUseditem?.useditemAddress?.addressDetail
                       }
                     ></Input04>
                   </B.AddressBox>
@@ -453,8 +241,8 @@ export default function MarketWritePage(props: any): JSX.Element {
           <B.ButtonForm
             onSubmit={
               props.isEdit
-                ? wrapFormAsync(handleSubmit(onClickUpdate))
-                : wrapFormAsync(handleSubmit(onClickSubmit))
+                ? wrapFormAsync(handleSubmit(onClickMarketUpdate))
+                : wrapFormAsync(handleSubmit(onClickMarketWrite))
             }
           >
             <Button03

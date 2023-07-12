@@ -27,7 +27,6 @@ export const Title = styled.div`
   text-align: center;
   margin-top: 70px;
   font-size: 36px;
-  font-family: "Jalnan";
 `;
 
 ////////////////////////////////////////////

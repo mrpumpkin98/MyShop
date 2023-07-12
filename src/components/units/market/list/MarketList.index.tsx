@@ -11,7 +11,7 @@ import { useQueryFetchUsedItems } from "../../../../commons/hooks/queries/UseQue
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useErrorImg } from "../../../../commons/hooks/customs/useErroImg";
-import { onClickToday } from "../../../../commons/hooks/event/onClickToday";
+import { useOnClickToday } from "../../../../commons/hooks/event/useOnClickToday";
 
 export default function StaticRoutingPage() {
   const router = useRouter();
@@ -21,20 +21,11 @@ export default function StaticRoutingPage() {
     useQueryFetchUsedItems();
   const { data: dataUseditemsOfTheBest, refetch: refetchUseditemsOfTheBest } =
     useQueryFetchUseditemsOfTheBest();
-  const { onClickTodayAndMove } = onClickToday();
+  const { onClickToday } = useOnClickToday();
 
   const onChangeKeyword = (value: string): void => {
     setKeyword(value);
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken") === null) {
-      alert("로그인 후 이용 가능합니다.");
-      void router.push("/Login");
-    }
-    refetchUseditemsOfTheBest({ page: 1 });
-    refetch({ page: 1 });
-  }, []);
 
   return (
     <B.Wrapper>
@@ -66,7 +57,7 @@ export default function StaticRoutingPage() {
           </B.SearchBarBox>
         </B.Nav>
         <B.Main>
-          <Scrollbars thumbSize={80} autoHide>
+          <Scrollbars thumbSize={300} autoHide>
             <InfiniteScroll
               pageStart={0}
               loadMore={onLoadMore}
@@ -75,7 +66,7 @@ export default function StaticRoutingPage() {
             >
               <B.ListWrapper>
                 {data?.fetchUseditems.map((el: any) => (
-                  <B.ListBox key={el._id} onClick={onClickTodayAndMove(el)}>
+                  <B.ListBox key={el._id} onClick={onClickToday(el)}>
                     <B.ListImgBox>
                       <B.ListImg
                         src={`https://storage.googleapis.com/${el.images[0]}`}

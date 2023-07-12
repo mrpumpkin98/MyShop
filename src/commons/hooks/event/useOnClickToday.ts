@@ -3,10 +3,10 @@ import { todayOpenState } from "../../stores";
 import { IUseditem } from "../../types/generated/types";
 import { useRouter } from "next/router";
 
-export const onClickToday = () => {
+export const useOnClickToday = () => {
   const router = useRouter();
   const setTodayOpen = useSetRecoilState(todayOpenState);
-  const onClickTodayAndMove = (today: IUseditem) => () => {
+  const onClickToday = (today: IUseditem) => () => {
     // 1. 기존 장바구니 가져오기
     const todays = JSON.parse(localStorage.getItem("todays") ?? "[]");
 
@@ -27,6 +27,6 @@ export const onClickToday = () => {
     router.push(`/Market/${today._id}`);
   };
   return {
-    onClickTodayAndMove,
+    onClickToday,
   };
 };

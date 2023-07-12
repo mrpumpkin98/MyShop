@@ -4,21 +4,14 @@ import DaumPostcode from "react-daum-postcode";
 import { GitlabFilled } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
-  /* height: 1847px; */
-
   border: 1px solid black;
+  height: 100vh;
   margin: auto;
-  margin: 50px 100px;
-  padding-top: 30px;
-  padding-bottom: 100px;
-  padding-left: 102px;
-  padding-right: 102px;
+  padding-top: 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: none;
-  box-shadow: 0px 0px 10px #bdbdbd;
-  border-radius: 8px;
 `;
 
 export const Form = styled.form``;
