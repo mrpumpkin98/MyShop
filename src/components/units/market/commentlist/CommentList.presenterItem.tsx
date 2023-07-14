@@ -6,71 +6,30 @@ import { useRouter } from "next/router";
 import CommentWrite from "../comment/Comment.container";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { DELETE_USED_ITEM_QUESTION_ANSWER } from "../../../../commons/hooks/mutations/UseMutationDeleteUsedItemQuestionAnswer";
-import { DELETE_USED_ITEM_QUESTION } from "../../../../commons/hooks/mutations/UseMutationDeleteUsedItemQuestion";
 import { FETCH_USED_ITEM_QUESTION_ANSWERS } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemQuestionsAnswers";
-import { FETCH_USED_ITEM_QUESTIONS } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemQuestions";
+import { useOnClickQuestionDelete } from "../../../../commons/hooks/event/useOnClickQuestionDelete";
+import { useOnClickQuestionAnswerDelete } from "../../../../commons/hooks/event/useOnClickQuestionAnswerDelete";
 
 export default function CommentListUIItem(props: any): JSX.Element {
   const router = useRouter();
   const [isReply, setIsisReply] = useState("대댓글OFF");
   const [isEditComment, setIsEditComment] = useState("댓글수정OFF");
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [deleteUseditemQuestion] = useMutation(DELETE_USED_ITEM_QUESTION);
-  const [deleteUseditemQuestionAnswer] = useMutation(
-    DELETE_USED_ITEM_QUESTION_ANSWER
-  );
   const { data } = useQuery(FETCH_USED_ITEM_QUESTION_ANSWERS, {
     variables: { useditemQuestionId: props.el._id },
   });
 
   // < 댓글 삭제 (댓글) >
-
-  const onClickDeleteComment = async (
-    event: MouseEvent<HTMLButtonElement>
-  ): Promise<void> => {
-    // const password = prompt("비밀번호를 입력하세요.");
-    try {
-      await deleteUseditemQuestion({
-        variables: {
-          useditemQuestionId: props.el._id,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM_QUESTIONS,
-            variables: { useditemId: router.query.useditemId },
-          },
-        ],
-      });
-      setIsOpenDeleteModal(false);
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
-  };
+  const { onClickDeleteComment } = useOnClickQuestionDelete(
+    setIsOpenDeleteModal,
+    props
+  );
 
   // < 댓글 삭제 (대댓글) >
-
-  const onClickDeleteReply = async (
-    i: MouseEvent<HTMLButtonElement>
-  ): Promise<void> => {
-    // const password = prompt("비밀번호를 입력하세요.");
-    try {
-      await deleteUseditemQuestionAnswer({
-        variables: {
-          useditemQuestionAnswerId: String(i.currentTarget.id),
-        },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM_QUESTION_ANSWERS,
-            variables: { useditemQuestionId: props.el._id },
-          },
-        ],
-      });
-      setIsOpenDeleteModal(false);
-    } catch (error) {
-      if (error instanceof Error) alert(error.message);
-    }
-  };
+  const { onClickDeleteReply } = useOnClickQuestionAnswerDelete(
+    setIsOpenDeleteModal,
+    props
+  );
 
   const onClickOpenDeleteModal = (
     event: MouseEvent<HTMLButtonElement>
@@ -83,13 +42,11 @@ export default function CommentListUIItem(props: any): JSX.Element {
   };
 
   // < 대댓글 클릭 이벤트 >
-
   const onClickAnswer = (): void => {
     setIsisReply("대댓글ON");
   };
 
   // < 댓글 수정 이벤트 >
-
   const onClickEditComment = (): void => {
     setIsEditComment("댓글수정ON");
   };

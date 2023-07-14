@@ -1,8 +1,4 @@
-import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_POINT_TRANSACTION } from "../../../../commons/hooks/queries/UseQueryFetchPointTransaction";
-import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../../../../commons/hooks/queries/UseQueryFetchPointTransactionOfBuying";
 import DOMPurify from "dompurify";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -11,20 +7,19 @@ import Comment from "../comment/Comment.container";
 import CommentList from "../commentlist/CommentList.container";
 import * as B from "./MarketDetail.styles";
 import { Money } from "../../../../commons/libraries/utils";
-import {
-  FETCH_USED_ITEM,
-  useQueryFetchUsedItem,
-} from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
-import { TOGGLE_USED_ITEM_PICK } from "../../../../commons/hooks/mutations/UseMutationToggleUsedItemPick";
-import { CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfBuyingAndSelling";
-import { FETCH_USER_LOGGED_IN } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
-import { FETCH_USED_ITEMS_OF_THE_BEST } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemOfTheBest";
+import { useQueryFetchUsedItem } from "../../../../commons/hooks/queries/UseQueryFetchUsedItem";
+import { UseMutationToggleUsedItemPick } from "../../../../commons/hooks/mutations/UseMutationToggleUsedItemPick";
+import { useMutationCreatePointTransactionOfBuyingAndSelling } from "../../../../commons/hooks/mutations/useMutationCreatePointTransactionOfBuyingAndSelling";
+import { useQueryFetchUserLoggedIn } from "../../../../commons/hooks/queries/UseQueryFetchUserLogedIn";
+import { useQueryFetchUseditemsOfTheBest } from "../../../../commons/hooks/queries/UseQueryFetchUsedItemOfTheBest";
 import { Avatar, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { settings } from "../../../../commons/hooks/customs/useCarousel";
 import { useErrorImg } from "../../../../commons/hooks/customs/useErroImg";
 import { useEffectKakaoMapFetch } from "../../../../commons/hooks/customs/useEffectKakaoMapFetch";
 import { useOnClickBasket } from "../../../../commons/hooks/event/useOnClickBasket";
+import { useOnClickLike } from "../../../../commons/hooks/event/useOnClickLike";
+import { useOnClickBuyingAndSelling } from "../../../../commons/hooks/event/useOnClickBuyingAndSelling";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -32,36 +27,21 @@ declare const window: typeof globalThis & {
 
 export default function DetailPage() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
-  const [basketItems, setBasketItems] = useState([]);
-  const [Like, setLike] = useState(false);
+  const [toggleUseditemPick] = UseMutationToggleUsedItemPick();
+  const [createPointTransactionOfBuyingAndSelling] =
+    useMutationCreatePointTransactionOfBuyingAndSelling();
   const { data } = useQueryFetchUsedItem();
-  const { data: fetchUserLoggedInData } = useQuery(FETCH_USER_LOGGED_IN);
-  const [toggleUseditemPick] = useMutation(TOGGLE_USED_ITEM_PICK);
-  const [createPointTransactionOfBuyingAndSelling] = useMutation(
-    CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
-  );
+  const { data: fetchUserLoggedInData } = useQueryFetchUserLoggedIn();
   const { data: dataUseditemsOfTheBest, refetch: refetchUseditemsOfTheBest } =
-    useQuery(FETCH_USED_ITEMS_OF_THE_BEST);
+    useQueryFetchUseditemsOfTheBest();
+
   const tags = data?.fetchUseditem?.tags;
   const Tag = tags ? tags.join().split(" ") : [];
 
   // < 찜하기 기능 >
-
-  const onClickLike = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    const result = await toggleUseditemPick({
-      variables: { useditemId: router.query.useditemId },
-      refetchQueries: [
-        {
-          query: FETCH_USED_ITEM,
-          variables: { useditemId: router.query.useditemId },
-        },
-      ],
-    });
-  };
+  const { onClickLike } = useOnClickLike();
 
   // < 마켓 수정하기 >
-
   const onClickUpdate = () => {
     router.push(`/Market/${router.query.useditemId}/edit`);
   };
@@ -71,31 +51,7 @@ export default function DetailPage() {
 
   // < 상품 구매 >
 
-  const onClickBuyingAndSelling = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    const result = await createPointTransactionOfBuyingAndSelling({
-      variables: {
-        useritemId: router.query.useditemId,
-      },
-      refetchQueries: [
-        {
-          query: FETCH_USER_LOGGED_IN,
-          variables: { useritemId: router.query.useditemId },
-        },
-        {
-          query: FETCH_POINT_TRANSACTION,
-          variables: { useritemId: router.query.useditemId },
-        },
-        {
-          query: FETCH_POINT_TRANSACTION_OF_BUYING,
-          variables: { useritemId: router.query.useditemId },
-        },
-      ],
-    });
-    alert(`${data?.fetchUseditem?.seller?.name}님의 상품을 구매했습니다.`);
-    router.push(`/Market`);
-  };
+  const { onClickBuyingAndSelling } = useOnClickBuyingAndSelling();
 
   // < 장바구니 >
   const { onClickBasket } = useOnClickBasket();
