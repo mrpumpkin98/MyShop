@@ -39,7 +39,7 @@ export const useOnClickQuestionAnswerUpdate = (contents: any, props: any) => {
           },
         ],
       });
-      console.log(result);
+
       props.setIsEditReply?.("대댓글수정OFF");
     } catch (error) {
       if (error instanceof Error) alert(error.message);

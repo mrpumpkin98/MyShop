@@ -6,6 +6,8 @@ import {
 } from "../../types/generated/types";
 import { FETCH_USED_ITEM } from "../queries/UseQueryFetchUsedItem";
 import { useRouter } from "next/router";
+import { useQueryFetchUsedItems } from "../queries/UseQueryFetchUsedItems";
+import { Modal } from "antd";
 
 export const useOnClickMarketUpdate = (
   fileUrls: any,
@@ -19,6 +21,9 @@ export const useOnClickMarketUpdate = (
     Pick<IMutation, "updateUseditem">,
     IMutationUpdateUseditemArgs
   >(UPDATE_USED_ITEM);
+
+  const { refetch } = useQueryFetchUsedItems();
+
   const onClickMarketUpdate = async (data: any): Promise<void> => {
     const currentFiles = JSON.stringify(fileUrls);
     const defaultFiles = JSON.stringify(props.data?.fetchBoard.images);
@@ -63,9 +68,12 @@ export const useOnClickMarketUpdate = (
       alert("요청에 문제가 있습니다.");
       return;
     }
-    console.log(result);
+    await refetch();
     void router.push(`/Market/${result.data?.updateUseditem._id}`);
-    alert("상품이 수정되었습니다!!");
+    Modal.success({
+      title: "상품 수정 완료",
+      content: "상품이 수정되었습니다.",
+    });
   };
   return { onClickMarketUpdate };
 };

@@ -34,7 +34,6 @@ export default function LoginNewPage(): JSX.Element {
         variables: { email: data.email, password: data.password },
       });
       const accessToken = result.data?.loginUser.accessToken;
-      console.log(accessToken);
 
       // 2. 받아온 accessToken을 globalState에 저장하기
       if (accessToken === undefined) {
