@@ -8,6 +8,7 @@ import { createUploadLink } from "apollo-upload-client";
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../stores";
 import { useEffect } from "react";
+import io from "socket.io-client";
 
 const GLOBAL_STATE = new InMemoryCache(); // 컴퓨터 메모리에다가 백엔드에서 받아온 데이터 모두 임시로 저장해놓기 => 나중에 알아보기
 

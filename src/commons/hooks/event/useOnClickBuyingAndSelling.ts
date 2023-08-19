@@ -4,13 +4,19 @@ import { useMutation } from "@apollo/client";
 import { FETCH_USER_LOGGED_IN } from "../queries/UseQueryFetchUserLogedIn";
 import { FETCH_POINT_TRANSACTION } from "../queries/UseQueryFetchPointTransaction";
 import { FETCH_POINT_TRANSACTION_OF_BUYING } from "../queries/UseQueryFetchPointTransactionOfBuying";
-import { FETCH_USED_ITEMS } from "../queries/UseQueryFetchUsedItems";
+import {
+  FETCH_USED_ITEMS,
+  useQueryFetchUsedItems,
+} from "../queries/UseQueryFetchUsedItems";
 
 export const useOnClickBuyingAndSelling = () => {
   const router = useRouter();
   const [createPointTransactionOfBuyingAndSelling] = useMutation(
     CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING
   );
+
+  const { refetch } = useQueryFetchUsedItems();
+
   const onClickBuyingAndSelling = async (data: any): Promise<void> => {
     const result = await createPointTransactionOfBuyingAndSelling({
       variables: {
@@ -34,7 +40,7 @@ export const useOnClickBuyingAndSelling = () => {
         },
       ],
     });
-    alert(`상품을 구매했습니다.`);
+    await refetch();
     console.log(router.query.useditemId);
     router.push(`/Market`);
   };

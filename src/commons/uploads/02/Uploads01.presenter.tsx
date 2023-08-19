@@ -1,3 +1,4 @@
+import { useErrorImg } from "../../hooks/customs/useErroImg";
 import {
   UploadButton,
   UploadFileHidden,
@@ -13,6 +14,7 @@ export default function Uploads01UI(props: IUploads01UIProps): JSX.Element {
         <UploadImage
           onClick={props.onClickUpload}
           src={`https://storage.googleapis.com/${props.fileUrl}`}
+          onError={useErrorImg}
         />
       ) : (
         <UploadButton onClick={props.onClickUpload}>

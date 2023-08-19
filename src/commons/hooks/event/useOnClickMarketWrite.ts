@@ -35,7 +35,7 @@ export const useOnClickMarketWrite = (
       },
     });
     const { Modal } = await import("antd");
-    Modal.success({ content: "게시글 등록에 성공하였습니다!" });
+    Modal.success({ content: "상품 등록에 성공하였습니다!" });
     const useditemId: string = result.data
       ? result.data.createUseditem._id
       : "";

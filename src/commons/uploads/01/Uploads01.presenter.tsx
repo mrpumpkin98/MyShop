@@ -1,3 +1,4 @@
+import { useErrorImg } from "../../hooks/customs/useErroImg";
 import {
   UploadButton,
   UploadFileHidden,

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
 import { CREATE_POINT_TRANSACTION_OF_LOADING } from "../../../commons/hooks/mutations/useMutationCreatePointTransactionOfLoading";
+import { Modal } from "antd";
 
 declare const window: typeof globalThis & {
   IMP: any;
@@ -47,7 +48,10 @@ export default function ChargeIndex(): JSX.Element {
           router.push("/Market");
           setTimeout(() => window.location.reload(), 500);
         } else {
-          alert("결제가 실패했습니다.");
+          Modal.error({
+            title: "결제 오류",
+            content: "결제에 실패했습니다.",
+          });
         }
       }
     );

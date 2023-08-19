@@ -53,6 +53,7 @@
     "recoil": "^0.7.7",
     "redux-logger": "^3.0.6",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.2",
     "uuid": "^9.0.0",
     "yup": "^1.1.0"
   },
