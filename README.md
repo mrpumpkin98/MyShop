@@ -2,7 +2,7 @@
 
 ## 배포 주소
 
-**HOLIDAYS** [https://mrpumpkin98.shop](https://mrpumpkin98.shop)
+**ReusedMarket** [https://mrpumpkin98.shop](https://mrpumpkin98.shop)
 
 ## Installation
 
