@@ -1,5 +1,9 @@
 💡 ReusedMarket은 중고 상품을 거래하는 플랫폼입니다.
 
+## 배포 주소
+
+**HOLIDAYS** [https://mrpumpkin98.shop](https://mrpumpkin98.shop)
+
 ## Installation
 
 ```bash
