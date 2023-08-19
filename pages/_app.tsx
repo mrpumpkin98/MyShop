@@ -6,6 +6,8 @@ import Layout from "../src/components/commons/layout";
 import { RecoilRoot } from "recoil";
 import { Provider } from "react-redux";
 import store from "../src/commons/stores/store";
+import MobilePage from "../src/commons/deviceDetect";
+import { isMobile } from "react-device-detect";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
@@ -14,9 +16,13 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
         <ApolloSetting>
           <>
             <Global styles={globalStyles} />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            {isMobile ? (
+              <MobilePage />
+            ) : (
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            )}
           </>
         </ApolloSetting>
       </Provider>
