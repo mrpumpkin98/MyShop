@@ -3,6 +3,7 @@ import { CREATE_USED_ITEM } from "../mutations/UseMutationCreateUsedItem";
 import { IMutation } from "../../types/generated/types";
 import { IMutationCreateUseditemArgs } from "../../types/generated/types";
 import { useRouter } from "next/router";
+import { useQueryFetchUsedItems } from "../queries/UseQueryFetchUsedItems";
 
 export const useOnClickMarketWrite = (
   fileUrls: any,
@@ -15,6 +16,9 @@ export const useOnClickMarketWrite = (
     Pick<IMutation, "createUseditem">,
     IMutationCreateUseditemArgs
   >(CREATE_USED_ITEM);
+
+  const { refetch } = useQueryFetchUsedItems();
+
   const onClickMarketWrite = async (data: any): Promise<void> => {
     const result = await createUseditem({
       variables: {
@@ -34,12 +38,12 @@ export const useOnClickMarketWrite = (
         },
       },
     });
+    await refetch();
     const { Modal } = await import("antd");
     Modal.success({ content: "상품 등록에 성공하였습니다!" });
     const useditemId: string = result.data
       ? result.data.createUseditem._id
       : "";
-    console.log(onClickMarketWrite);
     void router.push(`/Market/${useditemId}`);
   };
   return { onClickMarketWrite };

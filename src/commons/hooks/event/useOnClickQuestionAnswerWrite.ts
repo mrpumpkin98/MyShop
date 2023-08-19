@@ -28,7 +28,6 @@ export const useOnClickQuestionAnswerWrite = (contents: any, props: any) => {
         },
       ],
     });
-    console.log(result);
     props.setIsisReply?.("대댓글OFF");
   };
 

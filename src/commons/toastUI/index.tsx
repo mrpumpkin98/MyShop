@@ -31,7 +31,6 @@ function ToastEditor(props: IEditorPageProps) {
       hooks={{
         addImageBlobHook: async (blob, callback) => {
           const result = await uploadFile({ variables: { file: blob } });
-          console.log(result?.data?.uploadFile?.url);
           callback(
             `https://storage.googleapis.com/${result?.data?.uploadFile?.url}`
           );

@@ -41,7 +41,6 @@ export const useOnClickBuyingAndSelling = () => {
       ],
     });
     await refetch();
-    console.log(router.query.useditemId);
     router.push(`/Market`);
   };
   return {
