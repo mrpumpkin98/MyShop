@@ -38,13 +38,19 @@ export default function Timer() {
   return (
     <div>
       <Countdown
-        date={expiryTimestamp} // 카운트다운이 끝날 시각 지정
-        onComplete={handleComplete} // 카운트다운이 완료되었을 때 호출될 콜백 함수 지정
-        renderer={({ minutes, seconds }) => (
-          <B.Time>
-            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-          </B.Time>
-        )}
+        date={expiryTimestamp}
+        onComplete={handleComplete}
+        renderer={({ minutes, seconds, completed }) => {
+          if (!completed && minutes === 0 && seconds === 1) {
+            localStorage.clear();
+            window.location.reload();
+          }
+          return (
+            <B.Time>
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </B.Time>
+          );
+        }}
       />
     </div>
   );

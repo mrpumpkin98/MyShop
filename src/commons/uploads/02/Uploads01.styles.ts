@@ -2,19 +2,18 @@ import styled from "@emotion/styled";
 import { PlusCircleOutlined } from "@ant-design/icons";
 
 export const UploadImage = styled.img`
-  width: 200px;
+  width: 100%;
   height: 200px;
+  border: 2px solid black;
   border-radius: 4px;
-  margin-right: 24px;
   cursor: pointer;
 `;
 
 export const UploadButton = styled.button`
-  width: 200px;
+  width: 100%;
   height: 200px;
   border-radius: 4px;
   background-color: #bdbdbd;
-  margin-right: 24px;
   outline: none;
   border: none;
   cursor: pointer;

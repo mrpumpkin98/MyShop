@@ -145,7 +145,9 @@ export default function LayoutHeader(): JSX.Element {
             </B.Profile>
             <B.UserPoint>
               포인트 :{" "}
-              {answer ? `${data?.fetchUserLoggedIn?.userPoint?.amount} P` : ""}
+              {answer
+                ? `${data?.fetchUserLoggedIn?.userPoint?.amount} P`
+                : "0 P"}
             </B.UserPoint>
             <B.OutButton onClick={onClickCharge}>포인트 충전</B.OutButton>
             <B.OutButton onClick={onClickBasketModal}>장바구니</B.OutButton>

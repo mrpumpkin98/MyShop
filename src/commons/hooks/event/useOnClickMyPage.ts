@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import { Modal } from "antd"; // 추가
 import { UPDATE_USER } from "../mutations/UseMutationUpdateUser";
 import {
   IMutation,
@@ -31,7 +32,11 @@ export const useOnClickMyPage = (
           updateUserInput,
         },
       });
-      alert("회원정보수정이 완료되었습니다!");
+      // 여기서 Modal로 성공 메시지를 표시합니다.
+      Modal.success({
+        title: "알림",
+        content: "회원정보수정이 완료되었습니다!",
+      });
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

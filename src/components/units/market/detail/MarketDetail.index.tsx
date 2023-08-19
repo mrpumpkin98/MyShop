@@ -20,6 +20,8 @@ import { useEffectKakaoMapFetch } from "../../../../commons/hooks/customs/useEff
 import { useOnClickBasket } from "../../../../commons/hooks/event/useOnClickBasket";
 import { useOnClickLike } from "../../../../commons/hooks/event/useOnClickLike";
 import { useOnClickBuyingAndSelling } from "../../../../commons/hooks/event/useOnClickBuyingAndSelling";
+import { Modal } from "antd";
+import { useState } from "react";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -27,6 +29,8 @@ declare const window: typeof globalThis & {
 
 export default function DetailPage() {
   const router = useRouter();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isCartModalVisible, setIsCartModalVisible] = useState(false);
   const [toggleUseditemPick] = UseMutationToggleUsedItemPick();
   const [createPointTransactionOfBuyingAndSelling] =
     useMutationCreatePointTransactionOfBuyingAndSelling();
@@ -54,11 +58,26 @@ export default function DetailPage() {
   const { onClickBuyingAndSelling } = useOnClickBuyingAndSelling();
 
   // < 장바구니 >
-  const { onClickBasket } = useOnClickBasket();
+  const { onClickBasket, modalComponent } = useOnClickBasket();
 
   return (
     <>
       <B.Wrapper>
+        <Modal
+          title="구매 확인"
+          visible={isModalVisible}
+          onOk={() => {
+            // 구매 로직 수행
+            onClickBuyingAndSelling("");
+            setIsModalVisible(false);
+          }}
+          onCancel={() => {
+            setIsModalVisible(false);
+          }}
+        >
+          <p>상품을 구매하시겠습니까?</p>
+        </Modal>
+        {modalComponent}
         <B.Main>
           <B.Header>
             <B.imImageResult>
@@ -99,7 +118,10 @@ export default function DetailPage() {
                   </B.Map>
                 </B.AreaWrapper>
                 <B.BottomWrapper>
-                  <B.Button onClick={onClickBuyingAndSelling} className="Buy">
+                  <B.Button
+                    onClick={() => setIsModalVisible(true)}
+                    className="Buy"
+                  >
                     구매하기
                   </B.Button>
                   <B.Button onClick={onClickLike} className="List">
