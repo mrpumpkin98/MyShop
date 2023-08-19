@@ -32,4 +32,4 @@ yarn-error.log*
 .vercel
 
 # API KEY
-.env.local
+.env.local 
