@@ -8,10 +8,15 @@ import { Provider } from "react-redux";
 import store from "../src/commons/stores/store";
 import MobilePage from "../src/commons/deviceDetect";
 import { isMobile } from "react-device-detect";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <RecoilRoot>
+      <Head>
+        <title>리유즈마켓</title>
+        <link rel="icon" type="image/png" href="/images/icons/logo.png" />
+      </Head>
       <Provider store={store}>
         <ApolloSetting>
           <>
