@@ -11,6 +11,7 @@ import Input02 from "../../../../commons/inputs/02-SignIn-under";
 import Button01 from "../../../../commons/buttons/01-SignIn";
 import { wrapFormAsync } from "../../../../commons/libraries/asyncFunc";
 import { LOGIN_USER } from "../../../../commons/hooks/mutations/UseMutationLoginUser";
+import { Modal } from "antd";
 
 export const schema = yup.object({});
 
@@ -37,16 +38,26 @@ export default function LoginNewPage(): JSX.Element {
 
       // 2. 받아온 accessToken을 globalState에 저장하기
       if (accessToken === undefined) {
-        alert("로그인에 실패했습니다! 다시 시도해 주세요!");
+        Modal.warning({
+          title: "알림",
+          content: "로그인에 실패했습니다! 다시 시도해 주세요!",
+        });
         return;
       }
       setAccessToken(accessToken);
+      Modal.success({
+        title: "알림",
+        content: "로그인에 성공했습니다!",
+      });
       localStorage.setItem("accessToken", accessToken); // 임시 사용(나중에 지울 예정)
-      alert("로그인에 성공했습니다!");
       // 3. 로그인 성공 페이지로 이동하기
       void router.push("/Market");
     } catch (error) {
-      if (error instanceof Error) alert(error.message);
+      if (error instanceof Error)
+        Modal.warning({
+          title: "알림",
+          content: "로그인에 실패했습니다! 다시 시도해 주세요!",
+        });
     }
   };
 
