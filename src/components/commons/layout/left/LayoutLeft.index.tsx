@@ -87,6 +87,13 @@ export default function LayoutHeader(): JSX.Element {
     setBasketItems(baskets);
   }, [isOpen]);
 
+  //  < 게시물 이동 >
+
+  const onClickSubmit = (event: React.MouseEvent<HTMLTableDataCellElement>) => {
+    router.push(`/Market/${event.currentTarget.id}`);
+    setIsOpen(false);
+  };
+
   return (
     <B.Wrapper>
       {isOpen && (
@@ -96,7 +103,11 @@ export default function LayoutHeader(): JSX.Element {
             <B.BasketAside>
               <B.BasketAsideBox>
                 {basketItems.map((j: any) => (
-                  <B.BasketAsideTie key={j._id}>
+                  <B.BasketAsideTie
+                    key={j._id}
+                    id={j._id}
+                    onClick={onClickSubmit}
+                  >
                     <B.BasketImg
                       src={`https://storage.googleapis.com/${j.images[0]}`}
                       onError={useErrorImg}

@@ -102,6 +102,7 @@ export const TodayBox = styled.div`
   margin: 3px;
   margin-bottom: 10px;
   background-color: white;
+  cursor: pointer;
 `;
 export const TodayBoxImg = styled.img`
   width: 90px;

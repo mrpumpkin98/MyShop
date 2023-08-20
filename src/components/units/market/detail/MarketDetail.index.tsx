@@ -60,6 +60,11 @@ export default function DetailPage() {
   // < 장바구니 >
   const { onClickBasket, modalComponent } = useOnClickBasket();
 
+  //  < 게시물 이동 >
+  const onClickSubmit = (event: React.MouseEvent<HTMLTableDataCellElement>) => {
+    router.push(`/Market/${event.currentTarget.id}`);
+  };
+
   return (
     <>
       <B.Wrapper>
@@ -143,7 +148,7 @@ export default function DetailPage() {
             <B.Title>추천 상품</B.Title>
             <B.BestPostsTie>
               {dataUseditemsOfTheBest?.fetchUseditemsOfTheBest.map((i: any) => (
-                <B.BestPosts key={i._id}>
+                <B.BestPosts key={i._id} id={i._id} onClick={onClickSubmit}>
                   <B.BestPostBody>
                     <B.BestPostImgBox>
                       <B.BestPostImg

@@ -68,23 +68,19 @@ export default function LayoutNavigation(): JSX.Element {
           <B.TodayTitle>오늘 본 상품</B.TodayTitle>
           <B.TodayWrapper>
             {todayItems.slice(offset, offset + ITEMS_PER_PAGE).map((j: any) => (
-              <B.TodayBox key={j._id}>
+              <B.TodayBox key={j._id} id={j._id} onClick={onClickSubmit}>
                 <B.TodayBoxImg
                   src={`https://storage.googleapis.com/${j.images[0]}`}
                   onError={useErrorImg}
                 />
                 <B.TodayAside>
-                  <B.TodayName id={j._id} onClick={onClickSubmit}>
-                    {j.name}{" "}
-                  </B.TodayName>
-                  <B.TodayContents id={j._id} onClick={onClickSubmit}>
+                  <B.TodayName id={j._id}>{j.name} </B.TodayName>
+                  <B.TodayContents id={j._id}>
                     {j.remarks.length > 10
                       ? `${j.remarks.slice(0, 10)}...`
                       : j.remarks}
                   </B.TodayContents>
-                  <B.TodayPrice id={j._id} onClick={onClickSubmit}>
-                    {Money(j.price)}
-                  </B.TodayPrice>
+                  <B.TodayPrice id={j._id}>{Money(j.price)}</B.TodayPrice>
                 </B.TodayAside>
               </B.TodayBox>
             ))}

@@ -205,6 +205,7 @@ export const BasketAsideTie = styled.div`
   margin: 3px;
   margin-bottom: 10px;
   border-radius: 4px;
+  cursor: pointer;
 `;
 export const BasketImg = styled.img`
   width: 60px;
