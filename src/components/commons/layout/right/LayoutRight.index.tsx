@@ -74,7 +74,9 @@ export default function LayoutNavigation(): JSX.Element {
                   onError={useErrorImg}
                 />
                 <B.TodayAside>
-                  <B.TodayName id={j._id}>{j.name} </B.TodayName>
+                  <B.TodayName id={j._id}>
+                    {j.name.length > 10 ? `${j.name.slice(0, 10)}...` : j.name}
+                  </B.TodayName>
                   <B.TodayContents id={j._id}>
                     {j.remarks.length > 10
                       ? `${j.remarks.slice(0, 10)}...`
