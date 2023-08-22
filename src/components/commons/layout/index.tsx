@@ -1,3 +1,4 @@
+import { mobile } from "../../../commons/styles/breakPoints";
 import LayoutLeft from "./left/LayoutLeft.index";
 import LayoutRight from "./right/LayoutRight.index";
 import styled from "@emotion/styled";
@@ -12,6 +13,9 @@ const Body = styled.div`
 
 const Wrapper = styled.div`
   display: flex;
+  @media ${mobile} {
+    flex-direction: column;
+  }
 `;
 
 interface ILayoutProps {
