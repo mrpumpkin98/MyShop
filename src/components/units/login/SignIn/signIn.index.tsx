@@ -15,11 +15,16 @@ import { Modal } from "antd";
 
 export const schema = yup.object({});
 
+interface IData {
+  email: string;
+  password: string;
+}
+
 export default function LoginNewPage(): JSX.Element {
   const router = useRouter();
   const [, setAccessToken] = useRecoilState(accessTokenState);
   const [loginUser] = useMutation(LOGIN_USER);
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<IData>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -28,15 +33,14 @@ export default function LoginNewPage(): JSX.Element {
     void router.push("/Board");
   };
 
-  const onClickLogin = async (data: any): Promise<void> => {
+  const onClickLogin = async (data: IData): Promise<void> => {
     try {
-      // 1. 로그인 뮤테이션 날려서 accessToken 받아오기
       const result = await loginUser({
         variables: { email: data.email, password: data.password },
       });
+
       const accessToken = result.data?.loginUser.accessToken;
 
-      // 2. 받아온 accessToken을 globalState에 저장하기
       if (accessToken === undefined) {
         Modal.warning({
           title: "알림",
@@ -49,9 +53,8 @@ export default function LoginNewPage(): JSX.Element {
         title: "알림",
         content: "로그인에 성공했습니다!",
       });
-      localStorage.setItem("accessToken", accessToken); // 임시 사용(나중에 지울 예정)
-      // 3. 로그인 성공 페이지로 이동하기
-      void router.push("/Market");
+      localStorage.setItem("accessToken", accessToken);
+      router.push("/Market");
     } catch (error) {
       if (error instanceof Error)
         Modal.warning({

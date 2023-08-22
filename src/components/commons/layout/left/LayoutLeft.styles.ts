@@ -5,6 +5,7 @@ import {
   SmileOutlined,
 } from "@ant-design/icons";
 import { Modal } from "antd";
+import { mobile } from "../../../../commons/styles/breakPoints";
 
 export const Wrapper = styled.div`
   width: 25%;
@@ -12,6 +13,10 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-right: 2px solid black;
+  @media ${mobile} {
+    width: 100%;
+    flex-direction: row;
+  }
 `;
 
 export const Main = styled.main`
@@ -21,27 +26,9 @@ export const Main = styled.main`
   justify-content: space-between;
   align-items: center;
   font-size: 18px;
-`;
-
-export const InnerLogo = styled.div`
-  font-size: 25px;
-  font-weight: bold;
-  font-family: "Jalnan";
-  color: gold;
-  cursor: pointer;
-`;
-
-export const FireFilledIcon = styled(GitlabFilled)`
-  margin-right: 5px;
-  font-size: 30px;
-  color: gold;
-  cursor: pointer;
-`;
-
-export const Rocket = styled.img`
-  margin-right: 5px;
-  width: 0px;
-  height: 20px;
+  @media ${mobile} {
+    flex-direction: row;
+  }
 `;
 
 export const UserName = styled.p`
@@ -50,12 +37,9 @@ export const UserName = styled.p`
   cursor: pointer;
   display: flex;
   margin-left: 10px;
-`;
-
-export const Smile = styled(SmileOutlined)`
-  font-size: 30px;
-  color: gold;
-  cursor: pointer;
+  @media ${mobile} {
+    margin-left: 0px;
+  }
 `;
 
 export const Profile = styled.div`
@@ -64,23 +48,25 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   margin-top: 20px;
+  @media ${mobile} {
+    border-bottom: none;
+  }
 `;
 
 export const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media ${mobile} {
+    flex-direction: row;
+  }
 `;
 export const TimerBox = styled.div`
   display: flex;
   align-items: center;
-`;
-
-export const Clock = styled(ClockCircleOutlined)`
-  margin-right: 7px;
-  font-size: 18px;
-  padding-top: 3px;
-  color: #ffd600;
+  @media ${mobile} {
+    display: none;
+  }
 `;
 
 export const OutButton = styled.button`
@@ -94,6 +80,9 @@ export const OutButton = styled.button`
   cursor: pointer;
   :hover {
     background-color: #e7e7e7;
+  }
+  @media ${mobile} {
+    display: none;
   }
 `;
 

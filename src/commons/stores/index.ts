@@ -1,4 +1,5 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
+import { getAccessToken } from "../liveries/getAccessToken";
 
 export const countState = atom({
   key: "countState",
@@ -25,4 +26,12 @@ export const todayOpenState = atom({
 export const editComment = atom({
   key: "editComment",
   default: false,
+});
+
+export const restoreAccessTokenLoadable = selector({
+  key: "useRecoilValueLoadable",
+  get: async () => {
+    const newAccessToken = await getAccessToken();
+    return newAccessToken;
+  },
 });

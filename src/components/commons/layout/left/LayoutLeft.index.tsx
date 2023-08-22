@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import * as B from "./LayoutLeft.styles";
 import Head from "next/head";
@@ -15,6 +15,12 @@ declare const window: typeof globalThis & {
   IMP: any;
 };
 
+const LOGOUT_USER = gql`
+  mutation logoutUser {
+    logoutUser
+  }
+`;
+
 export default function LayoutHeader(): JSX.Element {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +28,7 @@ export default function LayoutHeader(): JSX.Element {
   const userName = data?.fetchUserLoggedIn.name;
   const [basketItems, setBasketItems] = useState([]);
   const { data: pointDataTransactions } = useQuery(FETCH_POINT_TRANSACTION);
+  const [logout] = useMutation(LOGOUT_USER);
 
   const onClickCharge = (): void => {
     void router.push("/Charge");
@@ -39,8 +46,8 @@ export default function LayoutHeader(): JSX.Element {
     void router.push("/MyPage/MyProfile");
   };
 
-  const onClickMoveToLogOut = (): void => {
-    void router.push("/Login");
+  const onClickMoveToLogOut = async () => {
+    await logout();
     localStorage.removeItem("expiryTimestamp");
     localStorage.removeItem("accessToken");
     localStorage.removeItem("baskets");
@@ -140,9 +147,6 @@ export default function LayoutHeader(): JSX.Element {
         <B.Logo src="/images/icons/로고.png" />
         {userName ? (
           <B.Nav>
-            <B.TimerBox>
-              <Timer />
-            </B.TimerBox>
             <B.Profile>
               <Space>
                 <Avatar
